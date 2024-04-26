@@ -1,5 +1,5 @@
 ---
-title: 'Tolles-Lawson Model for Aeromagnetic Compensation'
+title: '【paper reading】Tolles-Lawson Model for Aeromagnetic Compensation'
 date: 2024-04-17
 permalink: /posts/research-journal-2024-04-17-tl-model
 tags:
