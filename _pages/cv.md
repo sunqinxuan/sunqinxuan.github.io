@@ -25,17 +25,21 @@ Work experience
   * China Intelligent and Connected Vehicles (Beijing) Research Institute Co.,Ltd.
   * Duties included: 
 
+Publications
+======
+  <ul>{% for post in site.publications reversed %}
+    {% include archive-single-cv.html %}
+  {% endfor %}</ul>
+
+<br>
+
 Projects
 ======
   <ul>{% for post in site.projects reversed %}
     {% include archive-single-talk-cv.html %}
   {% endfor %}</ul>
 
-Publications
-======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
+<br>
 
 Chinese Version
 ======
