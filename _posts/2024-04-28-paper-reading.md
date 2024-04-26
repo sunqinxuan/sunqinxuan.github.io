@@ -28,10 +28,16 @@ $$
 
 where 
 
-- \\(\bf{m}^e\\) is the local magnetic vector in the earth frame (e-frame);
+- \\(\bf{m}^e\\) is the local magnetic vector in the earth frame (e-frame), and <u>it is constant and assumed to have unity norm in a homogeneous magnetic field</u>, without loss of generality; <font color=blue>(only the orientation is concerned)</font>
 - \\(\bf{n}_m\\) is i.i.d zero-mean Gaussian noise with covariance \\(\sigma_m^2\bf{I}_3\\); 
-- 
+- The body frame (b-frame) refers to the coordinate frame defined by the gyroscope/accelerometer triads;
+- The attitude or orientation matrix \\(\bf{C}^b_e\\) transforms the magnetic field vector from e-frame to b-frame;
 
+> The purpose of the
+magnetometer calibration is to determine the matrix \\(\bf{S}\\) and the
+vector \\(\bf{h}\\), which <u>collectively encode the magnetometer sensor
+triad imperfection, magnetic disturbance, and the misalignment
+with respect to b-frame</u>.
 
 ![img](http://sunqinxuan.github.io/images/posts-research-journal-2024-04-28-img1.png)
 
