@@ -9,11 +9,15 @@ redirect_from:
 
 {% include base_path %}
 
+<br>
+
 Education
 ======
 * Ph.D in Control Science and Engineering, Nankai University, 2021
 * M.S. in Control Science and Engineering, Nankai University, 2016
 * B.S. in Electronics and Information Engineering, Beihang University, 2013
+
+<br>
 
 Work experience
 ======
@@ -24,6 +28,8 @@ Work experience
 * 2021.8-2022.8: Algorithm Engineer
   * China Intelligent and Connected Vehicles (Beijing) Research Institute Co.,Ltd.
   * Duties included: 
+
+<br>
 
 Publications
 ======
