@@ -8,9 +8,9 @@
 
 # Basic Site Settings
 locale                   : "zh-CH"
-title                    : "sunqinxuan"
+title                    : "Qinxuan.Sun"
 title_separator          : "-"
-name                     : &name "sunqinxuan"
+name                     : &name "Qinxuan Sun"
 description              : &description "an interesting person"
 url                      : https://sunqinxuan.github.io
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
