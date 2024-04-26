@@ -20,6 +20,18 @@ of this brief is a novel state estimation approach collectively
 solving the magnetometer intrinsic and cross-sensor
 calibrations in a homogeneous magnetic field. 
 
+The magnetomoter measurement model is 
+
+$$
+\bf{y}_m=\bf{SC}^b_e\bf{m}^e+\bf{h}+\bf{n}_m
+$$
+
+where 
+
+- \\(\bf{m}^e\\) is the local magnetic vector in the earth frame (e-frame);
+- \\(\bf{n}_m\\) is i.i.d zero-mean Gaussian noise with covariance \\(\sigma_m^2\bf{I}_3\\); 
+- 
+
 
 ![img](http://sunqinxuan.github.io/images/posts-research-journal-2024-04-28-img1.png)
 
