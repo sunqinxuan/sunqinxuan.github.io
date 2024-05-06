@@ -2,9 +2,9 @@
 title: "基于Tolles-Lawson模型的航磁补偿系统"
 collection: projects
 type: "Project"
-permalink: /projects/2023-09-21-mag-compensation
+permalink: /projects/2024-05-06-mag-compensation
 venue: "ZJLab"
-date: 2023-09-21
+date: 2024-05-06
 location: "Beijing, China"
 ---
 
@@ -131,6 +131,82 @@ $$
 $$
 \vec{B}_t=\vec{B}_e+\vec{B}_a
 $$
+
+$$
+\begin{aligned}
+|\vec{B}_e|^2&=\vec{B}_e^T\vec{B}_e=(\vec{B}_t-\vec{B}_a)^T(\vec{B}_t-\vec{B}_a)\\
+&=\vec{B}_t^T\vec{B}_t-2\vec{B}_t^T\vec{B}_a+\vec{B}_a^T\vec{B}_a
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+|\vec{B}_e|&=\sqrt{|\vec{B}_t|^2-2\vec{B}_t^T\vec{B}_a+|\vec{B}_a|^2}\\
+&=|\vec{B}_t|\sqrt{1-2\frac{\vec{B}_t^T\vec{B}_a}{|\vec{B}_t|^2}+\frac{|\vec{B}_a|^2}{|\vec{B}_t|^2}}
+\end{aligned}
+$$
+
+由于\\(|\vec{B}_a|^2\ll|\vec{B}_t|^2\\)，可进行以下近似
+
+$$
+|\vec{B}_e|\approx|\vec{B}_t|
+\sqrt{1-\frac{\vec{B}_t^T\vec{B}_a}{|\vec{B}_t|^2}}
+$$
+
+使用泰勒展开进行线性化可得
+
+$$
+|\vec{B}_e|\approx|\vec{B}_t|-
+\frac{\vec{B}_t^T\vec{B}_a}{|\vec{B}_t|}
+$$
+
+令测量总磁场的方向余弦（可由矢量磁强计的测量结果获得）为
+
+$$
+\hat{B}_t=\frac{\vec{B}_t}{|\vec{B}_t|}
+$$
+
+则有
+
+$$
+|\vec{B}_e|\approx|\vec{B}_t|-\vec{B}_a^T\hat{B}_t
+$$
+
+其中\\(\vec{B}_a^T\hat{B}_t\\)为载体干扰磁场在总场方向上的投影，具体计算为
+
+$$
+\vec{B}_a^T\hat{B}_t=(\boldsymbol{a}+\boldsymbol{b}\vec{B}_t+\boldsymbol{c}\dot{\vec{B}}_t)^T\hat{B}_t
+$$
+
+则基于总量的约束关系可以表示为
+
+$$
+|\vec{B}_e|\approx|\vec{B}_t|-
+\left(
+\hat{B}_t^T
+\begin{bmatrix}
+\beta_1 \\ \beta_2\\ \beta_3
+\end{bmatrix}+
+\hat{B}_t^T
+\begin{bmatrix}
+\beta_4 & \beta_5 & \beta_6 \\
+\beta_5 & \beta_7 & \beta_8 \\
+\beta_6 & \beta_8 & \beta_9 
+\end{bmatrix}
+\vec{B}_t+
+\hat{B}_t^T
+\begin{bmatrix}
+\beta_{10} & \beta_{11} & \beta_{12} \\
+\beta_{13} & \beta_{14} & \beta_{15} \\
+\beta_{16} & \beta_{17} & \beta_{18} 
+\end{bmatrix}
+\dot{\vec{B}}_t
+\right)
+$$
+
+<img src="https://sunqinxuan.github.io/images/projects-2024-05-06-img1.png" alt="architecture" />
+
+
 
 
 ### 基于分量约束的矢量磁补偿
