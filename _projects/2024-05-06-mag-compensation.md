@@ -211,8 +211,86 @@ $$
 
 <img src="https://sunqinxuan.github.io/images/projects-2024-05-06-img1.png" alt="architecture" />
 
+对上式进行整理，可以得到总量约束关系相对于模型参数的矢量形式
 
+$$
+|\vec{B}_t|-|\vec{B}_e|=\vec{\delta}^T\boldsymbol{\beta}
+$$
 
+其中18维参数向量\\(\vec{\delta}\\)为
+
+$$
+\vec{\delta}=
+\begin{bmatrix}
+\hat{B}_x \\
+\hat{B}_y \\
+\hat{B}_z \\
+\hat{B}_x\vec{B}_x \\
+\hat{B}_x\vec{B}_y \\
+\hat{B}_x\vec{B}_z \\
+\hat{B}_y\vec{B}_y \\
+\hat{B}_y\vec{B}_z \\
+\hat{B}_z\vec{B}_z \\
+\hat{B}_x\dot{\vec{B}}_x \\
+\hat{B}_x\dot{\vec{B}}_y \\
+\hat{B}_x\dot{\vec{B}}_z \\
+\hat{B}_y\dot{\vec{B}}_x \\
+\hat{B}_y\dot{\vec{B}}_y \\
+\hat{B}_y\dot{\vec{B}}_z \\
+\hat{B}_z\dot{\vec{B}}_x \\
+\hat{B}_z\dot{\vec{B}}_y \\
+\hat{B}_z\dot{\vec{B}}_z \\
+\end{bmatrix}
+$$
+
+假设长度为\\(N\\)的时间序列，每个时刻的\\(\vec{\delta}\\)可以组成\\(N\times18\\)维矩阵\\(\boldsymbol{A}\\)
+
+$$
+\boldsymbol{A}=
+\begin{bmatrix}
+\vec{\delta}_1 \\
+\vdots\\
+\vec{\delta}_N \\
+\end{bmatrix}
+$$
+
+并且令
+
+$$
+\boldsymbol{B}_t=
+\begin{bmatrix}
+|\vec{B}_t|_1 \\
+\vdots\\
+|\vec{B}_t|_N \\
+\end{bmatrix}
+$$
+
+$$
+\boldsymbol{B}_e=
+\begin{bmatrix}
+|\vec{B}_e|_1 \\
+\vdots\\
+|\vec{B}_e|_N \\
+\end{bmatrix}
+$$
+
+则有
+
+$$
+\boldsymbol{B}_t-\boldsymbol{B}_e=\boldsymbol{A}\boldsymbol{\beta}
+$$
+
+上式可通过最小二乘方法进行求解
+
+$$
+\boldsymbol{\beta}=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^T(\boldsymbol{B}_t-\boldsymbol{B}_e)
+$$
+
+在求解出模型参数\\(\boldsymbol{\beta}\\)，矢量磁补偿过程可以通过下式进行
+
+$$
+|\vec{B}_e|=|\vec{B}_t|-\vec{\delta}^T\boldsymbol{\beta}
+$$
 
 ### 基于分量约束的矢量磁补偿
 
