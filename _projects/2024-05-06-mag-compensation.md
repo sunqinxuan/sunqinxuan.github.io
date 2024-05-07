@@ -32,7 +32,7 @@ dataset有两个版本：版本一和版本二。
 
 ![img](http://sunqinxuan.github.io/images/projects-2023-09-21-img02.png)
 
-## 方案
+## 基于Tolles-Lawson模型的矢量磁补偿方案
 
 舱内测量磁场由两部分组成，可以表示为
 
@@ -123,7 +123,7 @@ $$
 
 其中，\\(\boldsymbol{\beta}=[\beta_1,\beta_2,\cdots,\beta_{18}]^T\\)表示待求解的Tolles-Lawson模型参数。
 
-### 基于总量约束的矢量磁补偿
+### 基于总量约束的模型参数求解
 
 基于测量总场矢量与地磁场矢量以及干扰场矢量的关系式，推导总场的标量信号和地磁场标量信号之间的关系。
 
@@ -217,7 +217,7 @@ $$
 |\vec{B}_t|-|\vec{B}_e|=\vec{\delta}^T\boldsymbol{\beta}
 $$
 
-其中18维参数向量\\(\vec{\delta}\\)为
+其中18维系数向量\\(\vec{\delta}\\)为
 
 $$
 \vec{\delta}=
@@ -286,28 +286,169 @@ $$
 \boldsymbol{\beta}=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^T(\boldsymbol{B}_t-\boldsymbol{B}_e)
 $$
 
-在求解出模型参数\\(\boldsymbol{\beta}\\)，矢量磁补偿过程可以通过下式进行
+
+### 基于分量约束的模型参数求解
+
+直接考虑基于分量的约束关系
 
 $$
-|\vec{B}_e|=|\vec{B}_t|-\vec{\delta}^T\boldsymbol{\beta}
+\vec{B}_e=\vec{B}_t-
+\left(
+\begin{bmatrix}
+\beta_1 \\ \beta_2\\ \beta_3
+\end{bmatrix}+
+\begin{bmatrix}
+\beta_4 & \beta_5 & \beta_6 \\
+\beta_5 & \beta_7 & \beta_8 \\
+\beta_6 & \beta_8 & \beta_9 
+\end{bmatrix}
+\vec{B}_t+
+\begin{bmatrix}
+\beta_{10} & \beta_{11} & \beta_{12} \\
+\beta_{13} & \beta_{14} & \beta_{15} \\
+\beta_{16} & \beta_{17} & \beta_{18} 
+\end{bmatrix}
+\dot{\vec{B}}_t
+\right)
 $$
 
-### 基于分量约束的矢量磁补偿
+根据前文所述的模型参数形式，对上式进行整理，得到基于分量关系的矢量形式
 
+$$
+\vec{B}_t-\vec{B}_e=\Lambda\boldsymbol{\beta}
+$$
 
+其中\\(3\times18\\)维系数矩阵\\(\Lambda\\)为
 
+$$
+\Lambda=
+\begin{bmatrix}
+\lambda_1 & \lambda_2 & \lambda_3
+\end{bmatrix}
+$$
 
+其中
 
+$$
+\lambda_1=\boldsymbol{I}_{3\times3}
+$$
 
+$$
+\lambda_2=
+\begin{bmatrix}
+\vec{B}_x & \vec{B}_y & \vec{B}_z & 0 & 0 & 0 \\
+0 & \vec{B}_x & 0 & \vec{B}_y & \vec{B}_z & 0 \\
+0 & 0 & \vec{B}_x & 0 & \vec{B}_y & \vec{B}_z \\
+\end{bmatrix}
+$$
 
+$$
+\lambda_3=
+\begin{bmatrix}
+\vec{B}_x & \vec{B}_y & \vec{B}_z & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & \vec{B}_x & \vec{B}_y & \vec{B}_z & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & \vec{B}_x & \vec{B}_y & \vec{B}_z \\
+\end{bmatrix}
+$$
 
+类似地，对于长度为\\(N\\)的时间序列，可以构成\\(3N\times18\\)维系数矩阵\\(\boldsymbol{A}\\)
 
+$$
+\boldsymbol{A}=
+\begin{bmatrix}
+\Lambda_1 \\
+\vdots\\
+\Lambda_N \\
+\end{bmatrix}
+$$
 
+并且令
 
+$$
+\boldsymbol{B}_t=
+\begin{bmatrix}
+\vec{B}_{t1} \\
+\vdots\\
+\vec{B}_{tN} \\
+\end{bmatrix}
+$$
 
+$$
+\boldsymbol{B}_e=
+\begin{bmatrix}
+\vec{B}_{e1} \\
+\vdots\\
+\vec{B}_{eN} \\
+\end{bmatrix}
+$$
 
+则有
+
+$$
+\boldsymbol{B}_t-\boldsymbol{B}_e=\boldsymbol{A}\boldsymbol{\beta}
+$$
+
+同样可通过最小二乘方法进行求解
+
+$$
+\boldsymbol{\beta}=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^T(\boldsymbol{B}_t-\boldsymbol{B}_e)
+$$
 
 <img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img1.jpg" alt="architecture" />
+
+### 矢量磁补偿
+
+在使用基于总量约束或分量约束的模型参数求解方法得到\\(\boldsymbol{\beta}\\)后，矢量磁补偿过程可以通过下式进行
+
+$$
+\vec{B}_e=\vec{B}_t-\Lambda\boldsymbol{\beta}
+$$
+
+## 地磁场标定信号的获取
+
+在前文所述模型参数求解的过程中，\\(\vec{B}_t\\)与\\(\boldsymbol{\beta}\\)均来自标量及矢量磁强计的测量值，而地磁场\\(\vec{B}_e\\)的来源问题需要进一步讨论。
+
+### 来源一：舱外安装磁强计（真值）
+
+在标定飞行（磁补偿模型拟合数据采集）过程中，在舱外安装标量和矢量磁测组，同步采集每一时刻的地磁场真值，用于模型参数的求解，以及补偿精度的测试。
+
+>Comparing to the map values is not done in most of this work, since the tail stinger measurement is considered to be a better “truth” measurement as it was measured at the same time and avoids map errors.<br>
+ref. [A. R. Gnadt, “Advanced Aeromagnetic Compensation Models for Airborne Magnetic Anomaly Navigation,” Massachusetts Institute of Technology, 2022. ](https://dspace.mit.edu/handle/1721.1/145137)
+
+### 来源二：高精度地磁基准图
+
+目前不具备适用性，并且无法获取矢量地磁场信息。
+
+> The map-based calibration, is less common in the literature,
+but more intuitive. This calibration method flies
+through a high-quality magnetic anomaly map (with GPS)
+and calibrates the system measurements such that they most
+closely match the magnetic anomaly map. This method
+requires highly accurate magnetic anomaly maps but can
+produce the best results given the navigation system is also
+using this map to navigate. This method cannot produce
+calibration errors smaller than the errors which exist in the
+magnetic map-products being used.<br>
+ref. [A. J. Canciani, "Magnetic Navigation on an F-16 Aircraft Using Online Calibration," in IEEE Transactions on Aerospace and Electronic Systems, vol. 58, no. 1, pp. 420-434.](https://ieeexplore.ieee.org/document/9506809)
+
+
+### 来源三：bpf "trick"
+
+在标定飞行过程中，飞行区域选择地磁场变化较小的区域，并使无人机做各类机动动作，然后通过带通滤波器，滤除地磁场信号。
+
+但这一方案只适用于“基于总量约束的参数求解”方法。
+
+> The “trick” is to use a bandpass finite impulse response filter (bpf).<br>
+The passband frequency range for the bandpass filter is carefully selected in order
+to remove nearly all of the earth field while keeping much of the aircraft field. In
+practice, a passband of 0.1-0.9 Hz has been found to perform well, since in this
+range the frequency content of the aircraft dominates the magnetic signal.
+ref. [A. R. Gnadt, “Advanced Aeromagnetic Compensation Models for Airborne Magnetic Anomaly Navigation,” Massachusetts Institute of Technology, 2022. ](https://dspace.mit.edu/handle/1721.1/145137)
+
+## 标定飞行
+
+
+
 
 ## 实验
 
