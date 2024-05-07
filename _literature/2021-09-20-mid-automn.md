@@ -5,7 +5,7 @@ type: "poem"
 permalink: /literature/literature-2021-09-20
 venue: "孙沁璇"
 date: 2021-09-20
-location: "Beijing, China"
+location: "Tianjin, China"
 ---
 
 中秋随感

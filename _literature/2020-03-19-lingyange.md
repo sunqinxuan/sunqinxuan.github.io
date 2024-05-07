@@ -5,7 +5,7 @@ type: "poem"
 permalink: /literature/literature-2020-03-19
 venue: "孙沁璇"
 date: 2020-03-19
-location: "Beijing, China"
+location: "Tianjin, China"
 ---
 
 凌烟咏史诗22首

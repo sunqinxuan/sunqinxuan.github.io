@@ -5,7 +5,7 @@ type: "poem"
 permalink: /literature/literature-2016-04-19
 venue: "孙沁璇"
 date: 2016-04-19
-location: "Beijing, China"
+location: "Tianjin, China"
 ---
 
 两篇漫画的观后感。
