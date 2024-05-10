@@ -3,7 +3,7 @@ title: "面向AVP应用的语义线段拟合与配准方案"
 collection: projects
 type: "Project"
 permalink: /projects/2022-05-08-line-extraction-matching
-venue: "CICV"
+venue: ""
 date: 2022-05-08
 location: "Beijing, China"
 ---

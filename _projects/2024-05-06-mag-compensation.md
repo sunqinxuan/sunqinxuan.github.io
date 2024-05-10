@@ -3,7 +3,7 @@ title: "基于Tolles-Lawson模型的航磁补偿系统"
 collection: projects
 type: "Project"
 permalink: /projects/2024-05-06-mag-compensation
-venue: "ZJLab"
+venue: ""
 date: 2024-05-06
 location: "Beijing, China"
 ---

@@ -3,7 +3,7 @@ title: "基于PSINS的惯性导航系统"
 collection: projects
 type: "Project"
 permalink: /projects/2023-06-07-ins
-venue: "ZJLab"
+venue: ""
 date: 2023-06-07
 location: "Beijing, China"
 ---

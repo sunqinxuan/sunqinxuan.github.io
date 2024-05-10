@@ -3,7 +3,7 @@ title: "后端全局图优化位姿参数化及雅可比求解方案"
 collection: projects
 type: "Project"
 permalink: /projects/2021-11-05-pose-graph-optimization
-venue: "CICV"
+venue: ""
 date: 2021-11-05
 location: "Beijing, China"
 ---

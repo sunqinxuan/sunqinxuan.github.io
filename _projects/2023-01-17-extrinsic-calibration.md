@@ -3,7 +3,7 @@ title: "导航相机与TOF相机配准与外参优化"
 collection: projects
 type: "Project"
 permalink: /projects/2023-01-17-extrinsic-calibration
-venue: "ZJLab"
+venue: ""
 date: 2023-01-17
 location: "Beijing, China"
 ---

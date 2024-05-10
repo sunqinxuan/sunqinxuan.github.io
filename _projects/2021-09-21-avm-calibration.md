@@ -3,7 +3,7 @@ title: "面向辅助驾驶应用的AVM环视鱼眼相机内外参标定"
 collection: projects
 type: "Project"
 permalink: /projects/2021-09-21-avm-calibration
-venue: "CICV"
+venue: ""
 date: 2021-09-21
 location: "Beijing, China"
 ---
