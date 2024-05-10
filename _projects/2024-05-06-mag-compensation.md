@@ -345,9 +345,9 @@ $$
 $$
 \lambda_3=
 \begin{bmatrix}
-\vec{B}_x & \vec{B}_y & \vec{B}_z & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & \vec{B}_x & \vec{B}_y & \vec{B}_z & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & \vec{B}_x & \vec{B}_y & \vec{B}_z \\
+\dot{\vec{B}}_x & \dot{\vec{B}}_y & \dot{\vec{B}}_z & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & \dot{\vec{B}}_x & \dot{\vec{B}}_y & \dot{\vec{B}}_z & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & \dot{\vec{B}}_x & \dot{\vec{B}}_y & \dot{\vec{B}}_z \\
 \end{bmatrix}
 $$
 
@@ -442,7 +442,7 @@ ref. [A. J. Canciani, "Magnetic Navigation on an F-16 Aircraft Using Online Cali
 The passband frequency range for the bandpass filter is carefully selected in order
 to remove nearly all of the earth field while keeping much of the aircraft field. In
 practice, a passband of 0.1-0.9 Hz has been found to perform well, since in this
-range the frequency content of the aircraft dominates the magnetic signal.
+range the frequency content of the aircraft dominates the magnetic signal.<br>
 ref. [A. R. Gnadt, “Advanced Aeromagnetic Compensation Models for Airborne Magnetic Anomaly Navigation,” Massachusetts Institute of Technology, 2022. ](https://dspace.mit.edu/handle/1721.1/145137)
 
 ## 标定飞行
