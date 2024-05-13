@@ -1,36 +1,36 @@
 ---
-title: "基于Tolles-Lawson模型的航磁补偿系统"
+title: "舱内舱外矢量磁强计定姿方案"
 collection: projects
 type: "Project"
-permalink: /projects/2024-05-06-mag-compensation
+permalink: /projects/2024-05-13-mag-alignment
 venue: ""
-date: 2024-05-06
+date: 2024-05-13
 location: "Beijing, China"
 ---
 
-基于Tolles-Lawson模型的航磁补偿系统
+舱内舱外矢量磁强计定姿方案
 
 ## 背景
 
-详情可参阅[Signal Enhancement for Magnetic Navigation Challenge Problem](https://magnav.mit.edu/)。
+<!--
+在[基于Tolles-Lawson模型的航磁补偿系统](https://sunqinxuan.github.io/projects/2024-05-06-mag-compensation)中，提到通过在舱外安装矢量磁强计来同步获取地磁场信息，完成矢量干扰磁场的标定。另外，在基于深度学习方法的磁补偿方案中，真值信息的获取同样也是一个亟待解决的问题。
 
-> The best submission to date was submitted by: Ling-Wei Kong, Cheng-Zhen Wang, and Ying-Cheng Lai from Arizona State University ([submission](https://github.com/lw-kong/MagNav)).
+本方案提出舱内舱外矢量磁强计定姿方案，使用高精度转台以及水平仪等设备，完成舱内舱外矢量磁强计的坐标系配准。
+-->
 
-### dataset版本问题
+## 矢量磁强计定姿方案
 
-dataset有两个版本：版本一和版本二。
 
-两个版本所采集数据是相同的，但是文件组织不同，包括：数据命名、数据存储顺序等。
 
-使用时须注意。
 
-[版本一](https://zenodo.org/record/6327685)
+<img src="https://sunqinxuan.github.io/images/projects-2024-05-13-img1.jpg" alt="architecture" />
 
-![img](http://sunqinxuan.github.io/images/projects-2023-09-21-img01.png)
 
-[版本二](https://zenodo.org/record/4271804#.YnWQuIdBxD8)
 
-![img](http://sunqinxuan.github.io/images/projects-2023-09-21-img02.png)
+
+
+
+
 
 ## 基于Tolles-Lawson模型的矢量磁补偿方案
 
@@ -447,44 +447,11 @@ ref. [A. R. Gnadt, “Advanced Aeromagnetic Compensation Models for Airborne Mag
 
 ## 标定飞行
 
-在飞机上同时安装舱内以及舱外磁测量组（标量和矢量磁强计），并进行标定飞行。
 
-校准飞行期间，飞机执行一系列特定滚转、俯仰和偏航机动，以采集模型求解所需测量值。
-
-根据《航空磁测技术规范》飞机磁场补偿飞行方法，在磁补偿飞行试验过程中，采用五边航线飞行方法。每条航线上，飞机在一定角度范围内进行俯仰、横滚和偏航机动。
-
-标定飞行通常在高海拔地区进行，地磁梯度相对较小。但此要求主要针对基于bpf "trick"的地球磁场滤波方法，对恒定磁场进行滤除。对于其他两种地磁场来源方式，对地磁梯度的需求可相对放宽。
-
-<img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img11.png" alt="architecture" />
 
 
 ## 实验
 
-mag 3 - ensemble rmse on 1003.020000 = 82.502527
-
-mag 4 - ensemble rmse on 1003.020000 = 70.903014
-
-mag 5 - ensemble rmse on 1003.020000 = 38.197016
-
-<img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img8.png" alt="architecture" />
-
-mag 3 - ensemble rmse on 1003.040000 = 83.237522
-
-mag 4 - ensemble rmse on 1003.040000 = 102.557146
-
-mag 5 - ensemble rmse on 1003.040000 = 49.126008
-
-<img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img9.png" alt="architecture" />
-
-mag 3 - ensemble rmse on 1003.080000 = 87.115366
-
-mag 4 - ensemble rmse on 1003.080000 = 118.260125
-
-mag 5 - ensemble rmse on 1003.080000 = 48.884029
-
-<img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img10.png" alt="architecture" />
-
-<!--
 ensemble rmse on 1003.020000 = 9.241940
 
 <img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img2.jpg" alt="architecture" />
@@ -502,7 +469,6 @@ ensemble rmse on 1003.040000 = 10.538149
 <img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img6.jpg" alt="architecture" />
 
 <img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img7.jpg" alt="architecture" />
--->
 
 ## 相关链接
 
