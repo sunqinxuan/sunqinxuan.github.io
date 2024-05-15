@@ -2,9 +2,9 @@
 title: "水调歌头·题爸妈战友聚会观景老龙头"
 collection: literature
 type: "poem"
-permalink: /literature/literature-2019-06-16
+permalink: /literature/literature-2016-10-30
 venue: "孙沁璇"
-date: 2019-06-16
+date: 2016-10-30
 location: "Tianjin, China"
 ---
 
