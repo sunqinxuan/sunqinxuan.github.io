@@ -2,9 +2,9 @@
 title: "九张机"
 collection: literature
 type: "poem"
-permalink: /literature/literature-2016-09-06
+permalink: /literature/literature-2012-12-30
 venue: "孙沁璇"
-date: 2016-09-06
+date: 2012-12-30
 location: "Tianjin, China"
 ---
 
