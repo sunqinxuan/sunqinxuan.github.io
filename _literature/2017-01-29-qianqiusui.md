@@ -2,9 +2,9 @@
 title: "千秋岁·丙申腊七"
 collection: literature
 type: "poem"
-permalink: /literature/literature-2017-04-04
+permalink: /literature/literature-2017-01-29
 venue: "孙沁璇"
-date: 2017-04-04
+date: 2017-01-29
 location: "Tianjin, China"
 ---
 

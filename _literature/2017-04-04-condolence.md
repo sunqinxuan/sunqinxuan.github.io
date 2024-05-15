@@ -2,7 +2,7 @@
 title: "清明"
 collection: literature
 type: "poem"
-permalink: /literature/literature-2017-04-04
+permalink: /literature/literature-2017-04-04-condolence
 venue: "孙沁璇"
 date: 2017-04-04
 location: "Tianjin, China"
