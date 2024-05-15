@@ -6,8 +6,6 @@ collection: portfolio
 
 ![定风波](https://sunqinxuan.github.io/images/portfolio-2024-01-20-dingfengbo.jpg)
 
-<br>
-
 给姑姑写的扇面。
 
 非常满意^_^
