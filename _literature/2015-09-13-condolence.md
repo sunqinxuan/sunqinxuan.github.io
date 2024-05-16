@@ -2,9 +2,9 @@
 title: "中元祭稿"
 collection: literature
 type: "poem"
-permalink: /literature/literature-2015-09-23
+permalink: /literature/literature-2015-09-13
 venue: "孙沁璇"
-date: 2015-09-23
+date: 2015-09-13
 location: "Tianjin, China"
 ---
 
