@@ -35,7 +35,7 @@ layout: default
         {% endif %}
         
         {% if page.collection == 'literature' %}
-          <p> {{ page.type }}, <i>{{ page.venue }}</i>, {{ post.date | date: '%B %d, %Y' }} </p>
+          <p> {{ page.type }}, <i>{{ page.venue }}</i>, {{ page.date | date: '%B %d, %Y' }}</p>
         {% elsif page.venue and page.date %}
           <p>Published by <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
         {% elsif page.date %}
