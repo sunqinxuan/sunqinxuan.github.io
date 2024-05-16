@@ -2,9 +2,9 @@
 title: "如果有来生"
 collection: literature
 type: "poem"
-permalink: /literature/literature-2020-09-02
+permalink: /literature/literature-2017-01-09
 venue: "孙沁璇"
-date: 2020-09-02
+date: 2017-01-09
 location: "Tianjin, China"
 ---
 
