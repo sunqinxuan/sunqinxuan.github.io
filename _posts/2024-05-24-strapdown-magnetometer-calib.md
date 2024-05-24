@@ -22,15 +22,6 @@ tags:
 
 不考虑任何误差与干扰的情况下，在均匀磁场转运载体时，测量磁场矢量的模长不受姿态影响，在三维空间中其轨迹落在球面上。当受到误差和干扰的影响时，理论上磁场测量矢量的轨迹形成一个椭球面。
 
-> For stand-alone magnetometers the mapping of the ellipsoid
-of data to a sphere gives a complete magnetometer calibration.
-However, combining the magnetometer with inertial sensors
-requires the sensor axes to be aligned, i.e. <u>the sphere needs to
-be rotated such that the magnetometer sensor axes are aligned
-with the inertial sensor axes.</u>
-
-这一段还不是很理解。
-
 <center>
     <img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
@@ -52,6 +43,8 @@ with the inertial sensor axes.</u>
     color: #999;
     padding: 2px;">图片来自"Calibration of a magnetometer in combination with inertial sensors"</div>
 </center>
+
+## Magnetometer measurement model
 
 磁强计-惯导捷联系统的测量模型为
 
@@ -81,12 +74,33 @@ $$
 
 - \\(C_{si}\\)为载体干扰磁场中的感应磁场矩阵（soft-iron effect）；
 
-- \\(\boldsymbol{o}_{hi}\\)为载体干扰磁场中的固定磁场向量（hard-iron effects）。
+- \\(\boldsymbol{o}_{hi}\\)为载体干扰磁场中的固定磁场向量（hard-iron effects）；
 
+- \\(R_{im}\\)表示磁强计与惯导之间的姿态偏差。
 
+进一步整理后，得到最终的测量模型：
 
+$$
+\boldsymbol{y}_{m,k}^b=D\boldsymbol{m}_k^b+\boldsymbol{o}+\boldsymbol{e}_{m,k}^b
+$$
 
+其中，
 
+$$
+D=C_{sc}C_{no}C_{si}R_{im}
+$$
+
+$$
+\boldsymbol{o}=C_{sc}C_{no}\boldsymbol{o}_{hi}+\boldsymbol{o}_{zb}
+$$
+
+上述模型在目前的研究中是比较通用的，该模型能够成立的一些假设条件：
+
+- 干扰磁场须来自于与传感器刚性固连的设备或者载体平台；
+
+- 标定数据采集时，外部磁场（地磁场）是均匀不变的。
+
+在本课题中，以上两个假设均可以视作已满足。
 
 
 
