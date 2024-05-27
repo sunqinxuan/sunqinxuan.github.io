@@ -102,19 +102,67 @@ $$
 
 在本课题中，以上两个假设均可以视作已满足。
 
+## MAXIMUM LIKELIHOOD FORMULATION
 
+在补偿之前，磁测量数据分布在一个椭球面上，而在补偿后，理论上磁测量数据将分布在一个球面上。
 
+以下将省略表示body frame的上标\\(b\\)。
 
+综合上节内容，总的测量模型为
 
+$$
+\boldsymbol{y}_{m,k}=DR_k^{bn}\boldsymbol{m}^n+\boldsymbol{o}+\boldsymbol{e}_{m,k}
+$$
 
+定义模型参数\\(\boldsymbol\theta\\)为
 
+$$
+\boldsymbol\theta=\{D,\boldsymbol{o},\boldsymbol{m}^n,\{R^{bn}_k\}_{k=1}^K\}
+$$
 
+其中
 
+$$
+D\in\mathbb{R}^{3\times3}, \boldsymbol{o}\in\mathbb{R}^{3},
+$$
 
+$$
+\boldsymbol{m}^n\in\{\mathbb{R}^{3}:\|\boldsymbol{m}^n\|_2^2=1,m_y^n=0\},
+$$
 
+$$
+\{R^{bn}_k\}_{k=1}^K\in\mathbb{SO}(3)
+$$
 
+假设噪声项为独立分布高斯白噪声，即
 
+$$
+\boldsymbol{e}_{m,k}\sim\mathcal{N}(0,\Sigma_m)
+$$
 
+通过对以下最大似然问题的求解，得到参数\\(\boldsymbol\theta\\)的最优估计：
+
+$$
+\hat{\boldsymbol{\theta}}_{ML}=\arg\max_{\boldsymbol{\theta}}
+p_\theta(\boldsymbol{y}_{1:K})
+$$
+
+其中
+
+$$
+\boldsymbol{y}_{1:K}=\{\boldsymbol{y}_{m,1},\boldsymbol{y}_{m,2},\cdots,\boldsymbol{y}_{m,K}\}
+$$
+
+在独立分布高斯白噪声的假设下，最大似然估计问题可以转化为
+
+$$
+\hat{\boldsymbol{\theta}}_{ML}=\arg\min_{\boldsymbol{\theta}}
+\frac{1}{2}
+\sum_{k=1}^K
+\|\boldsymbol{e}_{m,k}\|^2_{\Sigma_m^{-1}}
+$$
+
+在文献[3][4]中，目标函数中还有另外一项，是垂直向地心方向的磁测观测模型，但在本课题中，这个观测数据似乎无法直接获取，因此忽略这一项。
 
 
 
