@@ -16,6 +16,8 @@ tags:
 
 [4] [Sensor Fusion and Calibration of Inertial Sensors, Vision, Ultra-Wideband and GPS](https://user.it.uu.se/~thosc112/team/hol2011.pdf)
 
+[5] [Magnetometer calibration using inertial sensors](https://ieeexplore.ieee.org/document/7470259)
+
 目前所使用的MIT的基于TL模型的补偿方法，线性最小二乘参数估计方法比较弱，对于噪声和数据异常等情况的鲁棒性较差，而且在建模的时候没有包含飞机姿态参数。另外，由于真值的缺失，使得目前以最小化测量值和真值残差的拟合方法难以顺利进行。
 
 针对上述问题，我对磁强计加惯导的捷联系统整体标定和补偿的方法进行了一些调研。对于干扰磁场模型，大多数文献中都是采用了硬磁干扰加软磁干扰的建模方式，与我们目前所使用的TL模型是一致的。由于没有真值做为参考，因此使用椭圆拟合的原理，对模型参数进行计算，比如文献[1][2]中，使用变量替换的方法，将椭圆方程中的非线性约束转化为线性约束，完成求解后再转换回去。而文献[3][4]的估计模型中，不仅包含了标定参数和补偿参数，还包含传感器每个时刻的姿态，是个高度非线性的问题，通过最大似然估计进行求解。但是这样的求解方法需要给一个离最优解相对较近的初值，不然可能不收敛，因此使用椭圆约束和一些其他约束条件，先一步进行初值的估计。关于这一部分，我还没有太理清。但我觉得这样的方法对于我想要将飞行姿态考虑进行的想法还是比较有启发的，所以准备进一步研究一下。
@@ -81,7 +83,7 @@ $$
 进一步整理后，得到最终的测量模型：
 
 $$
-\boldsymbol{y}_{m,k}^b=D\boldsymbol{m}_k^b+\boldsymbol{o}+\boldsymbol{e}_{m,k}^b
+\boldsymbol{y}_{m,k}^b=DR_k^{bn}\boldsymbol{m}^n+\boldsymbol{o}+\boldsymbol{e}_{m,k}^b
 $$
 
 其中，
@@ -101,6 +103,128 @@ $$
 - 标定数据采集时，外部磁场（地磁场）是均匀不变的。
 
 在本课题中，以上两个假设均可以视作已满足。
+
+## Ellipse fit
+
+首先，将局部均匀地磁场矢量进行归一化，即
+
+$$
+\|{m}^n\|_2=1
+$$
+
+则有以下等式成立
+
+$$
+\|{m}^n\|_2^2-1=\|R_k^{nb}{m}_k^b\|_2^2-1=\|{m}_k^b\|_2^2-1=0
+$$
+
+展开可得椭球约束方程：
+
+$$
+\begin{aligned}
+0&=\|D^{-1}({y}_{m,k}-{o}-{e}_{m,k})\|_2^2-1 \\
+&\approx{y}_{m,k}^TA{y}_{m,k}+{b}^T{y}_{m,k}+c
+\end{aligned}
+$$
+
+其中
+
+$$
+A=D^{-T}D^{-1} \tag{1}
+$$
+
+$$
+{b}^T=-2{o}^TD^{-T}D^{-1} \tag{2}
+$$
+
+$$
+c={o}^TD^{-T}D^{-1}{o}-1 \tag{3}
+$$
+
+对椭球方程进行整理可得到
+
+$$
+M\eta\approx0
+$$
+
+$$
+M=
+\begin{bmatrix}
+y_{m,1}\otimes y_{m,1} & y_{m,1} & 1 \\
+y_{m,2}\otimes y_{m,2} & y_{m,2} & 1 \\
+\vdots & \vdots & \vdots \\
+y_{m,N}\otimes y_{m,N} & y_{m,N} & 1 \\
+\end{bmatrix}
+$$
+
+$$
+\eta=
+\begin{bmatrix}
+{\rm vec}A \\
+b\\
+c
+\end{bmatrix}
+$$
+
+其中\\(\otimes\\)表示[Kronecker product](https://en.wikipedia.org/wiki/Kronecker_product)，\\(\rm vec\\)表示[vectorization operator](https://en.wikipedia.org/wiki/Vectorization_(mathematics))。
+
+可以通过SVD分解对方程进行求解，求解结果\\(\hat{\eta}_s\\)为矩阵\\(M\\)的最小奇异值对应的向量，\\(\hat{\eta}_s\\)满足模长为1的约束。需要注意的是，对于任意\\(\alpha\in\mathbb{R}\\)，\\(\alpha\hat{\eta}_s\\)同样可以满足该椭圆方程。
+
+假设我们最终的求解结果为
+
+$$
+\hat{\eta}=\alpha\hat{\eta}_s
+$$
+
+即
+
+$$
+\begin{bmatrix}
+{\rm vec}\hat{A}\\
+\hat{b}\\
+\hat{c}
+\end{bmatrix}
+=
+\begin{bmatrix}
+{\rm vec}(\alpha\hat{A}_s)\\
+\alpha\hat{b}_s\\
+\alpha\hat{c}_s
+\end{bmatrix}
+$$
+
+
+<!--
+
+## Problem formulation
+
+在文献[5]中，磁强计-惯导捷联系统标定问题被建模为未知模型参数下的传感器姿态估计问题。
+
+>Our magnetometer calibration algorithm is formulated as a problem of determining the sensor's orientation in the presence of unknown model parameters.
+
+令系统状态\\(x_t\\)表示\\(t\\)时刻的传感器姿态，则对应非线性系统状态模型可以表示为：
+
+$$
+x_{t+1}=f_t(x_t,\omega_t,e_{\omega,t},\theta),
+$$
+
+$$
+y_t=
+\begin{bmatrix}
+y_{a,t}\\
+y_{m,t}
+\end{bmatrix}=
+\begin{bmatrix}
+h_{a,t}(x_t)\\
+h_{m,t}(x_t,\theta)
+\end{bmatrix}
++e_t(\theta)
+$$
+
+
+## 标定算法流程
+
+![img](http://sunqinxuan.github.io/images/posts-research-journal-2024-05-24-img2.png)
+
 
 ## MAXIMUM LIKELIHOOD FORMULATION
 
@@ -134,6 +258,10 @@ $$
 \{R^{bn}_k\}_{k=1}^K\in\mathbb{SO}(3)
 $$
 
+<font color=blue>
+这里有个问题，载体或传感器相对于navigation frame的姿态\\(R^{bn}_k\\)是无法直接获取到的，需要利用惯导等额外测量进行估计。
+</font>
+
 假设噪声项为独立分布高斯白噪声，即
 
 $$
@@ -164,7 +292,11 @@ $$
 
 在文献[3][4]中，目标函数中还有另外一项，是垂直向地心方向的磁测观测模型，但在本课题中，这个观测数据似乎无法直接获取，因此忽略这一项。
 
+## INITIAL ESTIMATE
 
+为了保证ML问题的求解能够收敛到最优解，利用椭圆约束等条件，对参数进行初值的估计。
+
+-->
 
 
 
