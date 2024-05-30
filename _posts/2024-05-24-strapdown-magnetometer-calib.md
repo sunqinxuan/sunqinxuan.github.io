@@ -18,6 +18,8 @@ tags:
 
 [5] [Magnetometer calibration using inertial sensors](https://ieeexplore.ieee.org/document/7470259)
 
+[6] [A way to calibrate a magnetometer](https://teslabs.com/articles/magnetometer-calibration/)
+
 目前所使用的MIT的基于TL模型的补偿方法，线性最小二乘参数估计方法比较弱，对于噪声和数据异常等情况的鲁棒性较差，而且在建模的时候没有包含飞机姿态参数。另外，由于真值的缺失，使得目前以最小化测量值和真值残差的拟合方法难以顺利进行。
 
 针对上述问题，我对磁强计加惯导的捷联系统整体标定和补偿的方法进行了一些调研。对于干扰磁场模型，大多数文献中都是采用了硬磁干扰加软磁干扰的建模方式，与我们目前所使用的TL模型是一致的。由于没有真值做为参考，因此使用椭圆拟合的原理，对模型参数进行计算，比如文献[1][2]中，使用变量替换的方法，将椭圆方程中的非线性约束转化为线性约束，完成求解后再转换回去。而文献[3][4]的估计模型中，不仅包含了标定参数和补偿参数，还包含传感器每个时刻的姿态，是个高度非线性的问题，通过最大似然估计进行求解。但是这样的求解方法需要给一个离最优解相对较近的初值，不然可能不收敛，因此使用椭圆约束和一些其他约束条件，先一步进行初值的估计。关于这一部分，我还没有太理清。但我觉得这样的方法对于我想要将飞行姿态考虑进行的想法还是比较有启发的，所以准备进一步研究一下。
@@ -104,25 +106,67 @@ $$
 
 在本课题中，以上两个假设均可以视作已满足。
 
-## Ellipse fit
+## Quadrics
 
-首先，将局部均匀地磁场矢量进行归一化，即
+二次曲面包含不同的形状类型，有圆球、椭球、抛物面等。一般形式的二次曲面方程可以表示为
 
 $$
-\|{m}^n\|_2=1
+S:
+ax^2+by^2+cz^2+2fyz+2gxz+2hxy+px+qy+rz+d=0.
+$$
+
+其矩阵形式为
+
+$$
+S:
+\boldsymbol{x}^T\boldsymbol{M}\boldsymbol{x}+
+\boldsymbol{x}^T\boldsymbol{n}+d=0
+$$
+
+其中
+
+$$
+\boldsymbol{x}=
+\begin{bmatrix}
+x\\ y\\ z
+\end{bmatrix}
+$$
+
+$$
+\boldsymbol{M}=
+\begin{bmatrix}
+a & h & g \\
+h & b & f \\
+g & f & c \\
+\end{bmatrix}
+$$
+
+$$
+\boldsymbol{x}=
+\begin{bmatrix}
+p\\ q\\ r
+\end{bmatrix}
+$$
+
+## Ellipsoid fit
+
+首先，令\\(\mathcal{F}\\)表示载体所在区域的均匀地磁场强度，即
+
+$$
+\|{m}^n\|_2=\mathcal{F}
 $$
 
 则有以下等式成立
 
 $$
-\|{m}^n\|_2^2-1=\|R_k^{nb}{m}_k^b\|_2^2-1=\|{m}_k^b\|_2^2-1=0
+\|{m}^n\|_2^2-\mathcal{F}^2=\|R_k^{nb}{m}_k^b\|_2^2-\mathcal{F}^2=\|{m}_k^b\|_2^2-\mathcal{F}^2=0
 $$
 
 展开可得椭球约束方程：
 
 $$
 \begin{aligned}
-0&=\|D^{-1}({y}_{m,k}-{o}-{e}_{m,k})\|_2^2-1 \\
+0&=\|D^{-1}({y}_{m,k}-{o}-{e}_{m,k})\|_2^2-\mathcal{F}^2 \\
 &\approx{y}_{m,k}^TA{y}_{m,k}+{b}^T{y}_{m,k}+c
 \end{aligned}
 $$
@@ -138,8 +182,15 @@ $$
 $$
 
 $$
-c={o}^TD^{-T}D^{-1}{o}-1 \tag{3}
+c={o}^TD^{-T}D^{-1}{o}-\mathcal{F}^2 \tag{3}
 $$
+
+椭球拟合可以参考文献[Least Squares Ellipsoid Specific Fitting](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1290055)所提出的方法，及其对应的[matlab实现版本](https://ww2.mathworks.cn/matlabcentral/fileexchange/23377-ellipsoid-fitting)。
+
+通过椭球拟合方法，可以得到椭球系数的估计值\\(\hat{A}_s,\hat{b}_s,\hat{c}_s\\)。
+参考文献[Calibration of a magnetometer in combination with inertial sensors](https://ieeexplore.ieee.org/document/6289882)中的方法。
+
+<!--
 
 对椭球方程进行整理可得到
 
@@ -192,46 +243,70 @@ $$
 \end{bmatrix}
 $$
 
+-->
+
+从椭球方程可以看出，对于任意\\(\alpha\in\mathbb{R}\\)，\\(\alpha\hat{A}_s,\alpha\hat{b}_s,\alpha\hat{c}_s\\)同样可以满足该椭圆方程。
 根据式(3)提供的约束，可以确定变量\\(\alpha\\)的值。
 
 $$
 \begin{aligned}
-1&={o}^TD^{-T}D^{-1}{o}-c \\
+\mathcal{F}^2&={o}^TD^{-T}D^{-1}{o}-c \\
 &=\frac{1}{4}b^TA^{-1}b-c \\
-&=\alpha(\frac{1}{4}b_s^TA_s^{-1}b_s-c_s)
+&=\alpha(\frac{1}{4}\hat{b}_s^T\hat{A}_s^{-1}\hat{b}_s-\hat{c}_s)
 \end{aligned}
 $$
 
 可以得到 
 
 $$
-\alpha=(\frac{1}{4}b_s^TA_s^{-1}b_s-c_s)^{-1}
+\alpha=(\frac{1}{4}\hat{b}_s^T\hat{A}_s^{-1}\hat{b}_s-\hat{c}_s)^{-1}\mathcal{F}^2
 $$
 
+<!--
 <font color=blue>
 这里有个问题，式(3)成立的前提是\\(\|{m}^n\|_2=1\\)，即对地磁场进行了归一化。
 这一点会带来什么影响呢？还没想明白。
 </font>
+-->
 
-接下来，根据式(1)-(3)，对模型参数的初值估计结果\\(\hat{D}_0,\hat{o}_0\\)进行反解。
-
-$$
-\hat{D}_0^{-T}\hat{D}_0^{-1}=\alpha\hat{A}_s \tag{4}
-$$
+接下来，根据式(1)-(3)，对模型参数的估计结果\\(\hat{D},\hat{o}\\)进行反解。
 
 $$
-\hat{o}_0=-\frac{1}{2}\hat{A}_s^{-1}\hat{b}_s
+\hat{D}^{-T}\hat{D}^{-1}=\alpha\hat{A}_s \tag{4}
 $$
 
-根据式(4)可以看出，\\(\hat{D}_0\\)没有唯一解，因为对于任意满足\\(U^TU=I_3\\)的矩阵\\(U\\)，\\(\hat{D}_0U\\)都可以使式(4)成立。
+$$
+\hat{o}=-\frac{1}{2}\hat{A}_s^{-1}\hat{b}_s
+$$
 
-假设通过Cholesky分解由式(4)得到某一个求解结果为\\(\tilde{D}_0\\)，则其与最终解\\(\hat{D}_0\\)之间的关系为
+根据式(4)可以看出，\\(\hat{D}\\)没有唯一解，因为对于任意满足\\(R^TR=I_3\\)的矩阵\\(R\\)，\\(\hat{D}R\\)都可以使式(4)成立。
+
+通过对式(4)右侧进行特征值分解可以得到某一个求解结果为\\(\tilde{D}\\)，
 
 $$
-\hat{D}_0=\tilde{D}_0R
+\begin{aligned}
+(\tilde{D}^{-1})^T(\tilde{D}^{-1})
+&=\alpha U\Lambda U^T =\alpha U\Lambda^{1/2}\Lambda^{1/2} U^T \\
+&=\alpha (\Lambda^{1/2} U^T)^T(\Lambda^{1/2} U^T)
+\end{aligned}
+$$
+
+$$
+\tilde{D}^{-1}=\sqrt{\alpha}\Lambda^{1/2} U^T
+$$
+
+则其与最终解\\(\hat{D}\\)之间的关系为
+
+$$
+\hat{D}=\tilde{D}R
 $$
 
 根据文献[3][4][5]中的描述，这里的未知旋转矩阵\\(R\\)代表了磁强计和惯导之间的配准关系，无法单独通过磁测数据来确定。
+
+## related links
+
+code:
+- [Magnetometer-Calibration](https://github.com/sunqinxuan/Magnetometer-Calibration.git)
 
 <!--
 
