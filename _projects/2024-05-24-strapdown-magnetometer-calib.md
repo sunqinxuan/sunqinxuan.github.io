@@ -290,6 +290,24 @@ $$
 
 这里的未知旋转矩阵\\(R\\)代表了磁强计和惯导之间的配准关系，无法单独通过磁测数据来确定[^3]。
 
+## experiments
+
+### Flight 1002
+
+该航线相关信息可见[Flt1002_readme.txt](http://sunqinxuan.github.io/files/posts-research-journal-2023-11-27-Flt1002_readme.txt)。选择1002.02与1002.20两条标定飞行轨迹上所采集的数据进行实验，在[异常图](https://geophysical-data.canada.ca/)中画出两条标定飞行轨迹如下图所示：
+
+![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img3.png)
+
+椭球拟合与标定结果如下图所示：
+
+![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img4.png)
+
+|       | 校正前 | 校正后 |
+| ----------- | ----------- | -----------|
+| RMSE误差（与地磁图比较）      | 1665.04       |82.57 |
+
+
+
 ## related links
 
 code:
