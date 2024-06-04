@@ -304,11 +304,25 @@ $$
 
 校正前后的RMSE误差如下表所示：
 
-|       | 校正前 | 校正后 |
-| :----: | :----: | :----:
-| RMSE误差（与地磁图比较）      | 1665.04       |82.57 |
+|       | 校正前 | 校正后 | 
+| :----: | :----: | :----: | 
+| RMSE误差（与地磁图比较）      | 1665.04 nT  |82.57 nT | 
 
+### Flight 1003
 
+将用Flight 1002的标定航线数据计算的模型参数用于Flight 1003航线的校正中，选择其中1003.02、1003.04、1003.08三条航线数据进行验证。在[异常图](https://geophysical-data.canada.ca/)中画出三条标定飞行轨迹如下图所示：
+
+![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img5.png)
+
+椭球拟合与标定结果如下图所示：
+
+![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img6.png)
+
+![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img7.png)
+
+|       | 校正前 | 校正后 | 
+| :----: | :----: | :----: | 
+| RMSE误差（与地磁图比较）      | 2316.71 nT  |688.72 nT | 
 
 ## related links
 
