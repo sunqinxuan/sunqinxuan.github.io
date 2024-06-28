@@ -20,6 +20,9 @@ location: "Beijing, China"
 
 ## 矢量磁强计定姿方案
 
+假设两套矢量磁测量系统所在磁场的大小与方向均不同，但是都是恒定磁场，不会随时间以及传感器转运而发生变化。
+
+
 <img src="https://sunqinxuan.github.io/images/projects-2024-05-13-img1.jpg" alt="architecture" />
 
 ![img](https://sunqinxuan.github.io/images/projects-2024-05-13-img2.png)
