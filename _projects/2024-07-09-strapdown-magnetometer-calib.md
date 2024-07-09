@@ -260,7 +260,7 @@ $$
 \hat{o}=-\frac{1}{2}\hat{A}_s^{-1}\hat{b}_s
 $$
 
-根据式(4)可以看出，\\(\hat{D}\\)没有唯一解，因为对于任意满足\\(R^TR=I_3\\)的矩阵\\(R\\)，\\(\hat{D}R\\)都可以使式(4)成立。
+根据式(4)可以看出，\\(\hat{D}\\)没有唯一解，因为对于任意满足\\(V^TV=I_3\\)的矩阵\\(V\\)，\\(\hat{D}V\\)都可以使式(4)成立。
 
 通过对式(4)右侧进行特征值分解可以得到某一个求解结果为\\(\tilde{D}\\)，
 
@@ -279,7 +279,7 @@ $$
 则其与最终解\\(\hat{D}\\)之间的关系为
 
 $$
-\hat{D}=\tilde{D}R
+\hat{D}=\tilde{D}V
 $$
 
 这里的未知旋转矩阵\\(R\\)代表了磁强计和惯导之间的配准关系，无法单独通过磁测数据来确定[^3]。
@@ -297,14 +297,62 @@ $$
 
 从式(5)可以看出，当载体在均匀地磁场中进行标定运动时，矢量磁场测量值的变化仅与载体的姿态变化有关。
 
-
-
-
+将上一部分模型参数的求解结果和式(5)代入测量模型可得
 
 $$
-
+\begin{aligned}
+\boldsymbol{y}_{k}^m&=\hat{D}\boldsymbol{m}_k^m+\hat{o} \\
+&=\tilde{D}VR^{mb}R_k^{bn}\boldsymbol{m}^n+\hat{o} 
+\end{aligned}
 $$
 
+令
+
+$$
+R=VR^{mb}
+$$
+
+可得
+
+$$
+\boldsymbol{y}_{k}^m=\tilde{D}RR_k^{bn}\boldsymbol{m}^n+\hat{o}
+\tag{6}
+$$
+
+对于下一时刻，即\\(k+1\\)时刻的观测数据，有
+
+$$
+\boldsymbol{y}_{k+1}^m=\tilde{D}RR_{k+1}^{bn}\boldsymbol{m}^n+\hat{o}
+\tag{7}
+$$
+
+结合式(6)和式(7)可得
+
+$$
+\boldsymbol{y}_{k+1}^m=\tilde{D}RR_{k+1}^{bn}
+R_k^{nb}R^T\tilde{D}^{-1}(\boldsymbol{y}_{k}^m-\hat{o})
++\hat{o}
+$$
+
+令
+
+$$
+R^{b_{k+1}}_{b_k}=R_{k+1}^{bn}R_k^{nb}
+$$
+
+可得
+
+$$
+\boldsymbol{y}_{k+1}^m=\tilde{D}R
+R^{b_{k+1}}_{b_k}
+R^T\tilde{D}^{-1}(\boldsymbol{y}_{k}^m-\hat{o})
++\hat{o}
+\tag{8}
+$$
+
+或(8)给出了两个时刻之间，由惯导提供的载体姿态增量\\(R^{b_{k+1}}_{b_k}\\)，以及三轴矢量磁强计观测之间的关联关系。
+
+![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img1.jpg)
 
 ## experiments
 
