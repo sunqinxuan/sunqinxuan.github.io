@@ -1,7 +1,7 @@
 ---
 title: '基于椭球约束的磁干扰补偿模型参数估计方法'
-date: 2024-05-24
-permalink: /posts/research-journal-2024-05-24
+date: 2024-07-09
+permalink: /posts/research-journal-2024-07-09
 tags:
   - research journal
 ---
@@ -52,11 +52,7 @@ $$
 
 - \\(\boldsymbol{y}_{k}^m\\)为矢量磁场测量数据；
 
-- \\(\boldsymbol{m}_k^m\\)是在magnetometer frame中表示的地磁矢量，其与navigation frame中的地磁矢量之间的关系为
-
-$$
-\boldsymbol{m}_k^m=R_k^{mn}\boldsymbol{m}^n
-$$
+- \\(\boldsymbol{m}_k^m\\)是在magnetometer frame中表示的地磁矢量；
 
 - \\(C_{sc}\\)是磁强计三轴灵敏度矩阵；
 
@@ -287,6 +283,28 @@ $$
 $$
 
 这里的未知旋转矩阵\\(R\\)代表了磁强计和惯导之间的配准关系，无法单独通过磁测数据来确定[^3]。
+
+## Alignment with Inertial Sensor
+
+\\(\boldsymbol{m}_k^m\\)是在magnetometer frame中表示的地磁矢量，其与navigation frame中的地磁矢量之间的关系为
+
+$$
+\boldsymbol{m}_k^m=R_k^{mn}\boldsymbol{m}^n=R^{mb}R_k^{bn}\boldsymbol{m}^n
+\tag{5}
+$$
+
+其中，\\(R^{mb}\\)表示body frame到magnetometer frame之间的姿态变换，\\(R_k^{bn}\\)则表示\\(k\\)时刻body frame在navigation frame中的姿态。
+
+从式(5)可以看出，当载体在均匀地磁场中进行标定运动时，矢量磁场测量值的变化仅与载体的姿态变化有关。
+
+
+
+
+
+$$
+
+$$
+
 
 ## experiments
 
