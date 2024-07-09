@@ -43,19 +43,19 @@ tags:
 磁强计-惯导捷联系统的测量模型为
 
 $$
-\boldsymbol{y}_{m,k}^b=C_{sc}C_{no}
-(C_{si}R_{im}\boldsymbol{m}_k^b+\boldsymbol{o}_{hi})
-+\boldsymbol{o}_{zb}+\boldsymbol{e}_{m,k}^b
+\boldsymbol{y}_{k}^m=C_{sc}C_{no}
+(C_{si}\boldsymbol{m}_k^m+\boldsymbol{o}_{hi})
++\boldsymbol{o}_{zb}+\boldsymbol{e}_{k}^m
 $$
 
 其中
 
-- \\(\boldsymbol{y}_{m,k}^b\\)为磁场测量数据；
+- \\(\boldsymbol{y}_{k}^m\\)为矢量磁场测量数据；
 
-- \\(\boldsymbol{m}_k^b\\)是在body frame中表示的地磁矢量，其与navigation frame中的地磁矢量之间的关系为
+- \\(\boldsymbol{m}_k^m\\)是在magnetometer frame中表示的地磁矢量，其与navigation frame中的地磁矢量之间的关系为
 
 $$
-\boldsymbol{m}_k^b=R_k^{bn}\boldsymbol{m}^n
+\boldsymbol{m}_k^m=R_k^{mn}\boldsymbol{m}^n
 $$
 
 - \\(C_{sc}\\)是磁强计三轴灵敏度矩阵；
@@ -64,24 +64,22 @@ $$
 
 - \\(\boldsymbol{o}_{zb}\\)是磁强计三轴零偏；
 
-- \\(\boldsymbol{e}_{m,k}^b\\)是磁强计的测量噪声；
+- \\(\boldsymbol{e}_{k}^m\\)是磁强计的测量噪声；
 
 - \\(C_{si}\\)为载体干扰磁场中的感应磁场矩阵（soft-iron effect）；
 
 - \\(\boldsymbol{o}_{hi}\\)为载体干扰磁场中的固定磁场向量（hard-iron effects）；
 
-- \\(R_{im}\\)表示磁强计与惯导之间的姿态偏差。
-
 进一步整理后，得到最终的测量模型：
 
 $$
-\boldsymbol{y}_{m,k}^b=DR_k^{bn}\boldsymbol{m}^n+\boldsymbol{o}+\boldsymbol{e}_{m,k}^b
+\boldsymbol{y}_{k}^m=D\boldsymbol{m}_k^m+\boldsymbol{o}+\boldsymbol{e}_{k}^m
 $$
 
 其中，
 
 $$
-D=C_{sc}C_{no}C_{si}R_{im}
+D=C_{sc}C_{no}C_{si}
 $$
 
 $$
@@ -149,15 +147,15 @@ $$
 则有以下等式成立
 
 $$
-\|{m}^n\|_2^2-\mathcal{F}^2=\|R_k^{nb}{m}_k^b\|_2^2-\mathcal{F}^2=\|{m}_k^b\|_2^2-\mathcal{F}^2=0
+\|{m}^n\|_2^2-\mathcal{F}^2=\|R_k^{nm}{m}_k^m\|_2^2-\mathcal{F}^2=\|{m}_k^m\|_2^2-\mathcal{F}^2=0
 $$
 
 展开可得椭球约束方程：
 
 $$
 \begin{aligned}
-0&=\|D^{-1}({y}_{m,k}-{o}-{e}_{m,k})\|_2^2-\mathcal{F}^2 \\
-&\approx{y}_{m,k}^TA{y}_{m,k}+{b}^T{y}_{m,k}+c
+0&=\|D^{-1}({y}_{k}^m-{o}-{e}_{k}^m)\|_2^2-\mathcal{F}^2 \\
+&\approx{y_{k}^m}^TA{y}_{k}^m+{b}^T{y}_{k}^m+c
 \end{aligned}
 $$
 
