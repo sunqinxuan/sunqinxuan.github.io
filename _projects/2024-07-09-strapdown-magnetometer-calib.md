@@ -295,7 +295,7 @@ $$
 
 其中，\\(R^{mb}\\)表示body frame到magnetometer frame之间的姿态变换，\\(R_k^{bn}\\)则表示\\(k\\)时刻body frame在navigation frame中的姿态。
 
-从式(5)可以看出，当载体在均匀地磁场中进行标定运动时，矢量磁场测量值的变化仅与载体的姿态变化有关。
+从式(5)可以看出，当载体在均匀地磁场中进行标定运动时，矢量磁场测量值的变化仅与载体的姿态变化有关[^9]。
 
 将上一部分模型参数的求解结果和式(5)代入测量模型可得
 
@@ -410,6 +410,8 @@ code:
 [^7]: [Q LI (2024). Ellipsoid Fitting, MATLAB Central File Exchange. 检索来源 2024/6/3.](https://ww2.mathworks.cn/matlabcentral/fileexchange/23377-ellipsoid-fitting)
 
 [^8]: [A way to calibrate a magnetometer](https://teslabs.com/articles/magnetometer-calibration/)
+
+[^9]: [On Misalignment between Magnetometer and Inertial Sensors](https://ieeexplore.ieee.org/document/7496814)
 
 <!--
 
