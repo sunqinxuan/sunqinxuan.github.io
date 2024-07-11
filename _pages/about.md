@@ -13,6 +13,7 @@ Hi! I’m Qinxuan Sun (孙沁璇).
 
 Welcome to my [personal website](https://sunqinxuan.github.io/)!
 
+<!-->
 My work is on the social, cultural, political, and economic aspects of quantification, data science, automation, and AI. I have long focused on the role of AI in the governance and moderation of social media platforms and online communities, but I also care about issues like fairness, privacy, accountability, and labor in many application domains where AI is being deployed. Finally, I take the institutions of scientific and technological research as my object of study, asking how the disciplines and professions are changing around or by quantification, data science, automation, and AI. 
 
 ## My work and research
