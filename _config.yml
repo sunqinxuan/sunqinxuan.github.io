@@ -32,9 +32,9 @@ author:
 
   # Academic websites
   #arxiv            : # URL - Update with the correct link to your profile
-  #googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
+  googlescholar    : "https://scholar.google.com/citations?hl=zh-CN&view_op=list_works&gmla=AETOMgFLoE2SsU2RFX0_mlSWeGqT02u6zsY7dGjYDI_OUw9vlD1JD40-6hoMQmnizQg9BxPPN5L4ysAwDy2aG-DZ4bnR4G4gjLjVsCTleViArHZc-EiTQ_MMans9hnerHBA&user=3ybtZqUAAAAJ"
   #impactstory      : # URL
-  #orcid            : "http://orcid.org/yourorcidurl"
+  orcid            : "https://orcid.org/0000-0002-6925-9032"
   #pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   #researchgate     : # URL
 
@@ -79,7 +79,7 @@ breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
 future                   : true
 read_more                : "disabled" # if enabled, adds "Read more" links to excerpts
-talkmap_link             : false #change to true to add link to talkmap on talks page
+talkmap_link             : true #change to true to add link to talkmap on talks page
 comments:
   provider               : # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
   disqus:

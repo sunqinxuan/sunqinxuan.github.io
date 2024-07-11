@@ -9,3 +9,8 @@ redirect_from:
 
 This is the website of Dr. Q. Sun.
 
+{% if site.talkmap_link == true %}
+
+<p style="text-decoration:underline;"><a href="/talkmap.html">See a map of the places ...</a></p>
+
+{% endif %}

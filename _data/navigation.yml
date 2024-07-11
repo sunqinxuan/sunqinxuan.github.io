@@ -7,7 +7,7 @@ main:
     url: /projects/    
 
   - title: "Research Journal"
-    url: /year-archive/
+    url: /journal/
 
   - title: "Literature"
     url: /literature/    
