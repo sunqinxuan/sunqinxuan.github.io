@@ -21,13 +21,8 @@ Education
 
 Work experience
 ======
-* 2022.9-present: Research Assistant
-  * Zhejiang Lab
-  * Duties included: 
-  
-* 2021.8-2022.8: Algorithm Engineer
-  * China Intelligent and Connected Vehicles (Beijing) Research Institute Co.,Ltd.
-  * Duties included: 
+* 2022.9-present: Research Assistant at Zhejiang Lab
+* 2021.8-2022.8: Algorithm Engineer at China Intelligent and Connected Vehicles (Beijing) Research Institute Co.,Ltd.
 
 <br>
 
