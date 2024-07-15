@@ -579,7 +579,7 @@ ensemble rmse on 1003.040000 = 10.538149
 <img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img7.jpg" alt="architecture" />
 -->
 
-## related links
+## Related Links 
 
 patent：
 - [CN117213472A (Chinese)](http://sunqinxuan.github.io/files/publications-2023-12-12-patent-CN117213472A.pdf)

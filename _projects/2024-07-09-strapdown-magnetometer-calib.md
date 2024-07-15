@@ -390,7 +390,7 @@ The calibration results can be seen from the figure below.
 | :----: | :----: | :----: | 
 | RMSE  | 2316.71 nT  |688.72 nT | 
 
-## related links
+## Related Links 
 
 code:
 - [Magnetometer-Calibration](https://github.com/sunqinxuan/Magnetometer-Calibration.git)
