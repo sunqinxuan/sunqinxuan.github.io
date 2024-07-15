@@ -1,5 +1,5 @@
 ---
-title: "【Journal paper】Plane-Edge-SLAM: Seamless Fusion of Planes and Edges for SLAM in Indoor Environments"
+title: "Plane-Edge-SLAM: Seamless Fusion of Planes and Edges for SLAM in Indoor Environments"
 collection: publications
 permalink: /publication/TASE2020
 excerpt: 'Plane-Edge-SLAM: Seamless Fusion of Planes and Edges for SLAM in Indoor Environments'
@@ -39,6 +39,9 @@ method definitely benefits the performance of motion estimation.
 The results of extensive experiments on public data sets and in
 real-world indoor scenes demonstrate that the plane-edge-SLAM
 system can achieve high accuracy and robustness.
+
+**Keywords**: 
+Plane fitting, RGB-D camera, six-degree-of-freedom (6-DoF) camera motion estimation
 
 <iframe width="1255" height="706" src="https://www.youtube.com/embed/w3abLO_PDNo" title="publications TASE 2020 11 04 video real world" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 

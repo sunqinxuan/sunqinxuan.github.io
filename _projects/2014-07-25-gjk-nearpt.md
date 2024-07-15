@@ -121,4 +121,4 @@ CUDA代码分为两部分，一部分是host（CPU）上运行，是普通的C�
 
 代码：[gjk_nearpt](https://github.com/sunqinxuan/gjk_nearpt)
 
-发明专利：[CN104462764A](https://sunqinxuan.github.io/publication/CN104462764A)
+发明专利：[CN104462764A](http://sunqinxuan.github.io/files/publications-2015-03-25-patent-CN104462764A.pdf)

@@ -1,5 +1,5 @@
 ---
-title: "【Journal paper】RGB-D SLAM in Indoor Environments With STING-Based Plane Feature Extraction"
+title: "RGB-D SLAM in Indoor Environments With STING-Based Plane Feature Extraction"
 collection: publications
 permalink: /publication/TMech2018
 excerpt: 'RGB-D SLAM in Indoor Environments With STING-Based Plane Feature Extraction'
@@ -33,6 +33,9 @@ for some challenging scenes. The experimental results
 demonstrate that the proposed plane feature-based RGB-D
 SLAM can achieve high accuracy and robustness in both
 on-board and hand-held applications.
+
+**Keywords**:
+Indoor environment mapping, plane feature, RGB-D camera, robot vision, six degrees of freedom (6-DoF) camera pose estimation
 
 <iframe width="1255" height="707" src="https://www.youtube.com/embed/Iuxr3OSvTC0" title="publications TMech 2018 06 12 video1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
