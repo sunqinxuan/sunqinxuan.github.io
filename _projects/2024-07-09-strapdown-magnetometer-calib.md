@@ -352,35 +352,40 @@ Equation (8) provides the relationship between the attitude increment \\(R^{b_{k
 
 ### Flight 1002
 
-该航线相关信息可见[Flt1002_readme.txt](http://sunqinxuan.github.io/files/posts-research-journal-2023-11-27-Flt1002_readme.txt)。选择1002.02与1002.20两条标定飞行轨迹上所采集的数据进行实验，在[异常图](https://geophysical-data.canada.ca/)中画出两条标定飞行轨迹如下图所示：
+<!--该航线相关信息可见[Flt1002_readme.txt](http://sunqinxuan.github.io/files/posts-research-journal-2023-11-27-Flt1002_readme.txt)。选择1002.02与1002.20两条标定飞行轨迹上所采集的数据进行实验，在[异常图](https://geophysical-data.canada.ca/)中画出两条标定飞行轨迹如下图所示： -->
+The relevant information regarding this flight route can be found in [Flt1002_readme.txt](http://sunqinxuan.github.io/files/posts-research-journal-2023-11-27-Flt1002_readme.txt). For the experiment, select data collected from calibration flight paths 1002.02 and 1002.20. Plot these two calibration flight paths in the [anomaly map](https://geophysical-data.canada.ca/) as shown below.
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img3.png)
 
-椭球拟合与标定结果如下图所示：
+<!--椭球拟合与标定结果如下图所示： -->
+The calibration results can be seen from the figure below.
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img4.png)
 
-校正前后的RMSE误差如下表所示：
+<!--校正前后的RMSE误差如下表所示： -->
+The RMSE errors before and after correction are shown in the following table.
 
-|       | 校正前 | 校正后 | 
+|       | Before Correction | After Correction | 
 | :----: | :----: | :----: | 
-| RMSE误差（与地磁图比较）      | 1665.04 nT  |82.57 nT | 
+| RMSE   | 1665.04 nT  |82.57 nT | 
 
 ### Flight 1003
 
-将用Flight 1002的标定航线数据计算的模型参数用于Flight 1003航线的校正中，选择其中1003.02、1003.04、1003.08三条航线数据进行验证。在[异常图](https://geophysical-data.canada.ca/)中画出三条标定飞行轨迹如下图所示：
+<!--将用Flight 1002的标定航线数据计算的模型参数用于Flight 1003航线的校正中，选择其中1003.02、1003.04、1003.08三条航线数据进行验证。在[异常图](https://geophysical-data.canada.ca/)中画出三条标定飞行轨迹如下图所示： -->
+The model parameters calculated using the calibration flight data from Flight 1002 are applied to correct Flight 1003. The results are verified using data from flights 1003.02, 1003.04, and 1003.08. Plot these three calibration flight paths in the [anomaly map](https://geophysical-data.canada.ca/) as shown in the following figure.
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img5.png)
 
-椭球拟合与标定结果如下图所示：
+<!--椭球拟合与标定结果如下图所示： -->
+The calibration results can be seen from the figure below.
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img6.png)
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-05-24-img7.png)
 
-|       | 校正前 | 校正后 | 
+|       | Before Correction | After Correction |
 | :----: | :----: | :----: | 
-| RMSE误差（与地磁图比较）      | 2316.71 nT  |688.72 nT | 
+| RMSE  | 2316.71 nT  |688.72 nT | 
 
 ## related links
 
@@ -406,131 +411,3 @@ code:
 [^8]: [A way to calibrate a magnetometer](https://teslabs.com/articles/magnetometer-calibration/)
 
 [^9]: [On Misalignment between Magnetometer and Inertial Sensors](https://ieeexplore.ieee.org/document/7496814)
-
-<!--
-
-## Problem formulation
-
-在文献[5]中，磁强计-惯导捷联系统标定问题被建模为未知模型参数下的传感器姿态估计问题。
-
->Our magnetometer calibration algorithm is formulated as a problem of determining the sensor's orientation in the presence of unknown model parameters.
-
-令系统状态\\(x_t\\)表示\\(t\\)时刻的传感器姿态，则对应非线性系统状态模型可以表示为：
-
-$$
-x_{t+1}=f_t(x_t,\omega_t,e_{\omega,t},\theta),
-$$
-
-$$
-y_t=
-\begin{bmatrix}
-y_{a,t}\\
-y_{m,t}
-\end{bmatrix}=
-\begin{bmatrix}
-h_{a,t}(x_t)\\
-h_{m,t}(x_t,\theta)
-\end{bmatrix}
-+e_t(\theta)
-$$
-
-
-## 标定算法流程
-
-![img](http://sunqinxuan.github.io/images/posts-research-journal-2024-05-24-img2.png)
-
-
-## MAXIMUM LIKELIHOOD FORMULATION
-
-在补偿之前，磁测量数据分布在一个椭球面上，而在补偿后，理论上磁测量数据将分布在一个球面上。
-
-以下将省略表示body frame的上标\\(b\\)。
-
-综合上节内容，总的测量模型为
-
-$$
-\boldsymbol{y}_{m,k}=DR_k^{bn}\boldsymbol{m}^n+\boldsymbol{o}+\boldsymbol{e}_{m,k}
-$$
-
-定义模型参数\\(\boldsymbol\theta\\)为
-
-$$
-\boldsymbol\theta=\{D,\boldsymbol{o},\boldsymbol{m}^n,\{R^{bn}_k\}_{k=1}^K\}
-$$
-
-其中
-
-$$
-D\in\mathbb{R}^{3\times3}, \boldsymbol{o}\in\mathbb{R}^{3},
-$$
-
-$$
-\boldsymbol{m}^n\in\{\mathbb{R}^{3}:\|\boldsymbol{m}^n\|_2^2=1,m_y^n=0\},
-$$
-
-$$
-\{R^{bn}_k\}_{k=1}^K\in\mathbb{SO}(3)
-$$
-
-<font color=blue>
-这里有个问题，载体或传感器相对于navigation frame的姿态\\(R^{bn}_k\\)是无法直接获取到的，需要利用惯导等额外测量进行估计。
-</font>
-
-假设噪声项为独立分布高斯白噪声，即
-
-$$
-\boldsymbol{e}_{m,k}\sim\mathcal{N}(0,\Sigma_m)
-$$
-
-通过对以下最大似然问题的求解，得到参数\\(\boldsymbol\theta\\)的最优估计：
-
-$$
-\hat{\boldsymbol{\theta}}_{ML}=\arg\max_{\boldsymbol{\theta}}
-p_\theta(\boldsymbol{y}_{1:K})
-$$
-
-其中
-
-$$
-\boldsymbol{y}_{1:K}=\{\boldsymbol{y}_{m,1},\boldsymbol{y}_{m,2},\cdots,\boldsymbol{y}_{m,K}\}
-$$
-
-在独立分布高斯白噪声的假设下，最大似然估计问题可以转化为
-
-$$
-\hat{\boldsymbol{\theta}}_{ML}=\arg\min_{\boldsymbol{\theta}}
-\frac{1}{2}
-\sum_{k=1}^K
-\|\boldsymbol{e}_{m,k}\|^2_{\Sigma_m^{-1}}
-$$
-
-在文献[3][4]中，目标函数中还有另外一项，是垂直向地心方向的磁测观测模型，但在本课题中，这个观测数据似乎无法直接获取，因此忽略这一项。
-
-## INITIAL ESTIMATE
-
-为了保证ML问题的求解能够收敛到最优解，利用椭圆约束等条件，对参数进行初值的估计。
-
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

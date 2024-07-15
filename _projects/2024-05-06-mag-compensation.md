@@ -1,5 +1,5 @@
 ---
-title: "基于Tolles-Lawson模型的航磁补偿系统"
+title: "Tolles-Lawson Model-based Aeromagnetic Compensation"
 collection: projects
 type: "Project"
 permalink: /projects/2024-05-06-mag-compensation
@@ -8,50 +8,68 @@ date: 2024-05-06
 location: "Beijing, China"
 ---
 
-基于Tolles-Lawson模型的航磁补偿系统
+Tolles-Lawson Model-based Aeromagnetic Compensation
 
-## 背景
+## Background
 
-详情可参阅[Signal Enhancement for Magnetic Navigation Challenge Problem](https://magnav.mit.edu/)。
+For more details, please refer to the [Signal Enhancement for Magnetic Navigation Challenge Problem](https://magnav.mit.edu/).
 
 > The best submission to date was submitted by: Ling-Wei Kong, Cheng-Zhen Wang, and Ying-Cheng Lai from Arizona State University ([submission](https://github.com/lw-kong/MagNav)).
 
-### dataset版本问题
+### Dataset Version Issue
 
+<!--
 dataset有两个版本：版本一和版本二。
 
 两个版本所采集数据是相同的，但是文件组织不同，包括：数据命名、数据存储顺序等。
 
 使用时须注意。
+-->
 
-[版本一](https://zenodo.org/record/6327685)
+There are two versions of the dataset: [Version 1](https://zenodo.org/record/6327685) and [Version 2](https://zenodo.org/record/4271804#.YnWQuIdBxD8).
+
+Both versions contain the same collected data, but they differ in file organization, including data naming and storage order.
+
+Caution should be exercised when using them.
+
+[Version 1](https://zenodo.org/record/6327685)
 
 ![img](http://sunqinxuan.github.io/images/projects-2023-09-21-img01.png)
 
-[版本二](https://zenodo.org/record/4271804#.YnWQuIdBxD8)
+[Version 2](https://zenodo.org/record/4271804#.YnWQuIdBxD8)
 
 ![img](http://sunqinxuan.github.io/images/projects-2023-09-21-img02.png)
 
-## 基于Tolles-Lawson模型的矢量磁补偿方案
+## Tolles-Lawson Model-based Aeromagnetic Compensation
 
-舱内测量磁场由两部分组成，可以表示为
+<!--舱内测量磁场由两部分组成，可以表示为-->
+The measured magnetic field inside the cabin consists of two components, which can be represented as
 
 $$
 \vec{B}_t=\vec{B}_e+\vec{B}_a
 $$
 
+<!--
 其中
 - \\(\vec{B}_t\\)表示舱内实测磁场矢量；
 - \\(\vec{B}_e\\)表示地球磁场，包括主磁场、异常场、日变场三部分；
 - \\(\vec{B}_a\\)为未知的载体干扰磁场。
+-->
 
-根据Tolles-Lawson模型的假设，载体干扰磁场同固定磁场、感应磁场和涡流磁场组成，即
+Where:
+- \\(\vec{B}_t\\) represents the measured magnetic field vector inside the cabin.
+- \\(\vec{B}_e\\) represents the Earth's magnetic field, including the main field, anomaly field, and diurnal field.
+- \\(\vec{B}_a\\) denotes the unknown carrier-induced magnetic interference field.
+
+<!--根据Tolles-Lawson模型的假设，载体干扰磁场由固定磁场、感应磁场和涡流磁场组成，即 -->
+According to the Tolles-Lawson model assumptions, the carrier-induced magnetic interference field is composed of the permanent magnetic field, induced magnetic field, and eddy current magnetic field, namely
 
 $$
 \vec{B}_a=\vec{B}_{perm}+\vec{B}_{ind}+\vec{B}_{eddy}
 $$
 
-固定磁场可以建模为
+<!--固定磁场可以建模为-->
+Permanent magnetic fields can be modeled as
 
 $$
 \vec{B}_{perm}=\boldsymbol{a}=
@@ -60,9 +78,13 @@ a_1 \\ a_2\\ a_3
 \end{bmatrix}
 $$
 
-其中包含3个未知系数，这些固定磁矩项表示各种铁磁载体组件的几乎恒定的永久磁化，包括载体本身和载体内的物品。除非载体的配置或内容发生变化，否则这些项不会改变。
+<!--其中包含3个未知系数，这些固定磁矩项表示各种铁磁载体组件的几乎恒定的永久磁化，包括载体本身和载体内的物品。除非载体的配置或内容发生变化，否则这些项不会改变。
 
-感应磁矩项可以表示为
+感应磁矩项可以表示为-->
+
+The permanent magnetic moment terms represent nearly constant permanent magnetization of various ferromagnetic components, including both the carrier itself and items within the carrier. These terms do not change unless there is a change in the carrier's configuration or contents.
+
+The induced magnetic moment terms can be expressed as
 
 $$
 \vec{B}_{ind}=\boldsymbol{b}\vec{B}_t=
@@ -74,11 +96,16 @@ b_{31} & b_{32} & b_{33}
 \vec{B}_t
 $$
 
-其中包含9个未知系数。感应磁矩项表示地球场在磁性易感载体组件中诱发出的次级磁场。载体和地球场的相对方向决定了感应磁化的大小和方向。由于飞机结构主要由非磁性铝合金构成，感应磁场的主要来源是飞机发动机。
+<!--其中包含6个未知系数。感应磁矩项表示地球场在磁性易感载体组件中诱发出的次级磁场。载体和地球场的相对方向决定了感应磁化的大小和方向。由于飞机结构主要由非磁性铝合金构成，感应磁场的主要来源是飞机发动机。
 
-注意：这里有一个近似，使用可观测量\\(\vec{B}_t\\)代替了未知量\\(\vec{B}_e\\)，详情可见[这里](https://sunqinxuan.github.io/posts/research-journal-2024-04-17-tl-model)。
+注意：这里有一个近似，使用可观测量\\(\vec{B}_t\\)代替了未知量\\(\vec{B}_e\\)，详情可见[这里](https://sunqinxuan.github.io/posts/research-journal-2024-04-17-tl-model)。-->
 
-涡流磁矩表示为
+The induced terms involve six unknown coefficients. The induced magnetic moment terms represent the secondary magnetic field induced by the Earth's field in magnetic susceptible components of the carrier. The magnitude and direction of induced magnetization depend on the relative orientation between the carrier and the Earth's field. Since the aircraft structure is primarily composed of non-magnetic aluminum alloys, the main source of induced magnetic field is the aircraft engines.
+
+Note: There is an approximation here, where the observable quantity \\(\vec{B}_t\\) is used instead of the unknown \\(\vec{B}_e\\). For details, see [here](https://sunqinxuan.github.io/posts/research-journal-2024-04-17-tl-model).
+
+<!--涡流磁矩表示为-->
+The eddy current magnetic moment terms can be expressed as
 
 $$
 \vec{B}_{eddy}=\boldsymbol{c}\dot{\vec{B}}_t=
@@ -90,15 +117,20 @@ c_{31} & c_{32} & c_{33}
 \dot{\vec{B}}_t
 $$
 
-其中包含9个未知系数。涡流项表示由于时变的地球场（相对于载体）与电导性载体组件相互作用而引起的电流环。与固定磁场和感应磁场不同，涡流磁场取决于地球磁通量通过这些组件的时间变化率，例如载体外壳等。由涡流产生的磁场遵循伦兹定律，与产生它们的磁场相对抗，类似于在均匀磁场中旋转的线圈中产生电流的原理。
+<!--其中包含9个未知系数。涡流项表示由于时变的地球场（相对于载体）与电导性载体组件相互作用而引起的电流环。与固定磁场和感应磁场不同，涡流磁场取决于地球磁通量通过这些组件的时间变化率，例如载体外壳等。由涡流产生的磁场遵循伦兹定律，与产生它们的磁场相对抗，类似于在均匀磁场中旋转的线圈中产生电流的原理。
 
-基于以上参数化形式，干扰磁场可以表示为
+基于以上参数化形式，干扰磁场可以表示为-->
+
+The eddy current terms involve nine unknown coefficients. Eddy currents represent circulating currents induced by the time-varying Earth's field (relative to the carrier) interacting with conductive components of the carrier. Unlike fixed and induced magnetic fields, the eddy current magnetic field depends on the rate of change of magnetic flux through these components over time, such as the carrier's outer shell. The magnetic field generated by eddy currents follows Faraday's law, opposing the fields that produce them, similar to the principle of inducing current in a coil rotating in a uniform magnetic field.
+
+Based on the parameterization above, the interference magnetic field can be represented as
 
 $$
 \vec{B}_a=\boldsymbol{a}+\boldsymbol{b}\vec{B}_t+\boldsymbol{c}\dot{\vec{B}}_t
 $$
 
-其中，参数\\(\boldsymbol{a,b,c}\\)总共包含21个系数，但由于感应磁矩矩阵的对称性，在标准的Tolles-Lawson模型中，总共有18个未知系数。
+<!--其中，参数\\(\boldsymbol{a,b,c}\\)总共包含21个系数，但由于感应磁矩矩阵的对称性，在标准的Tolles-Lawson模型中，总共有18个未知系数。-->
+Here, the parameters \\(\boldsymbol{a,b,c}\\) together contain 21 coefficients in total, but due to the symmetry of the induced magnetic moment matrix, in the standard Tolles-Lawson model, there are a total of 18 unknown coefficients.
 
 $$
 \vec{B}_a=
@@ -121,11 +153,14 @@ $$
 \dot{\vec{B}}_t
 $$
 
-其中，\\(\boldsymbol{\beta}=[\beta_1,\beta_2,\cdots,\beta_{18}]^T\\)表示待求解的Tolles-Lawson模型参数。
+<!--其中，\\(\boldsymbol{\beta}=[\beta_1,\beta_2,\cdots,\beta_{18}]^T\\)表示待求解的Tolles-Lawson模型参数。-->
+Here, \\(\boldsymbol{\beta}=[\beta_1,\beta_2,\cdots,\beta_{18}]^T\\) represents the unknown Tolles-Lawson model parameters to be solved.
 
-### 基于总量约束的模型参数求解
+<!--### 基于总量约束的模型参数求解-->
+### Model parameter estimation based on total constraint 
 
-基于测量总场矢量与地磁场矢量以及干扰场矢量的关系式，推导总场的标量信号和地磁场标量信号之间的关系。
+<!--基于测量总场矢量与地磁场矢量以及干扰场矢量的关系式，推导总场的标量信号和地磁场标量信号之间的关系。-->
+Based on the relationship between the total measured field vector, the geomagnetic field vector, and the interference field vector, derive the relationship between the scalar signals of the total field and the geomagnetic field.
 
 $$
 \vec{B}_t=\vec{B}_e+\vec{B}_a
@@ -145,45 +180,49 @@ $$
 \end{aligned}
 $$
 
-由于
+Because
 
 $$
 |\vec{B}_a|^2\ll|\vec{B}_t|^2
 $$
 
-可进行以下近似
+the following approximation can be made.
 
 $$
 |\vec{B}_e|\approx|\vec{B}_t|
 \sqrt{1-\frac{\vec{B}_t^T\vec{B}_a}{|\vec{B}_t|^2}}
 $$
 
-使用泰勒展开进行线性化可得
+<!--使用泰勒展开进行线性化可得-->
+Using Taylor expansion for linearization, we obtain
 
 $$
 |\vec{B}_e|\approx|\vec{B}_t|-
 \frac{\vec{B}_t^T\vec{B}_a}{|\vec{B}_t|}
 $$
 
-令测量总磁场的方向余弦（可由矢量磁强计的测量结果获得）为
+<!--令测量总磁场的方向余弦（可由矢量磁强计的测量结果获得）为-->
+Let the direction cosines of the measured total magnetic field (obtained from the measurement results of the vector magnetometer) be
 
 $$
 \hat{B}_t=\frac{\vec{B}_t}{|\vec{B}_t|}
 $$
 
-则有
+then,
 
 $$
 |\vec{B}_e|\approx|\vec{B}_t|-\vec{B}_a^T\hat{B}_t
 $$
 
-其中\\(\vec{B}_a^T\hat{B}_t\\)为载体干扰磁场在总场方向上的投影，具体计算为
+<!--其中\\(\vec{B}_a^T\hat{B}_t\\)为载体干扰磁场在总场方向上的投影，具体计算为-->
+The term \\(\vec{B}_a^T\hat{B}_t\\) represents the projection of the carrier-induced magnetic interference field onto the direction of the total magnetic field, which can be calculated by 
 
 $$
 \vec{B}_a^T\hat{B}_t=(\boldsymbol{a}+\boldsymbol{b}\vec{B}_t+\boldsymbol{c}\dot{\vec{B}}_t)^T\hat{B}_t
 $$
 
-则基于总量的约束关系可以表示为
+<!--则基于总量的约束关系可以表示为-->
+Thus, based on the total constraint relationship, it can be represented as
 
 $$
 |\vec{B}_e|\approx|\vec{B}_t|-
@@ -211,13 +250,15 @@ $$
 
 <img src="https://sunqinxuan.github.io/images/projects-2024-05-06-img1.png" alt="architecture" />
 
-对上式进行整理，可以得到总量约束关系相对于模型参数的矢量形式
+<!--对上式进行整理，可以得到总量约束关系相对于模型参数的矢量形式-->
+Organizing the above equation, we can obtain the vector form of the total constraint relationship relative to the model parameters.
 
 $$
 |\vec{B}_t|-|\vec{B}_e|=\vec{\delta}^T\boldsymbol{\beta}
 $$
 
-其中18维系数向量\\(\vec{\delta}\\)为
+<!--其中18维系数向量\\(\vec{\delta}\\)为-->
+where \\(\vec{\delta}\\) is calculated by 
 
 $$
 \vec{\delta}=
@@ -243,7 +284,8 @@ $$
 \end{bmatrix}
 $$
 
-假设长度为\\(N\\)的时间序列，每个时刻的\\(\vec{\delta}\\)可以组成\\(N\times18\\)维矩阵\\(\boldsymbol{A}\\)
+<!--假设长度为\\(N\\)的时间序列，每个时刻的\\(\vec{\delta}\\)可以组成\\(N\times18\\)维矩阵\\(\boldsymbol{A}\\)-->
+Assuming a time series of length \\(N\\), where each instance of \\(\vec{\delta}\\) forms an \\(N\times18\\) matrix \\(\boldsymbol{A}\\).
 
 $$
 \boldsymbol{A}=
@@ -274,22 +316,25 @@ $$
 \end{bmatrix}
 $$
 
-则有
+then, 
 
 $$
 \boldsymbol{B}_t-\boldsymbol{B}_e=\boldsymbol{A}\boldsymbol{\beta}
 $$
 
-上式可通过最小二乘方法进行求解
+<!--上式可通过最小二乘方法进行求解-->
+The above equation can be solved by the least-square algorithm.
 
 $$
 \boldsymbol{\beta}=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^T(\boldsymbol{B}_t-\boldsymbol{B}_e)
 $$
 
 
-### 基于分量约束的模型参数求解
+<!--### 基于分量约束的模型参数求解-->
+### Model parameter estimation based on component constraint
 
-直接考虑基于分量的约束关系
+<!--直接考虑基于分量的约束关系-->
+Consider the equation based on the component constraint
 
 $$
 \vec{B}_e=\vec{B}_t-
@@ -312,13 +357,15 @@ $$
 \right)
 $$
 
-根据前文所述的模型参数形式，对上式进行整理，得到基于分量关系的矢量形式
+<!--根据前文所述的模型参数形式，对上式进行整理，得到基于分量关系的矢量形式-->
+Based on the model parameter form described earlier, organizing the above equation yields the vector form based on component relationships.
 
 $$
 \vec{B}_t-\vec{B}_e=\Lambda\boldsymbol{\beta}
 $$
 
-其中\\(3\times18\\)维系数矩阵\\(\Lambda\\)为
+<!--其中\\(3\times18\\)维系数矩阵\\(\Lambda\\)为-->
+The \\(3\times18\\) coefficient matrix is represented by 
 
 $$
 \Lambda=
@@ -327,7 +374,7 @@ $$
 \end{bmatrix}
 $$
 
-其中
+with
 
 $$
 \lambda_1=\boldsymbol{I}_{3\times3}
@@ -351,7 +398,8 @@ $$
 \end{bmatrix}
 $$
 
-类似地，对于长度为\\(N\\)的时间序列，可以构成\\(3N\times18\\)维系数矩阵\\(\boldsymbol{A}\\)
+<!--类似地，对于长度为\\(N\\)的时间序列，可以构成\\(3N\times18\\)维系数矩阵\\(\boldsymbol{A}\\)-->
+Similarly, for a time series of length \\(N\\), a \\(3N\times18\\) coefficient matrix \\(\boldsymbol{A}\\) can be constructed.
 
 $$
 \boldsymbol{A}=
@@ -362,7 +410,7 @@ $$
 \end{bmatrix}
 $$
 
-并且令
+let
 
 $$
 \boldsymbol{B}_t=
@@ -382,13 +430,14 @@ $$
 \end{bmatrix}
 $$
 
-则有
+then 
 
 $$
 \boldsymbol{B}_t-\boldsymbol{B}_e=\boldsymbol{A}\boldsymbol{\beta}
 $$
 
-同样可通过最小二乘方法进行求解
+<!--同样可通过最小二乘方法进行求解-->
+The least-square algorithm is used for the estimation.
 
 $$
 \boldsymbol{\beta}=(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^T(\boldsymbol{B}_t-\boldsymbol{B}_e)
@@ -396,28 +445,41 @@ $$
 
 <img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img1.jpg" alt="architecture" />
 
-### 矢量磁补偿
+### Component Compensation for Triaxial Magnetometer
 
-在使用基于总量约束或分量约束的模型参数求解方法得到\\(\boldsymbol{\beta}\\)后，矢量磁补偿过程可以通过下式进行
+<!--在使用基于总量约束或分量约束的模型参数求解方法得到\\(\boldsymbol{\beta}\\)后，矢量磁补偿过程可以通过下式进行-->
+After obtaining \\(\boldsymbol{\beta}\\) using the model parameter estimation method based on total constraint or component constraint, the vector magnetic compensation process can be carried out using the following equation.
 
 $$
 \vec{B}_e=\vec{B}_t-\Lambda\boldsymbol{\beta}
 $$
 
-## 地磁场标定信号的获取
+<!--## 地磁场标定信号的获取
 
 在前文所述模型参数求解的过程中，\\(\vec{B}_t\\)与\\(\boldsymbol{\beta}\\)均来自标量及矢量磁强计的测量值，而地磁场\\(\vec{B}_e\\)的来源问题需要进一步讨论。
+-->
+## Acquisition of geomagnetic field calibration signals
 
-### 来源一：舱外安装磁强计（真值）
+In the process of model parameter estimation described earlier, both \\(\vec{B}_t\\) and \\(\boldsymbol{\beta}\\) come from measurements of scalar and vector magnetometers, while the source of the geomagnetic field \\(\vec{B}_e\\) requires further discussion.
 
-在标定飞行（磁补偿模型拟合数据采集）过程中，在舱外安装标量和矢量磁测组，同步采集每一时刻的地磁场真值，用于模型参数的求解，以及补偿精度的测试。
+<!--### 来源一：舱外安装磁强计（真值）
+
+在标定飞行（磁补偿模型拟合数据采集）过程中，在舱外安装标量和矢量磁测组，同步采集每一时刻的地磁场真值，用于模型参数的求解，以及补偿精度的测试。-->
+
+### Source 1: External Installation of Magnetometer (Ground Truth)
+
+During calibration flights (magnetic compensation model fitting data collection), scalar and vector magnetic measurement systems are installed externally to synchronously capture ground truth geomagnetic field values at each moment. These values are used for model parameter estimation and compensation accuracy testing.
 
 >Comparing to the map values is not done in most of this work, since the tail stinger measurement is considered to be a better “truth” measurement as it was measured at the same time and avoids map errors.<br>
 ref. [A. R. Gnadt, “Advanced Aeromagnetic Compensation Models for Airborne Magnetic Anomaly Navigation,” Massachusetts Institute of Technology, 2022. ](https://dspace.mit.edu/handle/1721.1/145137)
 
-### 来源二：高精度地磁基准图
+<!--### 来源二：高精度地磁基准图
 
-目前不具备适用性，并且无法获取矢量地磁场信息。
+目前不具备适用性，并且无法获取矢量地磁场信息。-->
+
+### Source 2: High-Precision Geomagnetic Reference Map
+
+Currently not applicable and does not provide vector geomagnetic field information.
 
 > The map-based calibration, is less common in the literature,
 but more intuitive. This calibration method flies
@@ -432,11 +494,17 @@ magnetic map-products being used.<br>
 ref. [A. J. Canciani, "Magnetic Navigation on an F-16 Aircraft Using Online Calibration," in IEEE Transactions on Aerospace and Electronic Systems, vol. 58, no. 1, pp. 420-434.](https://ieeexplore.ieee.org/document/9506809)
 
 
-### 来源三：bpf "trick"
+<!--### 来源三：bpf "trick"
 
 在标定飞行过程中，飞行区域选择地磁场变化较小的区域，并使无人机做各类机动动作，然后通过带通滤波器，滤除地磁场信号。
 
-但这一方案只适用于“基于总量约束的参数求解”方法。
+但这一方案只适用于“基于总量约束的参数求解”方法。-->
+
+### Source 3: BPF "Trick"
+
+During calibration flights, areas with minimal geomagnetic field variation are selected, and the drone performs various maneuvers. A band-pass filter is then used to filter out the geomagnetic field signal.
+
+However, this approach is only suitable for the "model parameter estimation based on total constraint" method.
 
 > The “trick” is to use a bandpass finite impulse response filter (bpf).<br>
 The passband frequency range for the bandpass filter is carefully selected in order
@@ -445,7 +513,7 @@ practice, a passband of 0.1-0.9 Hz has been found to perform well, since in this
 range the frequency content of the aircraft dominates the magnetic signal.<br>
 ref. [A. R. Gnadt, “Advanced Aeromagnetic Compensation Models for Airborne Magnetic Anomaly Navigation,” Massachusetts Institute of Technology, 2022. ](https://dspace.mit.edu/handle/1721.1/145137)
 
-## 标定飞行
+<!--## 标定飞行
 
 在飞机上同时安装舱内以及舱外磁测量组（标量和矢量磁强计），并进行标定飞行。
 
@@ -453,12 +521,22 @@ ref. [A. R. Gnadt, “Advanced Aeromagnetic Compensation Models for Airborne Mag
 
 根据《航空磁测技术规范》飞机磁场补偿飞行方法，在磁补偿飞行试验过程中，采用五边航线飞行方法。每条航线上，飞机在一定角度范围内进行俯仰、横滚和偏航机动。
 
-标定飞行通常在高海拔地区进行，地磁梯度相对较小。但此要求主要针对基于bpf "trick"的地球磁场滤波方法，对恒定磁场进行滤除。对于其他两种地磁场来源方式，对地磁梯度的需求可相对放宽。
+标定飞行通常在高海拔地区进行，地磁梯度相对较小。但此要求主要针对基于bpf "trick"的地球磁场滤波方法，对恒定磁场进行滤除。对于其他两种地磁场来源方式，对地磁梯度的需求可相对放宽。-->
+
+## Calibration Flight
+
+Install both cabin and external magnetic measurement systems (scalar and vector magnetometers) on the aircraft and conduct calibration flights.
+
+During the calibration flight, the aircraft performs a series of specific roll, pitch, and yaw maneuvers to collect measurements required for model parameter estimation.
+
+According to the "Aviation Magnetometry Technology Standards," the aircraft's magnetic field compensation flight method uses a five-leg flight path. On each leg, the aircraft performs pitch, roll, and yaw maneuvers within a certain angle range.
+
+Calibration flights are typically conducted at high altitudes, where the geomagnetic gradient is relatively small. However, this requirement primarily applies to the geomagnetic field filtering method based on the BPF "trick" for filtering out the constant magnetic field. For the other two geomagnetic field sources, the requirement for geomagnetic gradient can be relatively relaxed.
 
 <img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img11.png" alt="architecture" />
 
 
-## 实验
+## Experiments
 
 mag 3 - ensemble rmse on 1003.020000 = 82.502527
 
@@ -504,16 +582,13 @@ ensemble rmse on 1003.040000 = 10.538149
 <img src="https://sunqinxuan.github.io/images/projects-2023-09-21-img7.jpg" alt="architecture" />
 -->
 
-## 相关链接
+## related links
 
-专利：
-- [基于矢量数据的地磁导航方法、装置以及电子设备](https://sunqinxuan.github.io/publication/CN117213472A)
+patent：
+- [CN117213472A](http://sunqinxuan.github.io/files/publications-2023-12-12-patent-CN117213472A.pdf)
 
-代码：
+code：
 - [a modified version with c++ implementation of the TL-model](https://github.com/sunqinxuan/magnav)
-
-
-
 
 
 
