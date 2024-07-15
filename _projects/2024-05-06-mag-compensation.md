@@ -31,11 +31,11 @@ Both versions contain the same collected data, but they differ in file organizat
 
 Caution should be exercised when using them.
 
-[Version 1](https://zenodo.org/record/6327685)
+[Version 1](https://zenodo.org/record/6327685):
 
 ![img](http://sunqinxuan.github.io/images/projects-2023-09-21-img01.png)
 
-[Version 2](https://zenodo.org/record/4271804#.YnWQuIdBxD8)
+[Version 2](https://zenodo.org/record/4271804#.YnWQuIdBxD8):
 
 ![img](http://sunqinxuan.github.io/images/projects-2023-09-21-img02.png)
 
@@ -524,11 +524,9 @@ ref. [A. R. Gnadt, “Advanced Aeromagnetic Compensation Models for Airborne Mag
 
 ## Calibration Flight
 
-Install both cabin and external magnetic measurement systems (scalar and vector magnetometers) on the aircraft and conduct calibration flights.
-
 During the calibration flight, the aircraft performs a series of specific roll, pitch, and yaw maneuvers to collect measurements required for model parameter estimation.
 
-According to the "Aviation Magnetometry Technology Standards," the aircraft's magnetic field compensation flight method uses a five-leg flight path. On each leg, the aircraft performs pitch, roll, and yaw maneuvers within a certain angle range.
+According to the "Aviation Magnetometry Technology Standards", the aircraft's magnetic field compensation flight method uses a square flight pattern. On each leg, the aircraft performs pitch, roll, and yaw maneuvers within a certain angle range.
 
 Calibration flights are typically conducted at high altitudes, where the geomagnetic gradient is relatively small. However, this requirement primarily applies to the geomagnetic field filtering method based on the BPF "trick" for filtering out the constant magnetic field. For the other two geomagnetic field sources, the requirement for geomagnetic gradient can be relatively relaxed.
 
@@ -584,7 +582,7 @@ ensemble rmse on 1003.040000 = 10.538149
 ## related links
 
 patent：
-- [CN117213472A](http://sunqinxuan.github.io/files/publications-2023-12-12-patent-CN117213472A.pdf)
+- [CN117213472A (Chinese)](http://sunqinxuan.github.io/files/publications-2023-12-12-patent-CN117213472A.pdf)
 
 code：
 - [a modified version with c++ implementation of the TL-model](https://github.com/sunqinxuan/magnav)

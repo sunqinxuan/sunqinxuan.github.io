@@ -28,7 +28,7 @@ If you are interested in my research, please feel free to check out my [academic
 
 <hr>
 
-In my spare time, I enjoy reading detective novels, practicing Chinese calligraphy, painting and occasionally writing poetry or book reviews. If you also enjoy these activities, feel free to click [this link](https://sunqinxuan.github.io/literature/) and also my [portfolio](https://sunqinxuan.github.io/portfolio/) to see more.
+In my spare time, I enjoy reading detective novels, practicing Chinese calligraphy, painting and occasionally writing poetry or book reviews. If you also enjoy these activities, feel free to click [this link (where most literary works are created in Chinese)](https://sunqinxuan.github.io/literature/) and also my [portfolio](https://sunqinxuan.github.io/portfolio/) to see more.
 
 <center class="half">
     <img src="http://sunqinxuan.github.io/images/portfolio-2024-01-20-dingfengbo.jpg" width="370"/><img src="http://sunqinxuan.github.io/images/portfolio-2020-07-22.jpg" width="375"/>
