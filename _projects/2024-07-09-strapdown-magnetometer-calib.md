@@ -1,20 +1,16 @@
 ---
-title: '基于椭球约束的磁干扰补偿模型参数估计方法'
+title: 'Magnetic Interference Compensation Based on Ellipsoid Fitting'
 date: 2024-07-09
 permalink: /posts/research-journal-2024-07-09
 tags:
   - research journal
 ---
 
-基于椭球约束的磁干扰补偿模型参数估计方法。
+<!--基于椭球约束的磁干扰补偿模型参数估计方法-->
+Magnetic Interference Compensation Based on Ellipsoid Fitting.
 
-<!--
-目前所使用的MIT的基于TL模型的补偿方法，线性最小二乘参数估计方法比较弱，对于噪声和数据异常等情况的鲁棒性较差，而且在建模的时候没有包含飞机姿态参数。另外，由于真值的缺失，使得目前以最小化测量值和真值残差的拟合方法难以顺利进行。
-
-针对上述问题，我对磁强计加惯导的捷联系统整体标定和补偿的方法进行了一些调研。对于干扰磁场模型，大多数文献中都是采用了硬磁干扰加软磁干扰的建模方式，与我们目前所使用的TL模型是一致的。由于没有真值做为参考，因此使用椭圆拟合的原理，对模型参数进行计算，比如文献[^1][^2]中，使用变量替换的方法，将椭圆方程中的非线性约束转化为线性约束，完成求解后再转换回去。而文献[^3][^4]的估计模型中，不仅包含了标定参数和补偿参数，还包含传感器每个时刻的姿态，是个高度非线性的问题，通过最大似然估计进行求解。但是这样的求解方法需要给一个离最优解相对较近的初值，不然可能不收敛，因此使用椭圆约束和一些其他约束条件，先一步进行初值的估计。关于这一部分，我还没有太理清。但我觉得这样的方法对于我想要将飞行姿态考虑进行的想法还是比较有启发的，所以准备进一步研究一下。
--->
-
-不考虑任何误差与干扰的情况下，在均匀磁场转运载体时，测量磁场矢量的模长不受姿态影响，在三维空间中其轨迹落在球面上。当受到误差和干扰的影响时，理论上磁场测量矢量的轨迹形成一个椭球面。
+<!--不考虑任何误差与干扰的情况下，在均匀磁场转动载体时，测量磁场矢量的模长不受姿态影响，在三维空间中其轨迹落在球面上。当受到误差和干扰的影响时，理论上磁场测量矢量的轨迹形成一个椭球面。-->
+Under the condition of no errors and interference, when the carrier rotates in a uniform magnetic field, the magnitude of the measured magnetic field vector is not affected by the attitude, and its trajectory falls on a spherical surface in three-dimensional space. When errors and interference are present, theoretically, the trajectory of the measured magnetic field vector forms an ellipsoidal surface.
 
 <center>
     <img style="border-radius: 0.3125em;
@@ -24,7 +20,7 @@ tags:
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;">图片来自《地磁导航理论与实践》（张晓明）</div>
+    padding: 2px;">Quoted from 《地磁导航理论与实践》（张晓明）</div>
 </center>
 
 <center>
@@ -35,12 +31,13 @@ tags:
     <div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;">图片来自"Calibration of a magnetometer in combination with inertial sensors"</div>
+    padding: 2px;">Quoted from "Calibration of a magnetometer in combination with inertial sensors"</div>
 </center>
 
 ## Magnetometer measurement model
 
-磁强计-惯导捷联系统的测量模型为
+<!--磁强计-惯导捷联系统的测量模型为-->
+The measurement model of the magnetometer-inertial navigation system is
 
 $$
 \boldsymbol{y}_{k}^m=C_{sc}C_{no}
@@ -48,6 +45,7 @@ $$
 +\boldsymbol{o}_{zb}+\boldsymbol{e}_{k}^m
 $$
 
+<!--
 其中
 
 - \\(\boldsymbol{y}_{k}^m\\)为矢量磁场测量数据；
@@ -65,14 +63,34 @@ $$
 - \\(C_{si}\\)为载体干扰磁场中的感应磁场矩阵（soft-iron effect）；
 
 - \\(\boldsymbol{o}_{hi}\\)为载体干扰磁场中的固定磁场向量（hard-iron effects）；
+-->
 
-进一步整理后，得到最终的测量模型：
+where
+
+- \\(\boldsymbol{y}_{k}^m\\) is the magnetic field measurement data; 
+
+- \\(\boldsymbol{m}_k^m\\) is the geomagnetic vector represented in the magnetometer frame;
+
+- \\(C_{sc}\\) is the magnetometer triaxial sensitivity matrix;
+
+- \\(C_{no}\\) is the magnetometer triaxial non-orthogonal matrix;
+
+- \\(\boldsymbol{o}_{zb}\\) is the magnetometer triaxial zero bias;
+
+- \\(\boldsymbol{e}_{k}^m\\) is the measurement noise of the magnetometer;
+
+- \\(C_{si}\\) is the induced magnetic field matrix in the carrier interference field (soft-iron effect);
+
+- \\(\boldsymbol{o}_{hi}\\) is the fixed magnetic field vector in the carrier interference field (hard-iron effects).
+
+<!--进一步整理后，得到最终的测量模型：-->
+After further organization, the final measurement model is obtained as follows.
 
 $$
 \boldsymbol{y}_{k}^m=D\boldsymbol{m}_k^m+\boldsymbol{o}+\boldsymbol{e}_{k}^m
 $$
 
-其中，
+where
 
 $$
 D=C_{sc}C_{no}C_{si}
@@ -82,6 +100,7 @@ $$
 \boldsymbol{o}=C_{sc}C_{no}\boldsymbol{o}_{hi}+\boldsymbol{o}_{zb}
 $$
 
+<!--
 上述模型在目前的研究中是比较通用的，该模型能够成立的一些假设条件：
 
 - 干扰磁场须来自于与传感器刚性固连的设备或者载体平台；
@@ -89,17 +108,28 @@ $$
 - 标定数据采集时，外部磁场（地磁场）是均匀不变的。
 
 在本课题中，以上两个假设均可以视作已满足。
+-->
+
+The above model is relatively common in current research. Some assumptions for the model to hold include:
+
+- The interference magnetic field must come from equipment or carrier platforms rigidly attached to the sensor.
+
+- During calibration data collection, the external magnetic field (geomagnetic field) is uniform and constant.
+
+In this study, both assumptions can be considered as satisfied.
 
 ## Quadrics
 
-二次曲面包含不同的形状类型，有圆球、椭球、抛物面等。一般形式的二次曲面方程可以表示为
+<!--二次曲面包含不同的形状类型，有圆球、椭球、抛物面等。一般形式的二次曲面方程可以表示为-->
+Quadratic surfaces include different shapes such as spheres, ellipsoids, and paraboloids. The general form of the quadratic surface equation can be expressed as
 
 $$
 S:
 ax^2+by^2+cz^2+2fyz+2gxz+2hxy+px+qy+rz+d=0.
 $$
 
-其矩阵形式为
+<!--其矩阵形式为-->
+The matrix form of the above equation is represented by 
 
 $$
 S:
@@ -107,7 +137,7 @@ S:
 \boldsymbol{x}^T\boldsymbol{n}+d=0
 $$
 
-其中
+where
 
 $$
 \boldsymbol{x}=
@@ -134,19 +164,22 @@ $$
 
 ## Ellipsoid fit
 
-首先，令\\(\mathcal{F}\\)表示载体所在区域的均匀地磁场强度，即
+<!--首先，令\\(\mathcal{F}\\)表示载体所在区域的均匀地磁场强度，即-->
+First, let \\(\mathcal{F}\\) represent the uniform geomagnetic field strength in the area where the carrier is located, that is,
 
 $$
 \|{m}^n\|_2=\mathcal{F}
 $$
 
-则有以下等式成立
+<!--则有以下等式成立-->
+Then the following equation holds.
 
 $$
 \|{m}^n\|_2^2-\mathcal{F}^2=\|R_k^{nm}{m}_k^m\|_2^2-\mathcal{F}^2=\|{m}_k^m\|_2^2-\mathcal{F}^2=0
 $$
 
-展开可得椭球约束方程：
+<!--展开可得椭球约束方程：-->
+Expanding this, we obtain the ellipsoid constraint equation as follows.
 
 $$
 \begin{aligned}
@@ -155,7 +188,7 @@ $$
 \end{aligned}
 $$
 
-其中
+where
 
 $$
 A=D^{-T}D^{-1} \tag{1}
@@ -169,65 +202,11 @@ $$
 c={o}^TD^{-T}D^{-1}{o}-\mathcal{F}^2 \tag{3}
 $$
 
-椭球拟合可以参考文献[^6]所提出的方法，及其对应的matlab实现版本[^7]。通过椭球拟合方法，可以得到椭球系数的估计值\\(\hat{A}_s,\hat{b}_s,\hat{c}_s\\)。
+<!--椭球拟合可以参考文献[^6]所提出的方法，及其对应的matlab实现版本[^7]。通过椭球拟合方法，可以得到椭球系数的估计值\\(\hat{A}_s,\hat{b}_s,\hat{c}_s\\)。 -->
+Ellipsoid fitting can refer to the method proposed in reference [^6] and its corresponding MATLAB implementation [^7]. Using the ellipsoid fitting method, estimates \\(\hat{A}_s,\hat{b}_s,\hat{c}_s\\) of the ellipsoid coefficients can be obtained.
 
-<!--
-
-对椭球方程进行整理可得到
-
-$$
-M\eta\approx0
-$$
-
-$$
-M=
-\begin{bmatrix}
-y_{m,1}\otimes y_{m,1} & y_{m,1} & 1 \\
-y_{m,2}\otimes y_{m,2} & y_{m,2} & 1 \\
-\vdots & \vdots & \vdots \\
-y_{m,N}\otimes y_{m,N} & y_{m,N} & 1 \\
-\end{bmatrix}
-$$
-
-$$
-\eta=
-\begin{bmatrix}
-{\rm vec}A \\
-b\\
-c
-\end{bmatrix}
-$$
-
-其中\\(\otimes\\)表示[Kronecker product](https://en.wikipedia.org/wiki/Kronecker_product)，\\(\rm vec\\)表示[vectorization operator](https://en.wikipedia.org/wiki/Vectorization_(mathematics))。
-
-可以通过SVD分解对方程进行求解，求解结果\\(\hat{\eta}_s\\)为矩阵\\(M\\)的最小奇异值对应的向量，\\(\hat{\eta}_s\\)满足模长为1的约束。需要注意的是，对于任意\\(\alpha\in\mathbb{R}\\)，\\(\alpha\hat{\eta}_s\\)同样可以满足该椭圆方程。
-
-假设我们最终的求解结果为
-
-$$
-\hat{\eta}=\alpha\hat{\eta}_s
-$$
-
-即
-
-$$
-\begin{bmatrix}
-{\rm vec}\hat{A}\\
-\hat{b}\\
-\hat{c}
-\end{bmatrix}
-=
-\begin{bmatrix}
-{\rm vec}(\alpha\hat{A}_s)\\
-\alpha\hat{b}_s\\
-\alpha\hat{c}_s
-\end{bmatrix}
-$$
-
--->
-
-从椭球方程可以看出，对于任意\\(\alpha\in\mathbb{R}\\)，\\(\alpha\hat{A}_s,\alpha\hat{b}_s,\alpha\hat{c}_s\\)同样可以满足该椭圆方程。
-根据式(3)提供的约束，可以确定变量\\(\alpha\\)的值。
+<!--从椭球方程可以看出，对于任意\\(\alpha\in\mathbb{R}\\)，\\(\alpha\hat{A}_s,\alpha\hat{b}_s,\alpha\hat{c}_s\\)同样可以满足该椭圆方程。 -->
+From the ellipsoid equation, it can be observed that for any \\(\alpha\in\mathbb{R}\\)，\\(\alpha\hat{A}_s,\alpha\hat{b}_s,\alpha\hat{c}_s\\) also satisfy the ellipsoid equation. 
 
 $$
 \begin{aligned}
@@ -237,20 +216,15 @@ $$
 \end{aligned}
 $$
 
-可以得到 
+<!--根据式(3)提供的约束，可以确定变量\\(\alpha\\)的值。 -->
+According to the constraint provided by equation (3), the value of the variable \\(\alpha\\) can be determined.
 
 $$
 \alpha=(\frac{1}{4}\hat{b}_s^T\hat{A}_s^{-1}\hat{b}_s-\hat{c}_s)^{-1}\mathcal{F}^2
 $$
 
-<!--
-<font color=blue>
-这里有个问题，式(3)成立的前提是\\(\|{m}^n\|_2=1\\)，即对地磁场进行了归一化。
-这一点会带来什么影响呢？还没想明白。
-</font>
--->
-
-接下来，根据式(1)-(3)，对模型参数的估计结果\\(\hat{D},\hat{o}\\)进行反解。
+<!--接下来，根据式(1)-(3)，对模型参数的估计结果\\(\hat{D},\hat{o}\\)进行反解。 -->
+Next, based on equations (1)-(3), the estimated model parameters \\(\hat{D},\hat{o}\\) are solved.
 
 $$
 \hat{D}^{-T}\hat{D}^{-1}=\alpha\hat{A}_s \tag{4}
@@ -260,9 +234,13 @@ $$
 \hat{o}=-\frac{1}{2}\hat{A}_s^{-1}\hat{b}_s
 $$
 
-根据式(4)可以看出，\\(\hat{D}\\)没有唯一解，因为对于任意满足\\(V^TV=I_3\\)的矩阵\\(V\\)，\\(\hat{D}V\\)都可以使式(4)成立。
+<!--根据式(4)可以看出，\\(\hat{D}\\)没有唯一解，因为对于任意满足\\(V^TV=I_3\\)的矩阵\\(V\\)，\\(\hat{D}V\\)都可以使式(4)成立。
 
-通过对式(4)右侧进行特征值分解可以得到某一个求解结果为\\(\tilde{D}\\)，
+通过对式(4)右侧进行特征值分解可以得到某一个求解结果为\\(\tilde{D}\\)， -->
+
+According to equation (4), it can be seen that \\(\hat{D}\\) does not have a unique solution because for any matrix \\(V\\) satisfying \\(V^TV=I_3\\), \\(\hat{D}V\\) can satisfy equation (4).
+
+By performing an eigenvalue decomposition on the right-hand side of equation (4), we can obtain a particular solution denoted as \\(\tilde{D}\\).
 
 $$
 \begin{aligned}
@@ -276,28 +254,41 @@ $$
 \tilde{D}^{-1}=\sqrt{\alpha}\Lambda^{1/2} U^T
 $$
 
-则其与最终解\\(\hat{D}\\)之间的关系为
+<!--则其与最终解\\(\hat{D}\\)之间的关系为 -->
+Therefore, the relationship between \\(\tilde{D}\\) and the final solution \\(\hat{D}\\) is
 
 $$
 \hat{D}=\tilde{D}V
 $$
 
-这里的未知旋转矩阵\\(R\\)代表了磁强计和惯导之间的配准关系，无法单独通过磁测数据来确定[^3]。
+<!--这里的未知旋转矩阵\\(R\\)代表了磁强计和惯导之间的配准关系，无法单独通过磁测数据来确定[^3]。 -->
+The unknown rotation matrix \\(R\\) here represents the alignment relationship between the magnetometer and the inertial navigation system, and cannot be determined solely through magnetic measurement data [^3].
 
 ## Alignment with Inertial Sensor
 
-\\(\boldsymbol{m}_k^m\\)是在magnetometer frame中表示的地磁矢量，其与navigation frame中的地磁矢量之间的关系为
+<!--\\(\boldsymbol{m}_k^m\\)是在magnetometer frame中表示的地磁矢量，其与navigation frame中的地磁矢量之间的关系为 -->
+The geomagnetic vector \\(\boldsymbol{m}_k^m\\) represented in the magnetometer frame relates to the geomagnetic vector in the navigation frame as
 
 $$
 \boldsymbol{m}_k^m=R_k^{mn}\boldsymbol{m}^n=R^{mb}R_k^{bn}\boldsymbol{m}^n
 \tag{5}
 $$
 
-其中，\\(R^{mb}\\)表示body frame到magnetometer frame之间的姿态变换，\\(R_k^{bn}\\)则表示\\(k\\)时刻body frame在navigation frame中的姿态。
+<!--其中，\\(R^{mb}\\)表示body frame到magnetometer frame之间的姿态变换，\\(R_k^{bn}\\)则表示\\(k\\)时刻body frame在navigation frame中的姿态。
 
 从式(5)可以看出，当载体在均匀地磁场中进行标定运动时，矢量磁场测量值的变化仅与载体的姿态变化有关[^9]。
 
-将上一部分模型参数的求解结果和式(5)代入测量模型可得
+将上一部分模型参数的求解结果和式(5)代入测量模型可得 -->
+
+
+Where:
+
+- \\(R^{mb}\\) represents the attitude transformation from the body frame to the magnetometer frame,
+- \\(R_k^{bn}\\) represents the attitude of the body frame in the navigation frame at time \\(k\\).
+
+From equation (5), it can be seen that when the carrier moves in a uniform geomagnetic field for calibration, the variation in the measured magnetic field vector depends solely on the changes in the carrier's attitude [^9].
+
+Substituting the solved results of the previous section's model parameters and equation (5) into the measurement model, we obtain
 
 $$
 \begin{aligned}
@@ -306,27 +297,29 @@ $$
 \end{aligned}
 $$
 
-令
+let
 
 $$
 R=VR^{mb}
 $$
 
-可得
+then
 
 $$
 \boldsymbol{y}_{k}^m=\tilde{D}RR_k^{bn}\boldsymbol{m}^n+\hat{o}
 \tag{6}
 $$
 
-对于下一时刻，即\\(k+1\\)时刻的观测数据，有
+<!--对于下一时刻，即\\(k+1\\)时刻的观测数据，有 -->
+For the next time step \\(k+1\\), the observed data are given by
 
 $$
 \boldsymbol{y}_{k+1}^m=\tilde{D}RR_{k+1}^{bn}\boldsymbol{m}^n+\hat{o}
 \tag{7}
 $$
 
-结合式(6)和式(7)可得
+<!--结合式(6)和式(7)可得 -->
+Combining equations (6) and (7), we obtain
 
 $$
 \boldsymbol{y}_{k+1}^m=\tilde{D}RR_{k+1}^{bn}
@@ -334,13 +327,13 @@ R_k^{nb}R^T\tilde{D}^{-1}(\boldsymbol{y}_{k}^m-\hat{o})
 +\hat{o}
 $$
 
-令
+let
 
 $$
 R^{b_{k+1}}_{b_k}=R_{k+1}^{bn}R_k^{nb}
 $$
 
-可得
+then we have
 
 $$
 \boldsymbol{y}_{k+1}^m=\tilde{D}R
@@ -350,7 +343,8 @@ R^T\tilde{D}^{-1}(\boldsymbol{y}_{k}^m-\hat{o})
 \tag{8}
 $$
 
-或(8)给出了两个时刻之间，由惯导提供的载体姿态增量\\(R^{b_{k+1}}_{b_k}\\)，以及三轴矢量磁强计观测之间的关联关系。
+<!--或(8)给出了两个时刻之间，由惯导提供的载体姿态增量\\(R^{b_{k+1}}_{b_k}\\)，以及三轴矢量磁强计观测之间的关联关系。 -->
+Equation (8) provides the relationship between the attitude increment \\(R^{b_{k+1}}_{b_k}\\) provided by the inertial navigation system between two time steps, and the correlation between the observations of the triaxial vector magnetometer.
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img1.jpg)
 
