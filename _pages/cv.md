@@ -37,7 +37,7 @@ Publications
 Projects
 ======
   <ul>{% for post in site.projects reversed %}
-    {% include archive-single-talk-cv.html %}
+    {% include archive-single-project-cv.html %}
   {% endfor %}</ul>
 
 <br>

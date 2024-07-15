@@ -1,13 +1,16 @@
 ---
 title: 'Magnetic Interference Compensation Based on Ellipsoid Fitting'
+collection: projects
+type: "Research Project"
+permalink: /projects/2024-07-09-compensation
+excerpt: '...'
+venue: "Geomagnetic Navigation"
 date: 2024-07-09
-permalink: /posts/research-journal-2024-07-09
-tags:
-  - research journal
+location: "Beijing, China"
 ---
 
-<!--基于椭球约束的磁干扰补偿模型参数估计方法-->
-Magnetic Interference Compensation Based on Ellipsoid Fitting.
+<!--基于椭球约束的磁干扰补偿模型参数估计方法
+Magnetic Interference Compensation Based on Ellipsoid Fitting.-->
 
 <!--不考虑任何误差与干扰的情况下，在均匀磁场转动载体时，测量磁场矢量的模长不受姿态影响，在三维空间中其轨迹落在球面上。当受到误差和干扰的影响时，理论上磁场测量矢量的轨迹形成一个椭球面。-->
 Under the condition of no errors and interference, when the carrier rotates in a uniform magnetic field, the magnitude of the measured magnetic field vector is not affected by the attitude, and its trajectory falls on a spherical surface in three-dimensional space. When errors and interference are present, theoretically, the trajectory of the measured magnetic field vector forms an ellipsoidal surface.

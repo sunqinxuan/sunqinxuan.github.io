@@ -18,7 +18,7 @@ I received my Ph.D and M.A. in Control Science and Engineering from the [College
 
 My research focuses on [simultaneous localization and mapping](https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping) in robotics, with in-depth studies on pose estimation, constraint analysis and geometric feature parameterization methods.
 
-I am currently an assistant researcher at Zhejiang Lab, where I am primarily responsible for key research tasks in several national projects. My research mainly includes visual navigation, inertial navigation, and magnetic compensation.
+I am currently an assistant researcher at Zhejiang Lab, where I am primarily responsible for key research tasks in several national projects. My research mainly includes inertial navigation, geomagnetic navigation and magnetic interference compensation.
 
 If you are interested in my research, please feel free to check out my [academic papers](https://sunqinxuan.github.io/publications/) and [research projects](https://sunqinxuan.github.io/projects/).
 
