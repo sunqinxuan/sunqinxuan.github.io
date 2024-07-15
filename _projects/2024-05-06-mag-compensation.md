@@ -1,14 +1,13 @@
 ---
 title: "Tolles-Lawson Model-based Aeromagnetic Compensation"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Geomagnetic Navigation"
 permalink: /projects/2024-05-06-mag-compensation
-venue: ""
 date: 2024-05-06
 location: "Beijing, China"
 ---
-
-Tolles-Lawson Model-based Aeromagnetic Compensation
 
 ## Background
 

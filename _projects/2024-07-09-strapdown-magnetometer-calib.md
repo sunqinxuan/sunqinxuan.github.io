@@ -2,9 +2,9 @@
 title: 'Magnetic Interference Compensation Based on Ellipsoid Fitting'
 collection: projects
 type: "Research Project"
-permalink: /projects/2024-07-09-compensation
 excerpt: '...'
 venue: "Geomagnetic Navigation"
+permalink: /projects/2024-07-09-compensation
 date: 2024-07-09
 location: "Beijing, China"
 ---

@@ -1,15 +1,16 @@
 ---
 title: "Orientation Estimation for Triaxial Magnetometer in Non-Uniform Magnetic Field Environments"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Geomagnetic Navigation"
 permalink: /projects/2024-05-13-mag-alignment
-venue: ""
 date: 2024-05-13
 location: "Beijing, China"
 ---
 
-<!--非均匀磁场环境下矢量磁测量系统定姿方案 -->
-Orientation Estimation for Triaxial Magnetometer in Non-Uniform Magnetic Field Environments.
+<!--非均匀磁场环境下矢量磁测量系统定姿方案 
+Orientation Estimation for Triaxial Magnetometer in Non-Uniform Magnetic Field Environments.-->
 
 ## Background
 
