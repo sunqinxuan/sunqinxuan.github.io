@@ -42,6 +42,8 @@ Projects
 
 <br>
 
+<!--
 Download
 ======
 The Chinese version of my CV can be <a href="http://sunqinxuan.github.io/files/cv_sqx.pdf">downloaded here.</a>
+-->
