@@ -11,11 +11,19 @@ location: "Beijing, China"
 
 <!--后端全局图优化位姿参数化及雅可比求解方案-->
 
+<!--
 ## 后端全局图优化位姿参数化及雅可比求解方案
 
 ### 基于旋转四元数和位移向量参数表示和自动微分求导法的实现方案
 
 假设对于时刻\\(i\\)，车体位姿表示为\\(x_i=[p_i^T,q_i^T]^T\\)，其中\\(p_i\\)表示三维位置向量，\\(q_i\\)为单位四元数，表示车体姿态。对于两个时刻\\(i\\)和\\(j\\)，车体相对位姿对应残差项定义为
+-->
+
+## Pose Parameterization and Jacobian Solution for Backend Global Graph Optimization
+
+### Implementation Based on Quaternion Rotation and Translation Vector Representation with Automatic Differentiation
+
+Assuming for time \\(i\\), the vehicle pose is represented as \\(x_i=[p_i^T,q_i^T]^T\\), where \\(p_i\\) denotes the three-dimensional position vector and \\(q_i\\) is a unit quaternion representing the vehicle orientation. For two time instances \\(i\\) and \\(j\\), the residual term corresponding to the relative pose between vehicles is defined as
 
 $$
 r_{ij}=
@@ -25,7 +33,9 @@ R(q_i)^T(p_j-p_i)-\hat{p}_{ij} \\
 \end{bmatrix}
 $$
 
-其中，\\(\rm{vec}()\\)表示取四元数的虚部向量，即\\([q_x,q_y,q_z]^T\\)，\\(R(q)\\)表示四元数\\(q\\)所对应的旋转矩阵。相应代码实现在Functor类`EdgePoseError`中，用于Ceres `CostFunction`类中对残差向量以及对应雅可比的计算。
+<!--其中，\\(\rm{vec}()\\)表示取四元数的虚部向量，即\\([q_x,q_y,q_z]^T\\)，\\(R(q)\\)表示四元数\\(q\\)所对应的旋转矩阵。相应代码实现在Functor类`EdgePoseError`中，用于Ceres `CostFunction`类中对残差向量以及对应雅可比的计算。-->
+
+where \\(\rm{vec}()\\) denotes the vector part of a quaternion, specifically \\([q_x,q_y,q_z]^T\\), and \\(R(q)\\) represents the rotation matrix corresponding to quaternion \\(q\\). The corresponding code implementation is in the Functor class `EdgePoseError`, used in the Ceres `CostFunction` class for computing the residual vector and its corresponding Jacobian.
 
 ```c++
 	template <typename T>
@@ -58,7 +68,9 @@ $$
 	}
 ```
 
-雅可比求解采用Ceres中提供的自动微分(Automatic Derivatives)求导方法。
+<!--雅可比求解采用Ceres中提供的自动微分(Automatic Derivatives)求导方法。-->
+
+The Jacobian solving utilizes the automatic differentiation method provided by Ceres.
 
 ```c++
 	static ceres::CostFunction* Create(const Eigen::Isometry3d& pose_ij,const Matrix6d& sqrt_information)
@@ -68,9 +80,15 @@ $$
 	}
 ```
 
+<!--
 ### 基于位姿李代数参数化和解析微分求导法的实现方案
 
 此方案中，车体位姿表示为最小化参数形式，即\\(\xi_i\in{\mathbb R}^6\\)，其对应的三维车体位姿的变换矩阵形式表示为\\(T_i\in\mathbb{SE}(3)\\)，则有
+-->
+
+### Implementation Based on Pose Lie Algebra Parameterization and Analytical Differentiation
+
+In this approach, the vehicle pose is represented in a minimal parameter form, i.e., \\(\xi_i\in{\mathbb R}^6\\). The corresponding transformation matrix for the three-dimensional vehicle pose is represented by \\(T_i\in\mathbb{SE}(3)\\).
 
 $$
 \xi_i^\wedge\in\mathfrak{se}(3) 
@@ -80,7 +98,9 @@ $$
 T_i=\exp(\xi_i^\wedge)\in\mathbb{SE}(3)
 $$
 
-基于此，两个节点间的相对位姿变换可以表示为
+<!--基于此，两个节点间的相对位姿变换可以表示为-->
+
+The relative pose transformation between two nodes can be represented as
 
 $$
 \begin{aligned}
@@ -90,7 +110,9 @@ $$
 \end{aligned}
 $$
 
-对应边的残差项定义为
+<!--对应边的残差项定义为-->
+
+The residual of the corresponding edge is 
 
 $$
 \begin{aligned}
@@ -100,7 +122,9 @@ r_{ij}
 \end{aligned}
 $$
 
-对应雅可比矩阵可以计算为
+<!--对应雅可比矩阵可以计算为-->
+
+The Jacobian matrix is calculated by 
 
 $$
 \begin{aligned}
@@ -111,7 +135,9 @@ $$
 \end{aligned}
 $$
 
-在方案实现中，定义目标函数类`EdgePoseSE3CostFunction`，其对应残差以及雅可比矩阵计算部分的代码如下。
+<!--在方案实现中，定义目标函数类`EdgePoseSE3CostFunction`，其对应残差以及雅可比矩阵计算部分的代码如下。-->
+
+In the implementation approach, define the cost function class `EdgePoseSE3CostFunction`, with the corresponding code for residual and Jacobian matrix calculation as follows.
 
 ```c++
 	virtual bool Evaluate(double const* const* parameters,
@@ -143,19 +169,33 @@ $$
 	}
 ```
 
+<!--
 ## 基于对偶数和Jet的自动微分求解算法
 
 ### 对偶数(Dual Number)和Jet
 
 对偶数是实数的一种扩展，引入微分单元\\(\epsilon\\)满足\\(\epsilon^2=0\\)，对偶数定义为
+-->
+
+## Automatic Differentiation Algorithm Based on Dual Numbers and Jets
+
+### Dual Numbers and Jets
+
+Dual numbers extend real numbers by introducing a differential unit \\(\epsilon\\) with the property \\(\epsilon^2=0\\). A dual number is defined as:
 
 $$
 a+v\epsilon
 $$
 
+<!--
 其中包含两个部分，即实数部分\\(a\\)和微分部分\\(v\\)。
 
 基于对偶数的定义，可以在不给出显式微分形式的情况下，实现函数精确微分求导。具体地，考虑任意形式的连续可微函数\\(f(x)\\)，对\\(f(x+\epsilon)\\)在\\(x\\)处进行泰勒展开，可得
+-->
+
+where it consists of two parts: the real part \\(a\\) and the differential part \\(v\\).
+
+Based on the definition of dual numbers, it is possible to compute exact differentials of functions without explicitly providing the differential form. Specifically, for any continuously differentiable function \\(f(x)\\), considering the Taylor expansion of \\(f(x+\epsilon)\\) around \\(x\\), we have:
 
 $$
 \begin{aligned}
@@ -167,43 +207,61 @@ f(x+\epsilon)&=f(x)+Df(x)\epsilon
 \end{aligned}
 $$
 
-接着，扩展实数到\\(n\\)个微分单位\\(\epsilon_i,i=1,\dots,n\\)，满足\\(\forall i,j:\epsilon_i\epsilon_j=0\\)。定义Jet为
+<!--接着，扩展实数到\\(n\\)个微分单位\\(\epsilon_i,i=1,\dots,n\\)，满足\\(\forall i,j:\epsilon_i\epsilon_j=0\\)。定义Jet为-->
+
+Next, extend real numbers to \\(n\\) differential units \\(\epsilon_i,i=1,\dots,n\\), satisfying \\(\forall i,j:\epsilon_i\epsilon_j=0\\). Define a Jet as
 
 $$
 x=a+\sum_j{v_j\epsilon_j}
 $$
 
-其中包含实数部分\\(a\\)和\\(n\\)维微分部分\\(\bf v\\)，即
+<!--其中包含实数部分\\(a\\)和\\(n\\)维微分部分\\(\bf v\\)，即-->
+
+where it includes a real part \\(a\\) and an \\(n\\)-dimensional differential part \\(\bf v\\), represented as
 
 $$
 x=a+\bf v
 $$
 
-对\\(f(a+{\bf v})\\)进行泰勒展开可得
+<!--对\\(f(a+{\bf v})\\)进行泰勒展开可得-->
+
+The Taylor expansion of \\(f(a+{\bf v})\\) yields
 
 $$
 f(a+{\bf v})=f(a)+Df(a){\bf v}
 $$
 
-对于多变量的函数\\(f:{\mathbb R}^n\rightarrow{\mathbb R}^m\\)，在\\(x_i=a_i+{\bf v}_i,\forall i=1,\dots,n\\)处的泰勒展开为
+<!--对于多变量的函数\\(f:{\mathbb R}^n\rightarrow{\mathbb R}^m\\)，在\\(x_i=a_i+{\bf v}_i,\forall i=1,\dots,n\\)处的泰勒展开为-->
+
+For a multivariable function \\(f:{\mathbb R}^n\rightarrow{\mathbb R}^m\\), the Taylor expansion at \\(x_i=a_i+{\bf v}_i,\forall i=1,\dots,n\\) is given by
 
 $$
 f(x_1,\dots,x_n)=f(a_1,\dots,a_n)+
 \sum_i{D_if(a_1,\dots,a_n){\bf v}_i}
 $$
 
-令\\({\bf v}_i=e_i\\)，即为各个维度的基向量，则有
+<!--令\\({\bf v}_i=e_i\\)，即为各个维度的基向量，则有-->
+
+Setting \\({\bf v}_i=e_i\\), the basis vector for each dimension, we have
 
 $$
 f(x_1,\dots,x_n)=f(a_1,\dots,a_n)+
 \sum_i{D_if(a_1,\dots,a_n)\epsilon_i}
 $$
 
-基于此，可以根据各个微分分量\\(\epsilon_i\\)对应的系数，即可得到相应值处的雅可比。
+<!--基于此，可以根据各个微分分量\\(\epsilon_i\\)对应的系数，即可得到相应值处的雅可比。-->
 
+Based on this, the Jacobian at a given value can be obtained according to the coefficients corresponding to each differential component \\(\epsilon_i\\).
+
+<!--
 ### Ceres实现方案
 
 Ceres非线性优化库提供基于对偶数和Jet的精确导数求解方案，即自动微分法(Automatic Derivatives)。首先，须对Jet结构进行定义。
+-->
+
+### Ceres Implementation
+
+The Ceres nonlinear optimization library provides an exact derivative solution based on dual numbers and Jets, known as Automatic Differentiation. First, the Jet structure needs to be defined.
 
 ```c++
 template<int N> struct Jet {
@@ -241,7 +299,9 @@ template <int N>  Jet<N> pow(const Jet<N>& f, const Jet<N>& g) {
 }
 ```
 
-接着，以[Rat43](http://www.itl.nist.gov/div898/strd/nls/data/ratkowsky3.shtml)问题为例，定义仿函数类如下。
+<!--接着，以[Rat43](http://www.itl.nist.gov/div898/strd/nls/data/ratkowsky3.shtml)问题为例，定义仿函数类如下。-->
+
+Next, taking the [Rat43](http://www.itl.nist.gov/div898/strd/nls/data/ratkowsky3.shtml) problem as an example, define the functor class as follows.
 
 ```c++
 struct Rat43CostFunctor {
@@ -267,19 +327,31 @@ CostFunction* cost_function =
         new Rat43CostFunctor(x, y));
 ```
 
-与数值微分算法实现不同的是，`operator()`的定义中使用了模版的形式。
+<!--与数值微分算法实现不同的是，`operator()`的定义中使用了模版的形式。-->
+
+Unlike the implementation of numerical differentiation algorithms, the `operator()` definition here uses a template form.
 
 ```c++
 template <typename T> bool operator()(const T* parameters, T* residuals) const;
 ```
 
-基于此定义方式，便可以将定义的Jet类型传入`Rat43CostFunctor`函数，来计算误差函数相对于求解变量的雅可比矩阵。
+<!--基于此定义方式，便可以将定义的Jet类型传入`Rat43CostFunctor`函数，来计算误差函数相对于求解变量的雅可比矩阵。-->
 
+With this definition, the Jet type can be passed into the `Rat43CostFunctor` function to compute the Jacobian matrix of the error function with respect to the variables.
+
+<!--
 ### 性能对比
 
 Ceres非线性优化库共提供了三种雅可比求解方法，即解析微分法(Analytic Derivatives)、数值微分法(Numeric Derivatives)和自动微分法(Automatic Derivatives)。
 
 以[Rat43](http://www.itl.nist.gov/div898/strd/nls/data/ratkowsky3.shtml)问题为例，三种微分方法的性能对比结果列于表3.1，其中Rat43AutomaticDiff为自动微分的求解方案，Rat43Analytic和Rat43AnalyticOptimized是解析微分的求解方法，其实现方案可参考[Ceres - Analytic Derivatives](http://www.ceres-solver.org/analytical_derivatives.html)，Rat43NumericDiffForward、Rat43NumericDiffCentral及Rat43NumericDiffRidders为数据微分求解，其实现可参考[Ceres - Numeric Derivativs](http://www.ceres-solver.org/numerical_derivatives.html)。
+-->
+
+### Performance Comparison
+
+The Ceres nonlinear optimization library provides three methods for Jacobian computation: Analytic Derivatives, Numeric Derivatives, and Automatic Derivatives.
+
+Taking the [Rat43](http://www.itl.nist.gov/div898/strd/nls/data/ratkowsky3.shtml) problem as an example, the performance comparison of these three differentiation methods is shown in Table 3.1. Here, Rat43AutomaticDiff represents the Automatic Differentiation solution, Rat43Analytic and Rat43AnalyticOptimized are the Analytic Derivatives methods, whose implementation details can be found in [Ceres - Analytic Derivatives](http://www.ceres-solver.org/analytical_derivatives.html). Rat43NumericDiffForward, Rat43NumericDiffCentral, and Rat43NumericDiffRidders represent the Numeric Derivatives methods, with their implementation details available at [Ceres - Numeric Derivatives](http://www.ceres-solver.org/numerical_derivatives.html).
 
 |      CostFunction       | Time (ns) |
 | :---------------------: | :-------: |
@@ -296,18 +368,26 @@ Since this is a large sparse problem (well large for `DENSE_QR` anyways), one wa
 
 [`Problem`](http://www.ceres-solver.org/nnls_modeling.html#_CPPv4N5ceres7ProblemE) by default takes ownership of the `cost_function`, `loss_function` and `local_parameterization` pointers. These objects remain live for the life of the [`Problem`](http://www.ceres-solver.org/nnls_modeling.html#_CPPv4N5ceres7ProblemE). If the user wishes to keep control over the destruction of these objects, then they can do this by setting the corresponding enums in the [`Problem::Options`](http://www.ceres-solver.org/nnls_modeling.html#_CPPv4N5ceres7Problem7OptionsE) struct.
 
-
+<!--
 ## 协方差计算与传递
 
 ### 基于Hessian矩阵的协方差估计方法
 
 对于线性最小二乘问题，假设目标函数为
+-->
+
+## Covariance Calculation and Propagation
+
+### Covariance Estimation Method Based on Hessian Matrix
+
+For the linear least squares problem, assuming the objective function is
 
 $$
 E(\hat{X})=(Y-M\hat{X})^T(Y-M\hat{X})
 $$
 
-变量\\(\hat{X}\\)及其协方差的最优估计为
+<!--变量\\(\hat{X}\\)及其协方差的最优估计为-->
+The optimal estimate of variable \\(\hat{X}\\) and its covariance is given by
 
 $$
 \begin{aligned}
@@ -316,14 +396,16 @@ $$
 \end{aligned}
 $$
 
-上式提供了\\(\sigma^2\\)的无偏估计，其中\\(N\\)为观测数据的数量，\\(\dim(\cdot)\\)表示变量的维度。
+<!--上式提供了\\(\sigma^2\\)的无偏估计，其中\\(N\\)为观测数据的数量，\\(\dim(\cdot)\\)表示变量的维度。-->
+The above equation provides an unbiased estimate of \\(\sigma^2\\), where \\(N\\) is the number of observation data, and \\(\dim(\cdot)\\) denotes the dimensionality of the variables.
 
 $$
 s^2=
 \frac{E_{min}(\hat{X})}{N-\dim(X)}
 $$
 
-对上式进行二阶导求解，可以得到Hessian矩阵为
+<!--对上式进行二阶导求解，可以得到Hessian矩阵为-->
+Taking the second derivative of the above equation yields the Hessian matrix:
 
 $$
 \begin{aligned}
@@ -332,13 +414,15 @@ $$
 \end{aligned}
 $$
 
-代入协方差估计结果可得
+<!--代入协方差估计结果可得-->
+Substituting the covariance estimation result, we obtain
 
 $$
 C(\hat{X})=(\frac{1}{2}H)^{-1}\sigma^2
 $$
 
-对于点云的ICP扫描匹配方法，其优化目标为
+<!--对于点云的ICP扫描匹配方法，其优化目标为-->
+For the point cloud ICP scan matching method, its optimization objective is
 
 $$
 E(\xi)
@@ -346,14 +430,15 @@ E(\xi)
 =\sum^{N}_{i=1}\|\boldsymbol R\boldsymbol p_i+\boldsymbol t-\boldsymbol p_i'\|^2
 $$
 
-求解\\(E(\xi)\\)相对于\\(\xi\\)的一阶导可得
+<!--求解\\(E(\xi)\\)相对于\\(\xi\\)的一阶导可得-->
+The first derivative of solving \\(E(\xi)\\) with respect to \\(\xi\\) gives
 
 $$
 \frac{\partial E(\xi)}{\partial\xi}
 =2\sum^{N}_{i=1}\frac{\partial\boldsymbol e_i}{\partial\xi}^T\boldsymbol e_i
 $$
 
-其中
+where
 
 $$
 \frac{\partial\boldsymbol e_i}{\partial\xi}=
@@ -362,7 +447,8 @@ $$
 \end{bmatrix}
 $$
 
-在此基础上求解\\(E(\xi)\\)相对于\\(\xi\\)的二阶导，即可得到Hessian矩阵为
+<!--在此基础上求解\\(E(\xi)\\)相对于\\(\xi\\)的二阶导，即可得到Hessian矩阵为-->
+Based on this, solving the second derivative of \\(E(\xi)\\) with respect to \\(\xi\\) yields the Hessian matrix
 
 $$
 \boldsymbol H=\frac{\partial^2E}{\partial\xi^2}
@@ -373,7 +459,7 @@ $$
 \end{bmatrix}
 $$
 
-### 代码实现方案
+### Implementation
 
 ```c++
 Eigen::Matrix<float,6,6> ICPRegistration::GetCovariance()
@@ -396,8 +482,8 @@ Eigen::Matrix<float,6,6> ICPRegistration::GetCovariance()
 ```
 
 
-## 相关链接
+## Related Links
 
-代码：
+code:
 - [pose-graph](https://github.com/sunqinxuan/pose-graph)
 - [semantic-gicp](https://github.com/sunqinxuan/semantic-gicp)

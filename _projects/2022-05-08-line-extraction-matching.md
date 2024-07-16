@@ -11,6 +11,7 @@ location: "Beijing, China"
 
 <!--面向AVP应用的语义线段拟合与配准方案-->
 
+<!--
 ## 语义线段拟合方案设计
 
 ### 方案交流记录
@@ -20,7 +21,19 @@ location: "Beijing, China"
 - 对于语义标签为停车位的像素点，对各个边上的线段进行融合，并通过线段所在直线进行相交的方式确定停车位的四个顶点；
 - 对于禁停区语义类别，可以尝试线拟合的方式，若无法获得理想效果，再考虑图像腐蚀等操作的可行性；
 - 对于转向线和导向线等没有明显呈线状分布的语义类别，考虑提取轮廓信息，具体方案待定。
+-->
 
+## Semantic Line Segment Fitting 
+
+### Communication Record
+
+- Line segment extraction method based on random sampling and region growing;
+- Use PCA algorithm to determine the center point and direction of each line segment, and then calculate the endpoints of the line segments;
+- For pixels labeled as parking spaces, merge the line segments on each edge and determine the four vertices of the parking space through the intersection of the lines where the segments lie;
+- For semantic categories like no-parking zones, consider fitting lines; if ideal results are not achieved, explore the feasibility of image erosion and other operations;
+- For semantic categories such as turning lines and guiding lines that do not exhibit clear linear distributions, consider extracting contour information; specific plans are pending.
+
+<!--
 ### 区域增长算法(LSD)
 
 区域增长参考LSD线段提取算法中的region grow算法流程：
@@ -28,6 +41,15 @@ location: "Beijing, China"
 ![img](https://sunqinxuan.github.io/images/projects-2022-05-08-img1.png)
 
 LSD中region grow代码实现：
+-->
+
+### Region Growing Algorithm (LSD)
+
+The region growing algorithm in reference to the LSD line segment detection (LSD) algorithm follows the process:
+
+![img](https://sunqinxuan.github.io/images/projects-2022-05-08-img1.png)
+
+Implementation of region growing in LSD:
 
 ```c++
 /*----------------------------------------------------------------------------*/
@@ -83,7 +105,9 @@ static void region_grow( int x, int y, image_double angles, struct point * reg,
 }
 ```
 
-### 语义标线的线段拟合算法流程
+<!--### 语义标线的线段拟合算法流程-->
+
+## Semantic Line Segment Fitting for Lane Markings
 
 ```mermaid
 graph 
@@ -103,18 +127,32 @@ point_cloud --> 3d2d_proj
 --> line_segment
 ```
 
+<!--
 - 3D语义点云投影到2D平面表示；
 - 对语义点的局部线性方向\\(\boldsymbol v\\)以及局部线性度\\(\gamma\\)进行计算，具体计算方法为：首先对局部点云进行PCA分析，两个主成分对应特征值分别为\\(\lambda_1\\)和\\(\lambda_2\\)，且满足\\(\lambda_1\ge \lambda_2\ge0\\)，则局部线性方向\\(\boldsymbol v\\)为\\(\lambda_1\\)所对应特征向量的方向，局部线性度\\(\gamma\\)定义为
+-->
+
+- Projection of 3D Semantic Point Cloud onto 2D Plane Representation;
+
+- Calculation of local linear direction \\(\boldsymbol v\\) and local linearity \\(\gamma\\) for semantic points. Specifically, perform PCA analysis on the local point cloud, where the two principal components correspond to eigenvalues \\(\lambda_1\\) and \\(\lambda_2\\) with \\(\lambda_1\ge \lambda_2\ge0\\). The local linear direction \\(\boldsymbol v\\) is the direction of the eigenvector corresponding to \\(\lambda_1\\), and the local linearity \\(\gamma\\) is defined as
 
 $$
 \gamma=1-\frac{\lambda_2}{\lambda_1}\in[0,1]
 $$
 
+<!--
 - 根据局部线性度的值，对某一类的语义点进行伪排序，具体方法为：根据局部线性度，划分\\(N\\)个bin，将语义点放入合适的bin中。
 
 - 按照局部线性度由大到小，取出语义点作为种子点进行区域增长，增长条件为语义点之间的欧氏距离以及局部线性方向与区域线性方向的一致程度。
 
 - 区域内线段信息由区域语义点均值\\(\boldsymbol\mu_N\\)与区域线性方向\\(\boldsymbol v_N\\)组成，而\\(\boldsymbol v_N\\)则通过对区域协方差矩阵\\(\boldsymbol C_N\\)进行特征值分解得到，具体为其最大特征值所对应的特征向量。在区域增长的过程中，\\(\boldsymbol\mu_N\\)以及\\(\boldsymbol C_N\\)均可以进行增量式的更新：
+-->
+
+- Based on the value of local linearity, pseudo-sort the semantic points of a certain class. Specifically, divide into \(N\) bins based on local linearity and place semantic points into appropriate bins.
+
+- Sort semantic points from highest to lowest local linearity, select them as seed points for region growing. Region growing criteria include Euclidean distance between semantic points and consistency between local linear direction and regional linear direction.
+
+- Information about line segments within a region is represented by the mean of semantic points \\(\boldsymbol\mu_N\\) and the regional linear direction \\(\boldsymbol v_N\\). \\(\boldsymbol v_N\\) is obtained through eigendecomposition of the region's covariance matrix \\(\boldsymbol C_N\\), specifically using the eigenvector corresponding to its largest eigenvalue. During region growing, both \\(\boldsymbol\mu_N\\) and \\(\boldsymbol C_N\\) can be updated incrementally.
 
   $$
   \boldsymbol\mu_{N+1}=
@@ -136,7 +174,6 @@ $$
   \right)
   $$
 
-- 上式的具体推导过程如下：
 
 ![img](https://sunqinxuan.github.io/images/projects-2022-05-08-img2.jpeg)
 
@@ -144,6 +181,7 @@ $$
 
 ![img](https://sunqinxuan.github.io/images/projects-2022-05-08-img4.jpeg)
 
+<!--
 ## 语义线段拟合代码实现
 
 ### 数据类型定义
@@ -155,6 +193,19 @@ $$
 在2D点云数据类型`CloudData2D`中加入局部线性度的成员变量`local_linearity_`，并封装相应接口对其进行访问与修改。
 
 新增成员变量`vec_neighbors_`，存储点云中每个语义点的近邻点索引，并修改相关接口函数，用于后续区域增长过程。
+-->
+
+## Implementation of Semantic Line Segment Fitting 
+
+### Data Type Definitions
+
+#### 2D Point Cloud Data Type
+
+Encapsulate the 2D point cloud data type `CloudData2D`, inheriting from the existing type `CloudData`. Use the `pcl::PointXYZI` point type to represent 2D points, where the \\(z\\) coordinate is set to zero, and rename it as `POINTXYI`. Private pointer for 2D point cloud is defined as a private variable, and methods for handling it are encapsulated within `CloudData2D`.
+
+Add a member variable `local_linearity_` to the 2D point cloud data type `CloudData2D`, and encapsulate corresponding interfaces for accessing and modifying it.
+
+Introduce a new member variable `vec_neighbors_`, which stores the indices of neighboring points for each semantic point in the point cloud, and modify relevant interface functions for subsequent region growing processes.
 
 ```c++
 // sensor_data/cloud_data.hpp
@@ -278,11 +329,19 @@ private:
 };
 ```
 
+<!--
 #### 2D语义点区域数据类型
 
 2D语义点区域，存储区域内语义点的索引，以及区域内点的均值和方差。在区域增长的过程中，区域点均值和方差进行增量式地更新，其更新过程在`AddPoint`函数中实现。
 
 在`AddPoint`函数中增加了区域线性方向的增量式更新策略：在当时区域两个主方向对应特征根相差不大，即区域内点的分布还没有呈现明显的线性特性时，区域线性方向计算为区域内所有点的线性方向的均值；而当两个特征根相差较大，即区域内点的分布已呈现明显的线性特征时，区域线性方向取为最大特征根对应的主方向。
+-->
+
+#### 2D Semantic Point Region Data Type
+
+2D semantic point region stores the indices of semantic points within the region, as well as the mean and covariance of points in the region. During region growing, the mean and covariance of points in the region are incrementally updated, with the update process implemented in the `AddPoint` function.
+
+In the `AddPoint` function, an incremental update strategy for the regional linear direction has been added: when the difference between the eigenvalues of the two main directions in the current region is not significant, indicating that the distribution of points in the region does not exhibit clear linear characteristics, the regional linear direction is computed as the mean of the linear directions of all points in the region. However, when there is a significant difference between the two eigenvalues, indicating that the distribution of points in the region exhibits clear linear features, the regional linear direction is set to the principal direction corresponding to the largest eigenvalue.
 
 ```c++
 // models/line_feature_extraction/line_feature_extration_rg.hpp
@@ -376,7 +435,9 @@ void Region::AddPoint(const CloudData2D &cloud, std::size_t idx)
 }
 ```
 
-#### 语义线段类型
+<!--#### 语义线段类型-->
+
+#### Semantic Line Segment Data Type 
 
 ```c++
 // sensor_data/line_feature.hpp
@@ -396,12 +457,19 @@ public:
   Eigen::Matrix2f covariance = Eigen::Matrix2f::Zero();
 };
 ```
-
+<!--
 ### 线段提取算法实现
 
 #### 接口类实现
 
 语义线段提取接口类实现：
+-->
+
+### Implementation of Line Segment Extraction Algorithm 
+
+#### Interface Class
+
+Implementation of the semantic line segment extraction interface class:
 
 ```c++
 // models/line_feature_extraction/line_feature_extration_interface.hpp
@@ -421,6 +489,7 @@ protected:
 };
 ```
 
+<!--
 #### 功能类实现
 
 基于区域增长算法的语义线段提取算法的功能类实现：
@@ -428,6 +497,15 @@ protected:
 `semantic_clouds_2d_`为需要进行语义线段提取的语义2D点云集合，其中每一个点云只包括某一类语义点，以仿真数据为例，需要进行线段提取的语义类别为停车位(`label id = 2`)、车道线(`label id = 4`)和车道中心线(`label id = 5`)，则`semantic_clouds_2d_`中包含三个2D语义点云。
 
 `vec_pseudo_ordering_bins_`和`vec_semantic_regions_`分别为不同类别语义点云对应的线性度伪排序bins以及区域分割生成的区域。
+-->
+
+#### Functional Class 
+
+Functional class implementation of the semantic line segment extraction algorithm based on region growing:
+
+`semantic_clouds_2d_` represents a collection of semantic 2D point clouds for semantic line segment extraction. Each point cloud contains points of a specific semantic class. For example, in simulated data, if the semantic categories requiring line segment extraction are parking spaces (`label id = 2`), lane lines (`label id = 4`), and center lines (`label id = 5`), then `semantic_clouds_2d_` contains three 2D semantic point clouds.
+
+`vec_pseudo_ordering_bins_` and `vec_semantic_regions_` correspond to pseudo-sorting bins based on linearity for different semantic point cloud categories and regions generated from region segmentation, respectively.
 
 ```c++
 // models/line_feature_extraction/line_feature_extration_rg.hpp
@@ -467,11 +545,19 @@ private:
 };
 ```
 
+<!--
 #### 语义点云的3D-2D投影
 
 语义点云的3D-2D投影功能，即`Projection3D2D`函数，输出格式为已定义的数据类型`CloudData2D`。
 
 输入参数`label_id`为语义标签对应的id，输出点云`cloud`存储`cloud_3d`中语义标签为`label_id`的点的2D投影。
+-->
+
+#### 3D-2D Projection of Semantic Point Clouds
+
+The functionality for projecting semantic point clouds from 3D to 2D, implemented as `Projection3D2D` function, outputs data in the defined data type `CloudData2D`.
+
+The input parameter `label_id` corresponds to the semantic label ID. The output point cloud `cloud` stores the 2D projection of points from `cloud_3d` where the semantic label is `label_id`.
 
 ```c++
 // models/line_feature_extraction/line_feature_extration_rg.hpp
@@ -492,9 +578,15 @@ bool LineFeatureExtractionRG::Projection3D2D(const CloudData::CLOUD_PTR &cloud_3
 }
 ```
 
+<!--
 #### 语义点云的局部线性度与局部线性方向计算
 
 语义点云的局部线性度与局部线性方向计算函数`ComputeLocalLinearity`，对每个点进行$K$近邻搜索，近邻数定义为私有变量`num_neighbors_svd_`，可在`config`文件中进行设置。对其近邻点进行PCA分析，取其主方向作为局部线性方向，并计算局部线性度，存储在2D点云结构`CloudData2D`中。
+-->
+
+#### Calculation of Local Linearity and Local Linear Direction for Semantic Point Clouds
+
+Function `ComputeLocalLinearity` computes the local linearity and local linear direction for each point in the semantic point cloud. It performs \\( K \\)-nearest neighbor search, where the number of neighbors is defined by the private variable `num_neighbors_svd_`, which can be configured in the `config` file. PCA analysis is applied to the nearest neighbors to determine the principal direction as the local linear direction, and calculates the local linearity. Results are stored in the 2D point cloud structure `CloudData2D`.
 
 ```c++
 bool LineFeatureExtractionRG::ComputeLocalLinearity(CloudData2D &cloud)
@@ -557,9 +649,15 @@ bool LineFeatureExtractionRG::ComputeLocalLinearity(CloudData2D &cloud)
 }
 ```
 
+<!--
 #### 局部线性度伪排序
 
 局部线性度\\(\gamma\in[0,1]\\)，分为10个bins，按照局部线性度的大小，将2D语义点放入相应的bin中。
+-->
+
+#### Pseudo-Sorting Based on Local Linearity
+
+Local linearity \\(\gamma\in[0,1]\\) is divided into 10 bins. Based on the value of local linearity, 2D semantic points are placed into corresponding bins.
 
 ```c++
 bool LineFeatureExtractionRG::PseudoOrdering(CloudData2D &cloud, VecBins &pseudo_ordering_bins)
@@ -583,9 +681,15 @@ bool LineFeatureExtractionRG::PseudoOrdering(CloudData2D &cloud, VecBins &pseudo
 }
 ```
 
+<!--
 #### 区域增长算法
 
 使用的LSD算法中的区域增长算法，增长条件为局部线性方向与区域线性方向的一致性。
+-->
+
+#### Region Growing Algorithm
+
+Region growing algorithm used in the LSD algorithm, where the growth condition is the consistency between the local linear direction and the regional linear direction.
 
 ```c++
 bool LineFeatureExtractionRG::RegionSegmentation(CloudData2D &cloud, VecBins &pseudo_ordering_bins, std::vector<Region> &regions)
@@ -645,9 +749,15 @@ float LineFeatureExtractionRG::AngleDiff(const Eigen::Vector2f &dir1, const Eige
 }
 ```
 
+<!--
 #### 接口函数
 
 在接口函数`Extract`中，对语义线段提取功能进行测试。
+-->
+
+#### Interface Function
+
+In the interface function `Extract`, the functionality for semantic line segment extraction is tested.
 
 ```c++
 bool LineFeatureExtractionRG::Extract(const CloudData::CLOUD_PTR &input_cloud)
@@ -694,11 +804,19 @@ bool LineFeatureExtractionRG::Extract(const CloudData::CLOUD_PTR &input_cloud)
 }
 ```
 
+<!--
 ## 语义线段匹配方案设计
 
 ### LOAM基于局部线－面特征的匹配方法
 
 LOAM里程计中点到线的距离函数定义为
+-->
+
+## Semantic Line Matching
+
+### LOAM Matching Method Based on Local Line-to-Plane Features
+
+In LOAM odometry, the distance function from point to line is defined as
 
 $$
 d_{\mathcal E}=
@@ -711,7 +829,8 @@ d_{\mathcal E}=
 {\bar{\boldsymbol X}^L_{(k,j)}-\bar{\boldsymbol X}^L_{(k,j)}}
 $$
 
-上式的几何含义为点\\(\tilde{\boldsymbol X}^L_{(k+1,i)}\\)到\\(\bar{\boldsymbol X}^L_{(k,j)}\\)与\\(\bar{\boldsymbol X}^L_{(k,j)}\\)连接得到线段的垂直距离。
+<!--上式的几何含义为点\\(\tilde{\boldsymbol X}^L_{(k+1,i)}\\)到\\(\bar{\boldsymbol X}^L_{(k,j)}\\)与\\(\bar{\boldsymbol X}^L_{(k,j)}\\)连接得到线段的垂直距离。-->
+The geometric meaning of the above equation is the perpendicular distance from point \\(\tilde{\boldsymbol X}^L_{(k+1,i)}\\) to the line segment formed by \\(\bar{\boldsymbol X}^L_{(k,j)}\\) and \\(\bar{\boldsymbol X}^L_{(k,j)}\\).
 
 <center class="half">
   <img src="https://sunqinxuan.github.io/images/projects-2022-05-08-img5.jpeg" alt="1" style="zoom:13%;" />
@@ -723,17 +842,24 @@ $$
   <img src="https://sunqinxuan.github.io/images/projects-2022-05-08-img8.jpeg" alt="4" style="zoom:15%;" />
 </center>
 
-
+<!--
 ### 语义线段的参数化方法
 
 语义线段\\(\mathcal{L}\\)表示为
+-->
+
+### Parametrization Method for Semantic Line Segments
+
+A semantic line segment \(\mathcal{L}\) is represented as:
 
 $$
 \mathcal{L}=(\boldsymbol p_c,\boldsymbol d,\boldsymbol p_{e1},\boldsymbol p_{e2},s,id)
 $$
 
-其中\\(\boldsymbol p_c\\)表示线段中心点坐标，\\(\boldsymbol d\\)表示线段方向向量，\\(\boldsymbol p_{e1}\\)和\\(\boldsymbol p_{e2}\\)为线段的两个端点坐标，\\(s\\)表示线段拟合所用语义点的数量，\\(id\\)为线段的语义标签。
+<!--其中\\(\boldsymbol p_c\\)表示线段中心点坐标，\\(\boldsymbol d\\)表示线段方向向量，\\(\boldsymbol p_{e1}\\)和\\(\boldsymbol p_{e2}\\)为线段的两个端点坐标，\\(s\\)表示线段拟合所用语义点的数量，\\(id\\)为线段的语义标签。-->
+where \\(\boldsymbol p_c\\) represents the coordinates of the line segment's center point, \\(\boldsymbol d\\) denotes the direction vector of the line segment, \\(\boldsymbol p_{e1}\\) and \\(\boldsymbol p_{e2}\\) are the coordinates of the two endpoints of the line segment, \\(s\\) indicates the number of semantic points used for fitting the line segment, and \\(id\\) is the semantic label of the line segment.
 
+<!--
 ### 对应关系的建立
 
 采用基于KdTree的点对点最近邻搜索，寻找当前语义标签下的最近点，再判断Target点云中找到的最近点所在语义线段，在目标函数中使用当前query点到最近点所在语义线段的垂直距离。
@@ -743,6 +869,17 @@ $$
 ### 雅可比矩阵的推导
 
 优化目标函数定义为
+-->
+
+### Establishment of Correspondence
+
+Point-to-point nearest neighbor search using KdTree is employed to find the nearest points under the current semantic label. Then, the closest semantic line segment in the target point cloud is determined, using the perpendicular distance from the current query point to the semantic line segment found in the objective function.
+
+During semantic line segment extraction, it's necessary to maintain index information linking semantic points to semantic line segments.
+
+### Derivation of Jacobian Matrix
+
+The optimization objective function is defined as
 
 $$
 F(\boldsymbol\xi)=
@@ -766,7 +903,9 @@ $$
 \boldsymbol p'_i=\boldsymbol R\boldsymbol p_i+\boldsymbol t
 $$
 
-雅可比\\(\frac{\partial F}{\partial\xi}\\)的具体推导过程如下：
+<!--雅可比\\(\frac{\partial F}{\partial\xi}\\)的具体推导过程如下：-->
+
+The specific derivation process of the Jacobian \\(\frac{\partial F}{\partial\xi}\\) is as follows.
 
 <img src="https://sunqinxuan.github.io/images/projects-2022-05-08-img9.jpeg" alt="4518_1654140538_hd" style="zoom: 30%;" />
 
@@ -774,11 +913,21 @@ $$
 
 <img src="https://sunqinxuan.github.io/images/projects-2022-05-08-img11.jpeg" alt="4566_1654150526_hd" style="zoom: 33%;" />
 
+<!--
 ### 欧氏距离(梯度)场
 
 在基于梯度信息的运动规划中，常用到欧氏符号距离场(Euclidean Signed Distance Field, ESDF)对空间进行表示，可以直接获取空间中某一点距障碍物的距离信息及其梯度信息。
 
 论文《CHOMP: Gradient Optimization Techniques for Efficient Motion Planning》中相关段落：
+-->
+
+Translation:
+
+### Euclidean Distance (Gradient) Field
+
+In motion planning based on gradient information, the Euclidean Signed Distance Field (ESDF) is commonly used to represent space. It directly provides distance and gradient information from a point in space to obstacles.
+
+Paragraph from the paper "CHOMP: Gradient Optimization Techniques for Efficient Motion Planning":
 
 ```tex
 If obstacles are static and the description of B is geometrically simple, it becomes advantageous to simply precompute a signed distance field $d(x)$ which stores the distance from a point $x\in\mathbb{R}^3$ to the boundary of the nearest obstacle. Values of $d(x)$ are negative inside obstacles, positive outside, and zero at the boundary.
@@ -786,7 +935,7 @@ Computing $d(x)$ on a uniform grid is straightforward. We start with a boolean-v
 (EDT) for both the voxel map and its logical complement. The signed distance field is then simply given by the difference of the two EDT values. Computing the EDT is surprisingly efficient: for a lattice of $K$ samples, computation takes time $O(K)$ [10].
 ```
 
-阅读文献[10]《Distance Transforms of Sampled Functions》。
+Read the paper "Distance Transforms of Sampled Functions".
 
 <img src="https://sunqinxuan.github.io/images/projects-2022-05-08-img12.jpeg" alt="1" style="zoom:33%;" />
 
@@ -794,11 +943,19 @@ Computing $d(x)$ on a uniform grid is straightforward. We start with a boolean-v
 
 <img src="https://sunqinxuan.github.io/images/projects-2022-05-08-img14.jpeg" alt="3" style="zoom:33%;" />
 
+<!--
 ## 语义线段匹配代码实现
 
 ### target点云语义线段提取
 
 根据语义标签，对输入target点云进行分组，并对每一类语义点云进行语义线段的提取，同时得到每一个点到语义线段的索引。在函数`CloudClassify`中，只选择了适合做线段拟合的三种语义标签点云参与匹配，即车道线、车道中心线、停车位。当前版本中，其他类别标签的点云没有参与运算。
+-->
+
+## Implementation of Semantic Line Segment Matching  
+
+### Semantic Line Segment Extraction from Target Point Cloud
+
+Based on semantic labels, the input target point cloud is grouped, and semantic line segments are extracted for each semantic class. Simultaneously, indices of points to semantic line segments are obtained. In the function `CloudClassify`, only three semantic label point clouds suitable for line segment fitting are selected for matching: lane lines, center lines, and parking spaces. In the current version, point clouds with other class labels are not included in the computation.
 
 ```c++
 // models/registration/plicp_registration.cpp
@@ -821,7 +978,9 @@ bool PLICPRegistration::SetInputTarget(const CloudData::CLOUD_PTR &input_target)
 }
 ```
 
-下面是语义线段提取功能类的输出接口：
+<!--下面是语义线段提取功能类的输出接口：-->
+
+Here are the output interfaces of the semantic line segment extraction functional class:
 
 ```c++
 // models/line_feature_extraction/line_feature_extraction_rg.cpp
@@ -858,9 +1017,15 @@ bool LineFeatureExtractionRG::Extract(const CloudData::CLOUD_PTR &input_cloud,
 }
 ```
 
+<!--
 ### 非线性优化中的目标函数与雅可比函数
 
 根据目标函数定义以及雅可比矩阵的推导形式，对非线性优化中的相关函数进行实现。
+-->
+
+### Objective Function and Jacobian Function in Nonlinear Optimization
+
+Implement relevant functions in nonlinear optimization based on the definition of the objective function and the derived form of the Jacobian matrix.
 
 ```c++
 // models/registration/plicp_registration.cpp
@@ -984,9 +1149,16 @@ inline void PLICPRegistration::OptimizationFunctor::fdf(const Vector6f &x,
 
 ```
 
+<!--
 ### 代码调试
 
 对基于语义线段信息的匹配方法(PL-ICP)的参数进行调试，评测结果如下。
+-->
+
+### Code Debugging
+
+Parameter debugging for the semantic line segment-based matching method (PL-ICP), with evaluation results as follows.
+
 
 |         | RPE RMSE (vo) | APE RMSE (optimized) |
 | ------- | ------------- | -------------------- |
@@ -1000,7 +1172,9 @@ inline void PLICPRegistration::OptimizationFunctor::fdf(const Vector6f &x,
 | plicp 8 | 0.022378      | 0.065225             |
 | plicp 9 | 0.021367      | 0.086566             |
 
-上表中每行结果对应的参数配置如下：
+<!--上表中每行结果对应的参数配置如下：-->
+
+The parameter configurations corresponding to each row of the table above are as follows:
 
 ```yaml
 plicp 1:
@@ -1126,8 +1300,8 @@ plicp 9:
 <img src="https://sunqinxuan.github.io/images/projects-2022-05-08-img16.png" alt="rpeplot_map" style="zoom:80%;" />
 
 
-## 相关链接
+## Related Links
 
-代码：
+code:
 - [semantic-line-matching](https://github.com/sunqinxuan/semantic-line-matching)
 - [semantic-gicp](https://github.com/sunqinxuan/semantic-gicp)
