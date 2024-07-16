@@ -69,8 +69,9 @@ author:
   #weibo            : # Username
   #wikipedia        : # Username
   #xing             : # Username
-  #youtube          : # Username
+  youtube          : "ElinorSun" # Username
   #zhihu            : # URL
+  douban            : "https://www.douban.com/people/190216399/?_i=1092682Pw4rryL"
 
 
 # Site Settings
