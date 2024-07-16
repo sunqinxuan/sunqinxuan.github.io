@@ -1,14 +1,15 @@
 ---
-title: "面向辅助驾驶应用的AVM环视鱼眼相机内外参标定"
+title: "Intrinsic and Extrinsic Calibration for Around-View Fisheye Cameras"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Visual SLAM"
 permalink: /projects/2021-09-21-avm-calibration
-venue: ""
 date: 2021-09-21
 location: "Beijing, China"
 ---
 
-面向辅助驾驶应用的AVM环视鱼眼相机内外参标定
+<!--面向辅助驾驶应用的AVM环视鱼眼相机内外参标定-->
 
 ![img](https://sunqinxuan.github.io/images/projects-2021-09-21-img1.jpg)
 

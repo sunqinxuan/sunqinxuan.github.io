@@ -1,14 +1,15 @@
 ---
-title: "家服机器人项目-基于Kinect的室内环境建图"
+title: "Kinect-based Localization and Mapping for Service Robot"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Visual SLAM"
 permalink: /projects/2014-12-21-report-Kinect-mapping
-venue: "Nankai University"
 date: 2014-12-21
 location: "Tianjin, China"
 ---
 
-基于Kinect的室内环境建图
+<!--家服机器人项目-基于Kinect的室内环境建图-->
 
 ## 研究方案
 

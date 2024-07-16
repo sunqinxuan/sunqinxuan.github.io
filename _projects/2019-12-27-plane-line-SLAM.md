@@ -1,14 +1,15 @@
 ---
-title: "基于多假设框架的混合特征关联与优化方法"
+title: "Association and Optimization of Hybrid Features based on Multi-Hypothesis Framework"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Visual SLAM"
 permalink: /projects/2019-12-27-plane-line-SLAM
-venue: "Nankai University"
 date: 2019-12-27
 location: "Tianjin, China"
 ---
 
-基于多假设框架的混合特征关联与优化方法
+<!--基于多假设框架的混合特征关联与优化方法-->
 
 ## 研究方案
 

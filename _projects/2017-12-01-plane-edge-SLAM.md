@@ -1,14 +1,15 @@
 ---
-title: "基于平面-边缘特征融合的移动机器人室内环境SLAM方法"
+title: "Plane-Edge Fusion-based SLAM in Indoor Environments"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Visual SLAM"
 permalink: /projects/2017-12-01-plane-edge-SLAM
-venue: "Nankai University"
 date: 2017-12-01
 location: "Tianjin, China"
 ---
 
-基于平面-边缘特征融合的移动机器人室内环境SLAM方法
+<!--基于平面-边缘特征融合的移动机器人室内环境SLAM方法-->
 
 ## 研究方案
 

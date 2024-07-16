@@ -1,14 +1,15 @@
 ---
 title: "plane-line-shadow-SLAM"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Visual SLAM"
 permalink: /projects/2019-06-03-shadow-SLAM
-venue: "Nankai University"
 date: 2019-06-03
 location: "Tianjin, China"
 ---
 
-plane-line-shadow-SLAM
+<!--plane-line-shadow-SLAM-->
 
 ## related works
 

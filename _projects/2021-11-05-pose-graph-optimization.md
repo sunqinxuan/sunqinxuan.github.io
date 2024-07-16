@@ -1,14 +1,15 @@
 ---
-title: "后端全局图优化位姿参数化及雅可比求解方案"
+title: "Backend Global Graph Optimization: Pose Parameterization and Jacobian Solution Scheme"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Visual SLAM"
 permalink: /projects/2021-11-05-pose-graph-optimization
-venue: ""
 date: 2021-11-05
 location: "Beijing, China"
 ---
 
-后端全局图优化相关方案
+<!--后端全局图优化位姿参数化及雅可比求解方案-->
 
 ## 后端全局图优化位姿参数化及雅可比求解方案
 

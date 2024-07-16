@@ -1,14 +1,15 @@
 ---
-title: "面向AVP应用的语义线段拟合与配准方案"
+title: "Semantic Line Segment Fitting and Registration Scheme for AVP Applications"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Visual SLAM"
 permalink: /projects/2022-05-08-line-extraction-matching
-venue: ""
 date: 2022-05-08
 location: "Beijing, China"
 ---
 
-面向AVP应用的语义线段拟合与配准方案
+<!--面向AVP应用的语义线段拟合与配准方案-->
 
 ## 语义线段拟合方案设计
 

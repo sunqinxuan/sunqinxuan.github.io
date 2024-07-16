@@ -1,14 +1,15 @@
 ---
-title: "基于GJK算法的物体最近距离计算方法"
+title: "Nearest Distance Calculation Based on GJK Algorithm"
 collection: projects
-type: "Project"
-permalink: /projects/2014-07-25-gjk-nearpt
-venue: "Nankai University"
+type: "Research Project"
+excerpt: '...'
+venue: "Visual SLAM"
+permalink: /projects/2014-07-25-gjk-nearptsss
 date: 2014-07-25
 location: "Tianjin, China"
 ---
 
-基于GJK算法的物体最近距离计算方法
+<!--基于GJK算法的物体最近距离计算方法-->
 
 ## 基本算法原理
 

@@ -1,14 +1,15 @@
 ---
-title: "基于STING平面提取的室内环境移动机器人RGB-D SLAM方法"
+title: "RGB-D SLAM for mobile robots using STING-based Plane Extraction"
 collection: projects
-type: "Project"
+type: "Research Project"
+excerpt: '...'
+venue: "Visual SLAM"
 permalink: /projects/2016-05-15-STING-SLAM
-venue: "Nankai University"
 date: 2016-05-15
 location: "Tianjin, China"
 ---
 
-基于STING平面提取的室内环境移动机器人RGB-D SLAM方法
+<!--基于STING平面提取的室内环境移动机器人RGB-D SLAM方法-->
 
 ## 研究方案
 
