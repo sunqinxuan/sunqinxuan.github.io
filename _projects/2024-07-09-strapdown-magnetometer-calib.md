@@ -128,7 +128,7 @@ Quadratic surfaces include different shapes such as spheres, ellipsoids, and par
 
 $$
 S:
-ax^2+by^2+cz^2+2fyz+2gxz+2hxy+px+qy+rz+d=0.
+ax^2+by^2+cz^2+2fyz+2gxz+2hxy+2px+2qy+2rz+d=0.
 $$
 
 <!--其矩阵形式为-->
@@ -187,7 +187,7 @@ Expanding this, we obtain the ellipsoid constraint equation as follows.
 $$
 \begin{aligned}
 0&=\|D^{-1}({y}_{k}^m-{o}-{e}_{k}^m)\|_2^2-\mathcal{F}^2 \\
-&\approx{y_{k}^m}^TA{y}_{k}^m+{b}^T{y}_{k}^m+c
+&\approx{y_{k}^m}^TA{y}_{k}^m+2{b}^T{y}_{k}^m+c
 \end{aligned}
 $$
 
@@ -198,7 +198,7 @@ A=D^{-T}D^{-1} \tag{1}
 $$
 
 $$
-{b}^T=-2{o}^TD^{-T}D^{-1} \tag{2}
+{b}^T=-{o}^TD^{-T}D^{-1} \tag{2}
 $$
 
 $$
@@ -214,8 +214,8 @@ From the ellipsoid equation, it can be observed that for any \\(\alpha\in\mathbb
 $$
 \begin{aligned}
 \mathcal{F}^2&={o}^TD^{-T}D^{-1}{o}-c \\
-&=\frac{1}{4}b^TA^{-1}b-c \\
-&=\alpha(\frac{1}{4}\hat{b}_s^T\hat{A}_s^{-1}\hat{b}_s-\hat{c}_s)
+&=b^TA^{-1}b-c \\
+&=\alpha(\hat{b}_s^T\hat{A}_s^{-1}\hat{b}_s-\hat{c}_s)
 \end{aligned}
 $$
 
@@ -223,7 +223,7 @@ $$
 According to the constraint provided by equation (3), the value of the variable \\(\alpha\\) can be determined.
 
 $$
-\alpha=(\frac{1}{4}\hat{b}_s^T\hat{A}_s^{-1}\hat{b}_s-\hat{c}_s)^{-1}\mathcal{F}^2
+\alpha=(\hat{b}_s^T\hat{A}_s^{-1}\hat{b}_s-\hat{c}_s)^{-1}\mathcal{F}^2
 $$
 
 <!--接下来，根据式(1)-(3)，对模型参数的估计结果\\(\hat{D},\hat{o}\\)进行反解。 -->
@@ -234,7 +234,7 @@ $$
 $$
 
 $$
-\hat{o}=-\frac{1}{2}\hat{A}_s^{-1}\hat{b}_s
+\hat{o}=-\hat{A}_s^{-1}\hat{b}_s
 $$
 
 <!--根据式(4)可以看出，\\(\hat{D}\\)没有唯一解，因为对于任意满足\\(V^TV=I_3\\)的矩阵\\(V\\)，\\(\hat{D}V\\)都可以使式(4)成立。
