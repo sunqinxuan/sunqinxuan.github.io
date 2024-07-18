@@ -11,19 +11,19 @@ location: "Tianjin, China"
 
 <!--基于STING平面提取的室内环境移动机器人RGB-D SLAM方法-->
 
-## 研究方案
+## methodology
 
-研究方案请<a href="http://sunqinxuan.github.io/files/projects-2016-05-15-STING-SLAM.pdf">点击此处下载</a>。
+<a href="http://sunqinxuan.github.io/files/projects-2016-05-15-STING-SLAM.pdf">manuscript (Chinese)</a>。
 
 ![img](https://sunqinxuan.github.io/images/project-2016-05-15-img1.PNG)
 
 ![img](https://sunqinxuan.github.io/images/project-2016-05-15-img2.PNG)
 
 
-## 相关链接
+## related links
 
-论文：
+paper:
 - [RGB-D SLAM in Indoor Environments With STING-Based Plane Feature Extraction](https://sunqinxuan.github.io/publication/TMech2018)
 
-代码：
+code:
 - [rgbd_plane_slam](https://github.com/sunqinxuan/rgbd_plane_slam)
