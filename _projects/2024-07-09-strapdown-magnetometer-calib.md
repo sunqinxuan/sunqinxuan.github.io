@@ -159,7 +159,7 @@ g & f & c \\
 $$
 
 $$
-\boldsymbol{x}=
+\boldsymbol{n}=
 \begin{bmatrix}
 p\\ q\\ r
 \end{bmatrix}
