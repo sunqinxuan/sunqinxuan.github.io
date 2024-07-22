@@ -351,8 +351,6 @@ Equation (8) provides the relationship between the attitude increment \\(R^{b_{k
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img1.jpg)
 
-![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img2.svg)
-
 ## Initial Value Estimation 
 
 If there is no suitable initial value, a nonlinear optimization problem may fail to converge to a global optimal solution. 
@@ -416,6 +414,10 @@ $$
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img3.jpg)
 
 ## experiments
+
+### Framework
+
+![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img2.svg)
 
 ### Flight 1002
 
