@@ -353,6 +353,8 @@ Equation (8) provides the relationship between the attitude increment \\(R^{b_{k
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img2.png)
 
+![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img2.svg)
+
 ## experiments
 
 ### Flight 1002
