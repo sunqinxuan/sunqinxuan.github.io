@@ -351,9 +351,69 @@ Equation (8) provides the relationship between the attitude increment \\(R^{b_{k
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img1.jpg)
 
-![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img2.png)
-
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img2.svg)
+
+## Initial Value Estimation 
+
+If there is no suitable initial value, a nonlinear optimization problem may fail to converge to a global optimal solution. 
+Therefore, an initial value is estimated for the alignment problem stated above.
+Eqn.(6) can be rewritten as 
+
+$$
+\tilde{D}^{-1}(\boldsymbol{y}_{k}^m-\hat{o})=RR_k^{bn}\boldsymbol{m}^n
+$$
+
+Let 
+
+$$
+\begin{aligned}
+& p_k'\triangleq\tilde{D}^{-1}(\boldsymbol{y}_{k}^m-\hat{o}) \\
+& p_k\triangleq R_k^{bn}\boldsymbol{m}^n
+\end{aligned}
+$$
+
+Then, a minimization problem is constructed as 
+
+$$
+\min_{R}\sum_k\|p_k'-Rp_k\|^2
+\tag{9}
+$$
+
+Compute the mean values of \\(p_k'\\) and \\(p_k\\), respectively, and define 
+
+$$
+\begin{aligned}
+& q_k'\triangleq p_k'-{\rm mean}(p_k') \\
+& q_k\triangleq p_k-{\rm mean}(p_k)
+\end{aligned}
+$$
+
+The minimization problem (9) is reconstructed as 
+
+$$
+\min_{R}\sum_k\|q_k'-Rq_k\|^2
+\tag{9}
+$$
+
+Define matrix \\(H\\)[^10] as 
+
+$$
+H\triangleq\sum_k q_k'q_k^T
+$$
+
+Compute the singular value decomposition (SVD) of the matrix \\(H\\) as 
+
+$$
+H=U\Lambda V^T
+$$
+
+Then, the orthogonal matrix \\(\hat{R}\\) that minimized (9) can be calculated by [^10]
+
+$$
+\hat{R}=VU^T
+$$
+
+![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img3.jpg)
 
 ## experiments
 
@@ -418,3 +478,5 @@ code:
 [^8]: [A way to calibrate a magnetometer](https://teslabs.com/articles/magnetometer-calibration/)
 
 [^9]: [On Misalignment between Magnetometer and Inertial Sensors](https://ieeexplore.ieee.org/document/7496814)
+
+[^10]: [Least-Squares Fitting of Two 3-D Point Sets](https://ieeexplore.ieee.org/document/4767965)
