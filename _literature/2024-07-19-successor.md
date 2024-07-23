@@ -4,7 +4,7 @@ collection: literature
 type: "essay"
 permalink: /literature/literature-2024-07-19
 venue: "孙沁璇"
-excerpt: '观景有感'
+excerpt: '观影有感'
 date: 2024-07-19
 location: "Beijing, China"
 ---
