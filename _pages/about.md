@@ -36,6 +36,6 @@ In my spare time, I enjoy reading detective novels, practicing Chinese calligrap
 
 Additionally, you can scan the QR code below with WeChat to follow my public account "PoemShare (Chinese)".
 
-<center class="half">
-    <img src="http://sunqinxuan.github.io/images/poemshare-qrcode.bmp" width="100"/>
-</center>
+<left class="half">
+    <img src="http://sunqinxuan.github.io/images/poemshare-qrcode.bmp" width="200"/>
+</left>
