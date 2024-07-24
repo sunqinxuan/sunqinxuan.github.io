@@ -34,5 +34,8 @@ In my spare time, I enjoy reading detective novels, practicing Chinese calligrap
     <img src="http://sunqinxuan.github.io/images/portfolio-2024-01-20-dingfengbo.jpg" width="370"/><img src="http://sunqinxuan.github.io/images/portfolio-2020-07-22.jpg" width="375"/>
 </center>
 
+Additionally, you can scan the QR code below with WeChat to follow my public account "PoemShare (Chinese)".
 
-
+<center class="half">
+    <img src="http://sunqinxuan.github.io/images/poemshare-qrcode.bmp" width="100"/>
+</center>
