@@ -459,7 +459,7 @@ The calibration results can be seen from the figure below.
 ## Related Links 
 
 code:
-- [Magnetometer-Calibration](https://github.com/sunqinxuan/Magnetometer-Calibration.git)
+- [magnetic_compensation](https://github.com/sunqinxuan/magnetic_compensation)
 
 ## references
 

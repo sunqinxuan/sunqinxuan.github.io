@@ -585,8 +585,7 @@ patent：
 - [CN117213472A (Chinese)](http://sunqinxuan.github.io/files/publications-2023-12-12-patent-CN117213472A.pdf)
 
 code：
-- [a modified version with c++ implementation of the TL-model](https://github.com/sunqinxuan/magnav)
-
+- [magnetic_compensation](https://github.com/sunqinxuan/magnetic_compensation)
 
 
 
