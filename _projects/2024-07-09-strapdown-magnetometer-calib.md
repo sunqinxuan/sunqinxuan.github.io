@@ -9,7 +9,7 @@ date: 2024-07-09
 location: "Beijing, China"
 ---
 
-<!--基于椭球约束的磁干扰补偿模型参数估计方法
+<!--基于椭球约束的磁干扰补偿模型参数估计方法 
 Magnetic Interference Compensation Based on Ellipsoid Fitting.-->
 
 <!--不考虑任何误差与干扰的情况下，在均匀磁场转动载体时，测量磁场矢量的模长不受姿态影响，在三维空间中其轨迹落在球面上。当受到误差和干扰的影响时，理论上磁场测量矢量的轨迹形成一个椭球面。-->
