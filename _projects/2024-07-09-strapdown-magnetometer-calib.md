@@ -456,6 +456,10 @@ The calibration results can be seen from the figure below.
 | :----: | :----: | :----: | 
 | RMSE  | 2316.71 nT  |688.72 nT | 
 
+### Alignment with INS
+
+![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img4.png)
+
 ## Related Links 
 
 code:
