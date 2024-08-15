@@ -413,6 +413,48 @@ $$
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img3.jpg)
 
+## Magnetometer outside Cabin
+
+The measurements of the magnetometer outside the cabin are denoted by the superscript \\(m'\\).
+
+$$
+\begin{aligned}
+\boldsymbol{y}_{k}^m&=\hat{D}\boldsymbol{m}_k^m+\hat{o} \\
+&=\tilde{D}VR^{mm'}\boldsymbol{m}^{m'}_k+\hat{o} 
+\end{aligned}
+$$
+
+let 
+
+$$
+R=VR^{mm'}
+$$
+
+then
+
+$$
+\boldsymbol{y}_{k}^m=\tilde{D}R\boldsymbol{m}^{m'}_k+\hat{o}
+\tag{10}
+$$
+
+Rewriting Eqn.(10) yields
+
+$$
+\tilde{D}^{-1}(\boldsymbol{y}_{k}^m-\hat{o})=R\boldsymbol{m}^{m'}_k
+$$
+
+Let 
+
+$$
+\begin{aligned}
+& p_k'\triangleq\tilde{D}^{-1}(\boldsymbol{y}_{k}^m-\hat{o}) \\
+& p_k\triangleq \boldsymbol{m}^{m'}_k
+\end{aligned}
+$$
+
+Then, the initial value estimation method mentioned above can be applied here.
+Given an initial value, the ceres optimization problem can be constructed to solve Eqn.(10).
+
 ## experiments
 
 ### Framework
