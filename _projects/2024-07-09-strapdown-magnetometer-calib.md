@@ -455,7 +455,7 @@ $$
 Then, the initial value estimation method mentioned above can be applied here.
 Given an initial value, the ceres optimization problem can be constructed to solve Eqn.(10).
 
-## experiments
+## Experiments
 
 ### Framework
 
@@ -498,9 +498,15 @@ The calibration results can be seen from the figure below.
 | :----: | :----: | :----: | 
 | RMSE  | 2316.71 nT  |688.72 nT | 
 
-### Alignment with INS
+## Experiments for Alignment with INS
+
+### 1002.02
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img4.png)
+
+### 1002.20
+
+![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img5.png)
 
 ## Related Links 
 
