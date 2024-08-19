@@ -87,12 +87,13 @@ The induced magnetic moment terms can be expressed as
 
 $$
 \vec{B}_{ind}=\boldsymbol{b}\vec{B}_t=
+|\vec{B}_t|
 \begin{bmatrix}
 b_{11} & b_{12} & b_{13} \\
 b_{21} & b_{22} & b_{23} \\
 b_{31} & b_{32} & b_{33} 
 \end{bmatrix}
-\vec{B}_t
+\hat{B}_t
 $$
 
 <!--其中包含6个未知系数。感应磁矩项表示地球场在磁性易感载体组件中诱发出的次级磁场。载体和地球场的相对方向决定了感应磁化的大小和方向。由于飞机结构主要由非磁性铝合金构成，感应磁场的主要来源是飞机发动机。
@@ -108,12 +109,13 @@ The eddy current magnetic moment terms can be expressed as
 
 $$
 \vec{B}_{eddy}=\boldsymbol{c}\dot{\vec{B}}_t=
+|\vec{B}_t|
 \begin{bmatrix}
 c_{11} & c_{12} & c_{13} \\
 c_{21} & c_{22} & c_{23} \\
 c_{31} & c_{32} & c_{33} 
 \end{bmatrix}
-\dot{\vec{B}}_t
+\dot{\hat{B}}_t
 $$
 
 <!--其中包含9个未知系数。涡流项表示由于时变的地球场（相对于载体）与电导性载体组件相互作用而引起的电流环。与固定磁场和感应磁场不同，涡流磁场取决于地球磁通量通过这些组件的时间变化率，例如载体外壳等。由涡流产生的磁场遵循伦兹定律，与产生它们的磁场相对抗，类似于在均匀磁场中旋转的线圈中产生电流的原理。
@@ -125,7 +127,7 @@ The eddy current terms involve nine unknown coefficients. Eddy currents represen
 Based on the parameterization above, the interference magnetic field can be represented as
 
 $$
-\vec{B}_a=\boldsymbol{a}+\boldsymbol{b}\vec{B}_t+\boldsymbol{c}\dot{\vec{B}}_t
+\vec{B}_a=\boldsymbol{a}+\boldsymbol{b}|\vec{B}_t|\hat{B}_t+\boldsymbol{c}|\vec{B}_t|\dot{\hat{B}}_t
 $$
 
 <!--其中，参数\\(\boldsymbol{a,b,c}\\)总共包含21个系数，但由于感应磁矩矩阵的对称性，在标准的Tolles-Lawson模型中，总共有18个未知系数。-->
@@ -142,14 +144,16 @@ $$
 \beta_5 & \beta_7 & \beta_8 \\
 \beta_6 & \beta_8 & \beta_9 
 \end{bmatrix}
-\vec{B}_t
+|\vec{B}_t|
+\hat{B}_t
 +
 \begin{bmatrix}
 \beta_{10} & \beta_{11} & \beta_{12} \\
 \beta_{13} & \beta_{14} & \beta_{15} \\
 \beta_{16} & \beta_{17} & \beta_{18} 
 \end{bmatrix}
-\dot{\vec{B}}_t
+|\vec{B}_t|
+\dot{\hat{B}}_t
 $$
 
 <!--其中，\\(\boldsymbol{\beta}=[\beta_1,\beta_2,\cdots,\beta_{18}]^T\\)表示待求解的Tolles-Lawson模型参数。-->
@@ -217,7 +221,7 @@ $$
 The term \\(\vec{B}_a^T\hat{B}_t\\) represents the projection of the carrier-induced magnetic interference field onto the direction of the total magnetic field, which can be calculated by 
 
 $$
-\vec{B}_a^T\hat{B}_t=(\boldsymbol{a}+\boldsymbol{b}\vec{B}_t+\boldsymbol{c}\dot{\vec{B}}_t)^T\hat{B}_t
+\vec{B}_a^T\hat{B}_t=(\boldsymbol{a}+\boldsymbol{b}|\vec{B}_t|\hat{B}_t+\boldsymbol{c}|\vec{B}_t|\dot{\hat{B}}_t)^T\hat{B}_t
 $$
 
 <!--则基于总量的约束关系可以表示为-->
@@ -230,20 +234,22 @@ $$
 \begin{bmatrix}
 \beta_1 \\ \beta_2\\ \beta_3
 \end{bmatrix}+
+|\vec{B}_t|
 \hat{B}_t^T
 \begin{bmatrix}
 \beta_4 & \beta_5 & \beta_6 \\
 \beta_5 & \beta_7 & \beta_8 \\
 \beta_6 & \beta_8 & \beta_9 
 \end{bmatrix}
-\vec{B}_t+
+\hat{B}_t+
+|\vec{B}_t|
 \hat{B}_t^T
 \begin{bmatrix}
 \beta_{10} & \beta_{11} & \beta_{12} \\
 \beta_{13} & \beta_{14} & \beta_{15} \\
 \beta_{16} & \beta_{17} & \beta_{18} 
 \end{bmatrix}
-\dot{\vec{B}}_t
+\dot{\hat{B}}_t
 \right)
 $$
 
@@ -265,21 +271,21 @@ $$
 \hat{B}_x \\
 \hat{B}_y \\
 \hat{B}_z \\
-\hat{B}_x\vec{B}_x \\
-\hat{B}_x\vec{B}_y \\
-\hat{B}_x\vec{B}_z \\
-\hat{B}_y\vec{B}_y \\
-\hat{B}_y\vec{B}_z \\
-\hat{B}_z\vec{B}_z \\
-\hat{B}_x\dot{\vec{B}}_x \\
-\hat{B}_x\dot{\vec{B}}_y \\
-\hat{B}_x\dot{\vec{B}}_z \\
-\hat{B}_y\dot{\vec{B}}_x \\
-\hat{B}_y\dot{\vec{B}}_y \\
-\hat{B}_y\dot{\vec{B}}_z \\
-\hat{B}_z\dot{\vec{B}}_x \\
-\hat{B}_z\dot{\vec{B}}_y \\
-\hat{B}_z\dot{\vec{B}}_z \\
+|\vec{B}_t|\hat{B}_x\hat{B}_x \\
+|\vec{B}_t|\hat{B}_x\hat{B}_y \\
+|\vec{B}_t|\hat{B}_x\hat{B}_z \\
+|\vec{B}_t|\hat{B}_y\hat{B}_y \\
+|\vec{B}_t|\hat{B}_y\hat{B}_z \\
+|\vec{B}_t|\hat{B}_z\hat{B}_z \\
+|\vec{B}_t|\hat{B}_x\dot{\hat{B}}_x \\
+|\vec{B}_t|\hat{B}_x\dot{\hat{B}}_y \\
+|\vec{B}_t|\hat{B}_x\dot{\hat{B}}_z \\
+|\vec{B}_t|\hat{B}_y\dot{\hat{B}}_x \\
+|\vec{B}_t|\hat{B}_y\dot{\hat{B}}_y \\
+|\vec{B}_t|\hat{B}_y\dot{\hat{B}}_z \\
+|\vec{B}_t|\hat{B}_z\dot{\hat{B}}_x \\
+|\vec{B}_t|\hat{B}_z\dot{\hat{B}}_y \\
+|\vec{B}_t|\hat{B}_z\dot{\hat{B}}_z \\
 \end{bmatrix}
 $$
 
@@ -346,13 +352,15 @@ $$
 \beta_5 & \beta_7 & \beta_8 \\
 \beta_6 & \beta_8 & \beta_9 
 \end{bmatrix}
-\vec{B}_t+
+|\vec{B}_t|
+\hat{B}_t+
 \begin{bmatrix}
 \beta_{10} & \beta_{11} & \beta_{12} \\
 \beta_{13} & \beta_{14} & \beta_{15} \\
 \beta_{16} & \beta_{17} & \beta_{18} 
 \end{bmatrix}
-\dot{\vec{B}}_t
+|\vec{B}_t|
+\dot{\hat{B}}_t
 \right)
 $$
 
@@ -382,18 +390,18 @@ $$
 $$
 \lambda_2=
 \begin{bmatrix}
-\vec{B}_x & \vec{B}_y & \vec{B}_z & 0 & 0 & 0 \\
-0 & \vec{B}_x & 0 & \vec{B}_y & \vec{B}_z & 0 \\
-0 & 0 & \vec{B}_x & 0 & \vec{B}_y & \vec{B}_z \\
+|\vec{B}_t|\hat{B}_x & |\vec{B}_t|\hat{B}_y & |\vec{B}_t|\hat{B}_z & 0 & 0 & 0 \\
+0 & |\vec{B}_t|\hat{B}_x & 0 & |\vec{B}_t|\hat{B}_y & |\vec{B}_t|\hat{B}_z & 0 \\
+0 & 0 & |\vec{B}_t|\hat{B}_x & 0 & |\vec{B}_t|\hat{B}_y & |\vec{B}_t|\hat{B}_z \\
 \end{bmatrix}
 $$
 
 $$
 \lambda_3=
 \begin{bmatrix}
-\dot{\vec{B}}_x & \dot{\vec{B}}_y & \dot{\vec{B}}_z & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & \dot{\vec{B}}_x & \dot{\vec{B}}_y & \dot{\vec{B}}_z & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & 0 & \dot{\vec{B}}_x & \dot{\vec{B}}_y & \dot{\vec{B}}_z \\
+|\vec{B}_t|\dot{\hat{B}}_x & |\vec{B}_t|\dot{\hat{B}}_y & |\vec{B}_t|\dot{\hat{B}}_z & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & |\vec{B}_t|\dot{\hat{B}}_x & |\vec{B}_t|\dot{\hat{B}}_y & |\vec{B}_t|\dot{\hat{B}}_z & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & |\vec{B}_t|\dot{\hat{B}}_x & |\vec{B}_t|\dot{\hat{B}}_y & |\vec{B}_t|\dot{\hat{B}}_z \\
 \end{bmatrix}
 $$
 
