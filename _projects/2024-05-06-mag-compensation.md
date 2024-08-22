@@ -295,9 +295,9 @@ Assuming a time series of length \\(N\\), where each instance of \\(\vec{\delta}
 $$
 \boldsymbol{A}=
 \begin{bmatrix}
-\vec{\delta}_1 \\
+\vec{\delta}_1^T \\
 \vdots\\
-\vec{\delta}_N \\
+\vec{\delta}_N^T \\
 \end{bmatrix}
 $$
 
