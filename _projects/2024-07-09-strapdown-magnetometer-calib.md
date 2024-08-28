@@ -459,7 +459,7 @@ Given an initial value, the ceres optimization problem can be constructed to sol
 
 ### Framework
 
-![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img2.svg)
+![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img2.png)
 
 ### Flight 1002
 
