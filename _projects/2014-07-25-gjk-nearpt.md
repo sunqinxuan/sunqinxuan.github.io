@@ -4,7 +4,7 @@ collection: projects
 type: "Research Project"
 excerpt: '...'
 venue: "Visual SLAM"
-permalink: /projects/2014-07-25-gjk-nearptsss
+permalink: /projects/2014-07-25-gjk-nearpt
 date: 2014-07-25
 location: "Tianjin, China"
 ---
