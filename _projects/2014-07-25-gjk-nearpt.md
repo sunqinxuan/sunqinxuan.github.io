@@ -118,7 +118,7 @@ In CUDA, the host and device have separate memory spaces. Therefore, when execut
 
 The process is shown in the diagram below.
 
-<img src="https://sunqinxuan.github.io/images/project-2014-07-25-img1.PNG" alt="GJK" style="zoom:100%;" />
+<img src="https://sunqinxuan.github.io/images/project-2014-07-25-img1.PNG" alt="GJK" style="zoom:80%;" />
 
 <!-- ### 用ANN实现Kd_tree
 
