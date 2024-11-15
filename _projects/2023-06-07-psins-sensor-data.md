@@ -1,5 +1,5 @@
 ---
-title: "PSIN-based Inertial Navigation System"
+title: "PSINS-based Inertial Navigation System"
 collection: projects
 type: "Experimental Project"
 excerpt: '...'
