@@ -850,7 +850,7 @@ The geometric meaning of the above equation is the perpendicular distance from p
 
 ### Parametrization Method for Semantic Line Segments
 
-A semantic line segment \(\mathcal{L}\) is represented as:
+A semantic line segment \\(\mathcal{L}\\) is represented as:
 
 $$
 \mathcal{L}=(\boldsymbol p_c,\boldsymbol d,\boldsymbol p_{e1},\boldsymbol p_{e2},s,id)
