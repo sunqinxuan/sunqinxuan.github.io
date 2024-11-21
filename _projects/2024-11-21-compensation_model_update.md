@@ -63,6 +63,7 @@ The sensor model can be rewritten as (drop the superscript for convenience)
 
 $$
 \boldsymbol{y}_{k}=h(\boldsymbol{m}_k)\theta+\boldsymbol{e}_{k}
+\tag{1}
 $$
 
 where 
@@ -77,21 +78,50 @@ z_{mk}I_{3\times3}
 \end{bmatrix}
 $$
 
+## Kalman Filter 
 
+The Kalman filter can be used to the LSE to estimate the parameters. 
+This is particularly helpful when the estimation is performed online in a recursive manner. 
+The prediction model for a KF can be described by a time discrete random walk
 
+$$
+\theta_k=\theta_{k-1}+{\rm w}_{k-1}^\theta
+$$
+
+with 
+
+$$
+{\rm w}_{k}^\theta\sim\mathcal{N}(0,R_k)
+$$
+
+The measurement model is decribed by (1), with the process noise 
+
+$$
+e_{k}\sim\mathcal{N}(0,Q_k)
+$$
+
+The Kalman Filter process is summarized by 
+
+$$
+\begin{aligned}
+&\bar{\theta}_k=\theta_{k-1} \\
+&\bar{\Sigma}_k=\Sigma_{k-1}+R_k \\
+&K_k=\bar{\Sigma}_k h(m_k)^T
+\left(h(m_k)\bar{\Sigma}_kh(m_k)^T+Q_k\right)^{-1} \\
+&\theta_k=\bar\theta_k+K_k\left(y_k-h(m_k)\bar\theta_k\right) \\
+&\Sigma_k=\left(I-K_kh(m_k)\right)\bar\Sigma_k
+\end{aligned}
+$$
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img1.jpg)
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img2.jpg)
 
 
-
-
-
-
+<!--
 ## Related Links 
 
 code:
 - [magnetic_compensation](https://github.com/sunqinxuan/magnetic_compensation)
-
+-->
 
