@@ -55,7 +55,7 @@ $$
 \theta=
 \begin{bmatrix}
 o \\
-{\rm vec}(H)
+{\rm vec}(C)
 \end{bmatrix}
 $$
 
@@ -113,10 +113,11 @@ $$
 \end{aligned}
 $$
 
+<!--
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img1.jpg)
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img2.jpg)
-
+-->
 
 <!--
 ## Related Links 
