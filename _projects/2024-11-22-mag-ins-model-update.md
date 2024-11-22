@@ -120,7 +120,7 @@ $$
 e_{k}\sim\mathcal{N}(0,Q_k)
 $$
 
-and \\(m(\dot)\\) represents the map of magnetic field.
+and \\(m(\cdot)\\) represents the map of magnetic field.
 
 ## Particle Filter Algorithm for Calibration and Localization
 
@@ -180,21 +180,22 @@ $$
 P^i_k=\bar{P}^i_k-K^i_k\Sigma^i_k{K^i_k}^T
 $$
 
-
+<!--
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-22-img1.jpg)
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-22-img2.jpg)
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-22-img3.jpg)
-
+-->
 
 <!--
 ## Related Links 
 
 code:
 - [magnetic_compensation](https://github.com/sunqinxuan/magnetic_compensation)
--->
+
 
 ## references
 
 [^1]: [Localization With Magnetic Field Distortions and Simultaneous Magnetometer Calibration](https://ieeexplore.ieee.org/document/9195842)
+-->
