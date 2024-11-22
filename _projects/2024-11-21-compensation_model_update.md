@@ -113,6 +113,11 @@ $$
 \end{aligned}
 $$
 
+The Kalman filter intrinsically accounts for the observability of the parameters. 
+If the measurements are correlated and the Kalman filter is not already converged, the state covariance is large indicating large uncertainty in the estimation and vice versa. [^1]
+
+
+
 <!--
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img1.jpg)
 
@@ -126,3 +131,6 @@ code:
 - [magnetic_compensation](https://github.com/sunqinxuan/magnetic_compensation)
 -->
 
+## references
+
+[^1]: [Localization With Magnetic Field Distortions and Simultaneous Magnetometer Calibration](https://ieeexplore.ieee.org/document/9195842)
