@@ -161,7 +161,7 @@ $$
 - Weight update
 
 $$
-\tilde(\omega)^i_k=\omega^i_{k-1}\mathcal{N}(y_k;y^i_k,\Sigma^i_k)
+\tilde\omega^i_k=\omega^i_{k-1}\mathcal{N}(y_k;y^i_k,\Sigma^i_k)
 $$
 
 - Kalman gain computtion
