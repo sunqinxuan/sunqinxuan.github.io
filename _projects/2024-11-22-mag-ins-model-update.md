@@ -9,7 +9,7 @@ date: 2024-11-22
 location: "Beijing, China"
 ---
 
-## magnetometer-inertail navigation system 
+## magnetometer-inertial navigation system 
 
 The measurement model is given by
 
