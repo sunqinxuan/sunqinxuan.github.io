@@ -79,24 +79,12 @@ D=\tilde DV\approx\tilde D\hat R(\bar R^{mb})^T
 $$
 
 The final result is 
+
 $$
 \frac{\partial\boldsymbol y^m_k}{\partial\boldsymbol\phi}=
 -\tilde D\hat R(\bar R^{mb})^T(\bar{R}^{mb}\boldsymbol{m}_k^{b})^\wedge
 $$
 
+<!--
 ![img](http://sunqinxuan.github.io/images/projects-2024-12-02-img2.jpg)
-<!--
-
--->
-
-<!--
-## Related Links 
-
-code:
-- [magnetic_compensation](https://github.com/sunqinxuan/magnetic_compensation)
-
-
-## references
-
-[^1]: [Localization With Magnetic Field Distortions and Simultaneous Magnetometer Calibration](https://ieeexplore.ieee.org/document/9195842)
 -->
