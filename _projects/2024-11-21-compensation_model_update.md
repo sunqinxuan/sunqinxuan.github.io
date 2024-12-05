@@ -174,7 +174,6 @@ The sensor model can be rewritten as (drop the superscript for convenience)
 
 $$
 {y}_{k}=h(m_k^b)\theta+{e}_{k}
-\tag{1}
 $$
 
 where 
