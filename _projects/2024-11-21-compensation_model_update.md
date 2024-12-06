@@ -242,15 +242,13 @@ $$
 \end{aligned}
 $$
 
+<!--
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img3.jpg)
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img4.jpg)
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img5.jpg)
-<!--
-
 -->
-
 
 ## Simultaneous Calibration and Localization
 
