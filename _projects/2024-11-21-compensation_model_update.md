@@ -19,7 +19,9 @@ The magnetometer compensation method based on the ellipsoidal error model requir
 
 During the calibration data collection process, external magnetic field data is simultaneously collected as ground truth for training the compensation model. Additionally, in geomagnetic navigation, magnetic map data is acquired in real-time for magnetic field matching. Therefore, this information can be leveraged to perform online updates of the magnetic compensation model.
 
-## Sensor Model
+## KF-based Model Update
+
+### Sensor Model
 
 The measurement model is given as described [here](https://sunqinxuan.github.io/projects/2024-07-09-compensation).
 
@@ -45,7 +47,7 @@ $$
 \boldsymbol{y}_{k}^m=C\boldsymbol{m}_k^{m'}+\boldsymbol{o}+\boldsymbol{e}_{k}^m
 $$
 
-## Sensor Calibration with Known Magnetic Field
+### Sensor Calibration with Known Magnetic Field
 
 Instead of rotating the platform in a homogeneous magnetic field, the calibration parameters can also be ensured by changing the external magnetic field, e.g., by moving the sensor in an inhomogeneous but known magnetic field.
 
@@ -78,7 +80,7 @@ z_{mk}I_{3\times3}
 \end{bmatrix}
 $$
 
-## Kalman Filter 
+### Kalman Filter 
 
 The Kalman filter can be used to the LSE to estimate the parameters. 
 This is particularly helpful when the estimation is performed online in a recursive manner. 
@@ -120,6 +122,133 @@ If the measurements are correlated and the Kalman filter is not already converge
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img1.jpg)
 
 ![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img2.jpg)
+-->
+
+## EKF-based Model Update
+
+### Sensor Model
+
+The measurement model is given by
+
+$$
+\boldsymbol{y}_{k}^m=D\boldsymbol{m}_k^m+\boldsymbol{o}+\boldsymbol{e}_{k}^m
+$$
+
+$$
+\boldsymbol{y}_{k}^m=DR^{mb}R_k^{bn}\boldsymbol{m}_k^{n}+\boldsymbol{o}+\boldsymbol{e}_{k}^m
+$$
+
+let 
+
+$$
+C=DR^{mb}
+$$
+
+then
+
+$$
+\boldsymbol{y}_{k}^m=CR_k^{bn}\boldsymbol{m}_k^{n}+\boldsymbol{o}+\boldsymbol{e}_{k}^m
+$$
+
+
+### Sensor Calibration with Unknown Inhomogeneous Magnetic Field
+
+If the platform is in an unknown and inhomogeneous magnetic field, the calibration parameters should be adjusted to include not only the model coefficients, but also the magnetic field around the platform.
+
+Define the compensation model parameters
+
+$$
+\theta=
+\begin{bmatrix}
+o \\
+{\rm vec}(C) \\
+m^n
+\end{bmatrix}
+\in\mathbb{R}^{15}
+$$
+
+Note that the measurement model is non-linear. Representing the non-linear model by \\(h(\cdot)\\), the sensor model can be rewritten as (drop the superscript for convenience)
+
+$$
+\boldsymbol{y}_{k}=h(\theta)+\boldsymbol{e}_{k}
+$$
+
+In an EKF, the Taylor expansion of the measurement model is computed by 
+
+$$
+h(\theta)\approx h(\bar\theta)+H_k(\theta-\bar\theta)
+$$
+
+where 
+
+$$
+H_k=
+\left.\frac{\partial h(\theta)}{\partial \theta}\right|_{\theta=\bar\theta}
+=
+\begin{bmatrix}
+I_{3\times3} &
+\bar m^b_{1}I_{3\times3} &
+\bar m^b_{2}I_{3\times3} &
+\bar m^b_{3}I_{3\times3} &
+\bar{C}R^{bn}_k
+\end{bmatrix}
+$$
+
+and 
+
+$$
+R^{bn}_k\bar m^n\triangleq
+\begin{bmatrix}
+\bar m^b_{1} & \bar m^b_{2} & \bar m^b_{3}
+\end{bmatrix}
+$$
+
+### Extended Kalman Filter 
+
+The prediction model for the EKF is the same as the one in KF.
+
+$$
+\theta_k=\theta_{k-1}+{\rm w}_{k-1}^\theta
+$$
+
+with 
+
+$$
+{\rm w}_{k}^\theta\sim\mathcal{N}(0,R_k)
+$$
+
+The measurement model is 
+
+$$
+\boldsymbol{y}_{k}=h(\theta)+\boldsymbol{e}_{k}
+$$
+
+with the process noise 
+
+$$
+e_{k}\sim\mathcal{N}(0,Q_k)
+$$
+
+The Extended Kalman Filter process is summarized by 
+
+$$
+\begin{aligned}
+&\bar{\theta}_k=\theta_{k-1} \\
+&\bar{\Sigma}_k=\Sigma_{k-1}+R_k \\
+&K_k=\bar{\Sigma}_k H_k^T
+\left(H_k\bar{\Sigma}_kH_k^T+Q_k\right)^{-1} \\
+&\theta_k=\bar\theta_k+K_k\left(y_k-h(\bar\theta_k)\right) \\
+&\Sigma_k=\left(I-K_kH_k\right)\bar\Sigma_k
+\end{aligned}
+$$
+
+![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img3.jpg)
+
+![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img4.jpg)
+
+![img](http://sunqinxuan.github.io/images/projects-2024-11-21-img5.jpg)
+<!--
+
 -->
 
 
