@@ -4,7 +4,7 @@ collection: literature
 type: "essay"
 permalink: /literature/literature-2024-09-23
 venue: "孙沁璇"
-excerpt: '读书有感'
+excerpt: '“诗赋从今须少作，留取心魄相守”'
 date: 2024-09-23
 location: "Beijing, China"
 ---
