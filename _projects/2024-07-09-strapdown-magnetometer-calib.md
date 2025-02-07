@@ -264,8 +264,8 @@ $$
 \hat{D}=\tilde{D}V
 $$
 
-<!--这里的未知旋转矩阵\\(R\\)代表了磁强计和惯导之间的配准关系，无法单独通过磁测数据来确定[^3]。 -->
-The unknown rotation matrix \\(R\\) here represents the alignment relationship between the magnetometer and the inertial navigation system, and cannot be determined solely through magnetic measurement data [^3].
+<!--这里的未知旋转矩阵\\(V\\)代表了磁强计和惯导之间的配准关系，无法单独通过磁测数据来确定[^3]。 -->
+The unknown orthogonal matrix \\(V\\) here represents the alignment relationship between the magnetometer and the inertial navigation system, and cannot be determined solely through magnetic measurement data [^3].
 
 ## Alignment with Inertial Sensor
 
