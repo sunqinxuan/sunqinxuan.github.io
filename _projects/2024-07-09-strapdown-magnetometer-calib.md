@@ -349,7 +349,9 @@ $$
 <!--式(8)给出了两个时刻之间，由惯导提供的载体姿态增量\\(R^{b_{k+1}}_{b_k}\\)，以及三轴矢量磁强计观测之间的关联关系。 -->
 Equation (8) provides the relationship between the attitude increment \\(R^{b_{k+1}}_{b_k}\\) provided by the inertial navigation system between two time steps, and the correlation between the observations of the triaxial vector magnetometer.
 
+<!--
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img1.jpg)
+-->
 
 ## Initial Value Estimation 
 
@@ -411,7 +413,9 @@ $$
 \hat{R}=VU^T
 $$
 
+<!--
 ![img](http://sunqinxuan.github.io/images/projects-2024-07-09-img3.jpg)
+-->
 
 ## Magnetometer outside Cabin
 
