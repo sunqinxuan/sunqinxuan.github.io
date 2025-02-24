@@ -137,7 +137,7 @@ The matrix form of the above equation is represented by
 $$
 S:
 \boldsymbol{x}^T\boldsymbol{M}\boldsymbol{x}+
-\boldsymbol{x}^T\boldsymbol{n}+d=0
+2\boldsymbol{n}^T\boldsymbol{x}+d=0
 $$
 
 where
