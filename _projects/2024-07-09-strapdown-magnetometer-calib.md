@@ -538,3 +538,8 @@ code:
 [^9]: [On Misalignment between Magnetometer and Inertial Sensors](https://ieeexplore.ieee.org/document/7496814)
 
 [^10]: [Least-Squares Fitting of Two 3-D Point Sets](https://ieeexplore.ieee.org/document/4767965)
+
+
+This work has been submitted to the IEEE for possible publication. Copyright may be transferred without notice, after which this version may no longer be accessible.
+
+© 20xx IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, including reprinting/republishing this material for advertising or promotional purposes, collecting new collected works for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.
